@@ -1,5 +1,8 @@
 const router = require('express').Router();
+const { PrismaClient } = require('@prisma/client');
 var discogs = require('disconnect').Client;
+
+const prisma = new PrismaClient();
 
 require('dotenv').config();
 
@@ -8,9 +11,42 @@ const db = new discogs({
     consumerSecret: process.env.DISCOGS_CONSUMER_SECRET
 }).database();
 
-router.get('/:query', async (req, res) => {
-    const data = await db.search(req.params.query, { format: "album" })
-    res.json(data)
+router.get('/discogs/:query', async (req, res) => {
+    const results = await db.search(req.params.query, { format: "album" })
+    res.json(results)
+})
+
+router.post('/', async (req, res) => {
+    const { title, discogs_id, cover_image } = req.body;
+
+    try {
+        const vinyl = await prisma.vinyl.create({
+            data: {
+                title,
+                discogs_id,
+                cover_image
+            }
+        })
+
+        res.json(vinyl)
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
+})
+
+router.get('/:id', async (req, res) => {
+    try {
+        const vinyl = await prisma.vinyl.findUnique({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        })
+
+        res.json(vinyl)
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
+
 })
 
 module.exports = router;

@@ -6,7 +6,19 @@ const { signToken } = require('../../utils/auth')
 const prisma = new PrismaClient();
 
 router.get('/', async (req, res) => {
-    const users = await prisma.user.findMany({})
+    const users = await prisma.user.findMany({
+        include: {
+            shelf_collection: {
+                include: {
+                    vinyl_on_shelf: {
+                        include: {
+                            vinyl: true
+                        }
+                    }
+                }
+            }
+        }
+    })
     res.json(users)
 })
 

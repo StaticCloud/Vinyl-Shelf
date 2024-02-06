@@ -20,12 +20,20 @@ model User {
 }
 
 model Shelf {
-  id      Int     @id @default(autoincrement())
-  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user_id Int
-  name    String  @db.VarChar(30)
-  likes   Like[]
-  vinyls  Vinyl[]
+  id             Int            @id @default(autoincrement())
+  user           User           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id        Int
+  name           String         @db.VarChar(30)
+  likes          Like[]
+  vinyl_on_shelf VinylOnShelf[]
+}
+
+model Vinyl {
+  id             Int            @id @default(autoincrement())
+  title          String
+  discogs_id     Int
+  cover_image    String
+  vinyl_on_shelf VinylOnShelf[]
 }
 
 model Like {
@@ -37,11 +45,11 @@ model Like {
   @@id([user_id, shelf_id])
 }
 
-model Vinyl {
-  id      Int    @id @default(autoincrement())
-  title   String
-  discogs_id Int
-  cover_image String
-  shelf   Shelf? @relation(fields: [shelf_id], references: [id])
-  shelf_id Int?
+model VinylOnShelf {
+  shelf    Shelf @relation(fields: [shelf_id], references: [id])
+  vinyl    Vinyl @relation(fields: [vinyl_id], references: [id])
+  shelf_id Int
+  vinyl_id Int
+
+  @@id([vinyl_id, shelf_id])
 }
