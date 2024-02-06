@@ -12,15 +12,19 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { username, email, password } = req.body;
 
-    const user = await prisma.user.create({
-        data: {
-            username,
-            email,
-            password: hashSync(password, 10)
-        }
-    })
+    try {
+        const user = await prisma.user.create({
+            data: {
+                username,
+                email,
+                password: hashSync(password, 10)
+            }
+        })
 
-    res.json(user)
+        res.json(user)
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
 })
 
 module.exports = router;
