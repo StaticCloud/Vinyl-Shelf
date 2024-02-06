@@ -29,6 +29,8 @@ CREATE TABLE "Like" (
 CREATE TABLE "Vinyl" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
+    "discogs_id" INTEGER NOT NULL,
+    "cover_image" TEXT NOT NULL,
     "shelf_id" INTEGER,
 
     CONSTRAINT "Vinyl_pkey" PRIMARY KEY ("id")
