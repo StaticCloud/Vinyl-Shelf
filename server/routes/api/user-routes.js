@@ -14,6 +14,13 @@ router.get('/', async (req, res) => {
                         include: {
                             vinyl: true
                         }
+                    },
+                }
+            },
+            likes: {
+                include: {
+                    shelf: {
+                        select: { name: true }
                     }
                 }
             }
