@@ -11,6 +11,11 @@ const db = new discogs({
     consumerSecret: process.env.DISCOGS_CONSUMER_SECRET
 }).database();
 
+router.get('/discogs/popular', async (req, res) => {
+    const results = await db.search({ format: "album" })
+    res.json(results)
+})
+
 router.get('/discogs/:query', async (req, res) => {
     const results = await db.search(req.params.query, { format: "album" })
     res.json(results)

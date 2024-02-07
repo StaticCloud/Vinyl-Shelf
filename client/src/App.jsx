@@ -1,6 +1,7 @@
 import './App.css'
 import { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { Nav } from './components/nav';
 import { Outlet } from 'react-router-dom';
 
 const MainContent = styled.main`
@@ -30,6 +31,7 @@ function App() {
     <>
       <ThemeProvider theme={currentTheme}>
         <MainContent>
+          <Nav/>
           <Outlet/>
         </MainContent>
       </ThemeProvider>
