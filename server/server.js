@@ -9,4 +9,4 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(PORT, () => console.log('Now running!'))
+app.listen(PORT, () => console.log(`Now listening on port: ${PORT}! 🚀🚀🚀`))
