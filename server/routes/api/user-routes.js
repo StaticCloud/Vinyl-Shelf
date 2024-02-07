@@ -41,7 +41,8 @@ router.post('/', async (req, res) => {
             }
         })
 
-        res.json(user)
+        const token = signToken(user)
+        res.json({ token, user })
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong!' })
     }

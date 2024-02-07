@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { StyledForm } from "../components/form";
 import { Link } from 'react-router-dom'
+import { signUp } from '../utils/API';
 
 const SignUpFormWrapper = styled.div`
     text-align: center;
@@ -21,20 +23,65 @@ const SignUpFormWrapper = styled.div`
 `;
 
 const SignUp = () => {
+    const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUserFormData({ ...userFormData, [name]: value });
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault()
+
+        try {
+            if (userFormData.password != userFormData.confirmPassword) {
+                throw new Error("Passwords do not match.");
+            }
+
+            const response = await signUp(userFormData);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const { token, user } = await response.json();
+            console.log(token, user);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <SignUpFormWrapper>
-            <StyledForm>
+            <StyledForm onSubmit={handleFormSubmit}>
                 <h1>Sign Up</h1>
 
-                <input name="username" id="username" placeholder="Enter Username..."/>
+                <input name="username"
+                    id="username"
+                    placeholder="Enter Username..."
+                    onChange={handleInputChange}
+                    value={userFormData.username} />
 
-                <input name="email" id="email" placeholder="Enter Email..."/>
+                <input name="email"
+                    id="email"
+                    placeholder="Enter Email..."
+                    onChange={handleInputChange}
+                    value={userFormData.email} />
 
-                <input name="password" id="password" placeholder="Enter Password..."/>
+                <input name="password"
+                    id="password"
+                    placeholder="Enter Password..."
+                    onChange={handleInputChange}
+                    value={userFormData.password} />
 
-                <input name="confirmPassword" id="confirmPassword" placeholder="Confirm Password..."/>
+                <input name="confirmPassword"
+                    id="confirmPassword"
+                    placeholder="Confirm Password..."
+                    onChange={handleInputChange} />
 
-                <input type="submit" value="Sign Up"/>
+                <input disabled={
+                    !(userFormData.username && userFormData.email && userFormData.password)
+                } type="submit" value="Sign Up" />
 
                 <Link to="/login">Or Login</Link>
             </StyledForm>
