@@ -30,4 +30,8 @@ export const StyledForm = styled.form`
         background-color: ${props => props.theme.fg};
         margin-bottom: 0;
     }
+
+    input[type="submit"]:hover {
+        cursor: pointer;
+    }
 `;
