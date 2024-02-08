@@ -1,26 +1,9 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import { StyledForm } from "../components/form";
+import { FormWrapper } from '../components/formWrapper';
 import { Link } from 'react-router-dom'
 import { signUp } from '../utils/API';
-
-const SignUpFormWrapper = styled.div`
-    text-align: center;
-    width: 100vw;
-    height: 100svh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    a,
-    a:visited {
-        color: ${props => props.theme.fg};
-        text-decoration: none;
-        display: inline-block;
-        border-bottom: 1px solid ${props => props.theme.fg};
-        margin: 1rem;
-    }
-`;
+import Auth from '../utils/auth';
 
 const SignUp = () => {
     const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
@@ -44,15 +27,15 @@ const SignUp = () => {
                 throw new Error('Something went wrong!');
             }
 
-            const { token, user } = await response.json();
-            console.log(token, user);
+            const { token } = await response.json();
+            Auth.login(token);
         } catch (error) {
             console.error(error);
         }
     }
 
     return (
-        <SignUpFormWrapper>
+        <FormWrapper>
             <StyledForm onSubmit={handleFormSubmit}>
                 <h1>Sign Up</h1>
 
@@ -85,7 +68,7 @@ const SignUp = () => {
 
                 <Link to="/login">Or Login</Link>
             </StyledForm>
-        </SignUpFormWrapper>
+        </FormWrapper>
     )
 }
 
