@@ -2,6 +2,8 @@ import { FormWrapper } from '../components/formWrapper';
 import { StyledForm } from '../components/form';
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
+import { login } from '../utils/API';
+import Auth from '../utils/auth';
 
 const Login = () => {
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -11,9 +13,26 @@ const Login = () => {
         setUserFormData({ ...userFormData, [name]: value });
     };
 
+    const handleFormSubmit = async (event) => {
+        event.preventDefault()
+
+        try {
+            const response = await login(userFormData);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const { token } = await response.json();
+            Auth.login(token);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <FormWrapper>
-            <StyledForm>
+            <StyledForm onSubmit={handleFormSubmit}>
                 <h1>Login</h1>
 
                 <input name="email"
