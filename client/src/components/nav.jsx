@@ -16,6 +16,7 @@ const NavItem = styled.div`
 
 const StyledNav = styled.nav`
     position: fixed;
+    background-color: ${props => props.theme.bg};
     display: flex;
     width: 100svw;
     height: 60px;
