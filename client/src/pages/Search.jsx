@@ -28,6 +28,10 @@ const SearchResults = styled.ul`
     list-style-type: none;
     background-color: ${props => props.theme.bg};
     padding-bottom: 80px;
+
+    & > p {
+        margin: 2rem;
+    }
 `;
 
 const Search = () => {

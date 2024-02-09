@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components';
+import add from '../assets/add.svg'
+import Auth from '../utils/auth';
 
 const SearchResultWrapper = styled.li`
     max-width: 100svw;
@@ -14,25 +16,37 @@ const SearchResultWrapper = styled.li`
     }
 
     .info {
+        margin-left: 1rem;
         flex-grow: 1;
     }
 
-    .info p {
-        margin-left: 1rem;
-        font-size: 2rem;
+    .addAlbum {
+        min-width: 100px;
+        height: 100px;
+        background-image: url(${add});
+        background-color: ${props => props.theme.nav};
+        border-radius: 50%;
     }
+
 `;
 
 const SearchResult = ({ album }) => {
-    console.log(album)
     return (
         <SearchResultWrapper cover={album.cover_image}>
             <div className='cover'>
 
             </div>
             <div className='info'>
-                <p>{album.title}</p>
+                <h1>{album.title}</h1>
+                <p>{album.year}</p>
             </div>
+            {Auth.loggedIn() ? (
+                <div className='addAlbum'>
+
+                </div>
+            ) : (
+                <></>
+            )}
         </SearchResultWrapper>
     );
 }
