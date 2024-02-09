@@ -16,6 +16,7 @@ export const StyledForm = styled.form`
         display: block;
         border-bottom: 2px solid ${props => props.theme.fg};
         background-color: ${props => props.theme.bg};
+        color: ${props => props.theme.fg};
         padding: 0.3rem;
         margin-bottom: 2rem;
         outline: none;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { search } from "../utils/API";
+import SearchResult from "./SearchResult";
 
 const SearchWrapper = styled.form`
     display: block;
     padding: 2rem;
     background-color: ${props => props.theme.bg};
-    margin-bottom: 60px;
 
     p {
         margin-top: 1rem;
@@ -21,18 +21,13 @@ const SearchBar = styled.input`
     padding: 0.3rem;
     outline: none;
     width: 100%;
+    color: ${props => props.theme.fg};
 `
 
-const SearchResults = styled.section`
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-`;
-
-const SearchResult = styled.div`
-    aspect-ratio: 1;
-    background-size: cover;
-    background-image: url(${props => props.cover});
+const SearchResults = styled.ul`
+    list-style-type: none;
+    background-color: ${props => props.theme.bg};
+    padding-bottom: 80px;
 `;
 
 const Search = () => {
@@ -64,23 +59,25 @@ const Search = () => {
     }
 
     return (
-        <SearchWrapper onSubmit={handleFormSubmit}>
-            <SearchBar
-                placeholder="Enter an album title..."
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)} />
+        <>
+            <SearchWrapper onSubmit={handleFormSubmit}>
+                <SearchBar
+                    placeholder="Enter an album title..."
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)} />
+            </SearchWrapper>
             <SearchResults>
                 {searchedAlbums.length ? (
                     searchedAlbums.map((album, i) => {
                         return (
-                            <SearchResult key={i} cover={album.cover_image} />
+                            <SearchResult album={album} key={i} />
                         )
                     })
                 ) : (
                     <p>Your results will appear here...</p>
                 )}
             </SearchResults>
-        </SearchWrapper>
+        </>
     );
 }
 
