@@ -26,3 +26,13 @@ export const search = (query) => {
         }
     })
 }
+
+export const getMe = (payload) => {
+    return fetch('/api/users/me', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${payload}`
+        }
+    })
+}

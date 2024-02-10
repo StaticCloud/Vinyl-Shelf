@@ -5,6 +5,7 @@ import Home from './pages/Home.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
 import Search from './pages/Search.jsx'
+import Collections from './pages/Collections.jsx'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
+      },
+      {
+        path: '/collections',
+        element: <Collections/>
       },
       {
         path: '/search',

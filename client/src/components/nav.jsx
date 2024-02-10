@@ -44,7 +44,7 @@ export const Nav = () => {
             </Link>
             {Auth.loggedIn() ? (
                 <>
-                    <Link to="/profile">
+                    <Link to="/collections">
                         <NavItem icon={profile_light}>
 
                         </NavItem>

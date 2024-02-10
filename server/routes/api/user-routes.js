@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { hashSync, compareSync } = require('bcrypt')
 const { PrismaClient } = require('@prisma/client');
-const { signToken } = require('../../utils/auth')
+const { signToken } = require('../../utils/auth');
+const { authMiddleware } = require('../../utils/auth');
 
 const prisma = new PrismaClient();
 
@@ -46,6 +47,40 @@ router.post('/', async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong!' })
     }
+})
+
+router.get('/me', authMiddleware, async (req, res) => {
+    const { id } = req.user;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: id
+        },
+        select: {
+            id: true,
+            username: true,
+            shelf_collection: {
+                include: {
+                    vinyl_on_shelf: {
+                        include: {
+                            vinyl: true
+                        }
+                    },
+                }
+            },
+            likes: {
+                include: {
+                    shelf: {
+                        select: { name: true }
+                    }
+                }
+            }
+        }
+    })
+
+    console.log(user)
+
+    res.json(user);
 })
 
 router.post('/login', async (req, res) => {
