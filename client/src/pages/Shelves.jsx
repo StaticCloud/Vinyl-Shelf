@@ -56,7 +56,7 @@ const Collections = () => {
     return (
         <ShelfWrapper>
             <h1>{userData.username}&apos;s Collections</h1>
-            <Link to="/new_shelf">Create Collection</Link>
+            <Link to="/new_shelf">Create Shelf</Link>
         </ShelfWrapper>
     );
 }
