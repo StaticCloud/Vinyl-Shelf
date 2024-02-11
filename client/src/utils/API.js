@@ -29,10 +29,21 @@ export const search = (query) => {
 
 export const getMe = (payload) => {
     return fetch('/api/users/me', {
-        method: 'GET',
+        method: "GET",
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             authorization: `Bearer ${payload}`
         }
+    })
+}
+
+export const createShelf = (token, body) => {
+    return fetch("/api/shelf", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
     })
 }

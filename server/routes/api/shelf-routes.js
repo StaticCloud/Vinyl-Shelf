@@ -1,15 +1,17 @@
 const router = require('express').Router();
+const { authMiddleware } = require('../../utils/auth') 
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-router.post('/', async (req, res) => {
-    const { user_id, name } = req.body;
+router.post('/', authMiddleware, async (req, res) => {
+    const { name } = req.body;
+    const { id } = req.user;
 
     try {
         const shelf = await prisma.shelf.create({
             data: {
-                user_id,
+                user_id: id,
                 name
             }
         })

@@ -1,11 +1,12 @@
-import ReactDOM from 'react-dom/client'
-import SignUp from './pages/Signup.jsx'
-import Login from './pages/Login.jsx'
-import Home from './pages/Home.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './App.jsx'
-import Search from './pages/Search.jsx'
-import Collections from './pages/Collections.jsx'
+import ReactDOM from 'react-dom/client';
+import SignUp from './pages/Signup.jsx';
+import Login from './pages/Login.jsx';
+import Home from './pages/Home.jsx';
+import App from './App.jsx';
+import Search from './pages/Search.jsx';
+import Shelves from './pages/Shelves.jsx';
+import NewShelf from './pages/CreateShelf.jsx';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
@@ -18,12 +19,16 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/collections',
-        element: <Collections/>
+        path: '/shelves',
+        element: <Shelves/>
       },
       {
         path: '/search',
         element: <Search/>
+      },
+      {
+        path: '/new_shelf',
+        element: <NewShelf/>
       },
       {
         path: '/signup',

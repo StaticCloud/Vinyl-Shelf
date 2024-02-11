@@ -32,11 +32,15 @@ const StyledNav = styled.nav`
 export const Nav = () => {
     return (
         <StyledNav>
-            <Link to="/">
-                <NavItem icon={home_light}>
+            {!Auth.loggedIn() ? (
+                <Link to="/">
+                    <NavItem icon={home_light}>
 
-                </NavItem>
-            </Link>
+                    </NavItem>
+                </Link>
+            ) : (
+                <></>
+            )}
             <Link to="/search">
                 <NavItem icon={search_light}>
 
@@ -44,7 +48,7 @@ export const Nav = () => {
             </Link>
             {Auth.loggedIn() ? (
                 <>
-                    <Link to="/collections">
+                    <Link to="/shelves">
                         <NavItem icon={profile_light}>
 
                         </NavItem>
