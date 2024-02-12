@@ -10,7 +10,8 @@ import Auth from '../utils/auth';
 const NavItem = styled.div`
     height: 60px;
     width: 60px;
-    background-size: cover;
+    background-size: 3rem;
+    background-position: center;
     background-image: url(${props => props.icon});
 `;
 
