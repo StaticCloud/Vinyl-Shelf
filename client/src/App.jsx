@@ -12,7 +12,8 @@ const MainContent = styled.main`
 const theme = {
   fg: "#D4D4D4",
   bg: "#181818",
-  nav: "#303030"
+  primary: "#303030",
+  secondary: "#242424"
 };
 
 function App() {

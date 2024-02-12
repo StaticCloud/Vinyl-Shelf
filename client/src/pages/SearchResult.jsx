@@ -7,27 +7,39 @@ const SearchResultWrapper = styled.li`
     max-width: 100svw;
     margin: 2rem;
     display: flex;
+    align-items: center;
+
+    &:first-child {
+        margin-top: 0;
+    }
 
     .cover {
-        min-width: 100px;
-        height: 100px;
+        min-width: 80px;
+        height: 80px;
         background-size: cover;
         background-image: url(${props => props.cover});
     }
 
     .info {
+        display: flex;
+        align-items: center;
         margin-left: 1rem;
         flex-grow: 1;
     }
 
     .addAlbum {
-        min-width: 100px;
-        height: 100px;
+        min-width: 40px;
+        height: 40px;
         background-image: url(${add});
-        background-color: ${props => props.theme.nav};
+        background-position: center;
+        background-size: 2rem;
+        background-color: ${props => props.theme.secondary};
         border-radius: 50%;
     }
 
+    h1 {
+        font-size: 1rem;
+    }
 `;
 
 const SearchResult = ({ album }) => {
@@ -37,8 +49,10 @@ const SearchResult = ({ album }) => {
 
             </div>
             <div className='info'>
-                <h1>{album.title}</h1>
-                <p>{album.year}</p>
+                <div>
+                    <h1>{album.title}</h1>
+                    <p>{album.year}</p>
+                </div>
             </div>
             {Auth.loggedIn() ? (
                 <div className='addAlbum'>
