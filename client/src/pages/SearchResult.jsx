@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
 import styled from 'styled-components';
 import add from '../assets/add.svg'
 import Auth from '../utils/auth';
+import { AddAlbum } from '../components/addAlbum';
 
 const SearchResultWrapper = styled.li`
     max-width: 100svw;
@@ -27,7 +29,7 @@ const SearchResultWrapper = styled.li`
         flex-grow: 1;
     }
 
-    .addAlbum {
+    .openModalButton {
         min-width: 40px;
         height: 40px;
         background-image: url(${add});
@@ -37,12 +39,21 @@ const SearchResultWrapper = styled.li`
         border-radius: 50%;
     }
 
+    .openModalButton:hover {
+        cursor: pointer;
+        background-color: ${props => props.theme.primary};
+    }
+
     h1 {
+        text-overflow: ellipsis;
+        overflow: hidden;
         font-size: 1rem;
     }
 `;
 
 const SearchResult = ({ album }) => {
+    const [showMenu, setShowMenu] = useState(false);
+
     return (
         <SearchResultWrapper cover={album.cover_image}>
             <div className='cover'>
@@ -55,9 +66,14 @@ const SearchResult = ({ album }) => {
                 </div>
             </div>
             {Auth.loggedIn() ? (
-                <div className='addAlbum'>
+                <div className='openModalButton' onClick={() => setShowMenu(true)}>
 
                 </div>
+            ) : (
+                <></>
+            )}
+            {showMenu ? (
+                <AddAlbum setShowMenu={setShowMenu}/>
             ) : (
                 <></>
             )}

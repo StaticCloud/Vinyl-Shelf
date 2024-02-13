@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import Auth from "../utils/auth";
 
 const HomeWrapper = styled.div`
     display: flex;
@@ -32,6 +33,11 @@ const HomeWrapper = styled.div`
 `;
 
 const Home = () => {
+
+    if (Auth.loggedIn()) {
+        window.location.assign('/shelves');
+    }
+
     return (
         <HomeWrapper>
             <div>
