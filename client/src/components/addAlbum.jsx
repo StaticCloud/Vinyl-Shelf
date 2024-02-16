@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import { useEffect } from "react";
-import close from '../../src/assets/add.svg'
+import { useEffect, useState } from "react";
+import close from '../../src/assets/add.svg';
+import Auth from '../utils/auth';
+import { getUserShelves } from "../utils/API";
+import { ShelfItem } from "./shelfItem";
 
 const Backdrop = styled.div`
     width: 100svw;
@@ -53,6 +56,10 @@ const AddAlbumWrapper = styled.div`
 
 export const AddAlbum = ({ setShowMenu }) => {
 
+    const [userShelves, setUserShelves] = useState([])
+
+    const userShelvesLength = Object.keys(userShelves).length;
+
     useEffect(() => {
         document.body.style.overflow = "hidden";
         return () => {
@@ -60,15 +67,46 @@ export const AddAlbum = ({ setShowMenu }) => {
         };
     }, [])
 
+    useEffect(() => {
+        const getShelves = async () => {
+            try {
+                const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+                if (!token) {
+                    return false;
+                }
+
+                const response = await getUserShelves(token);
+
+                if (!response.ok) {
+                    throw new Error('something went wrong!');
+                }
+
+                const shelves = await response.json();
+                setUserShelves(shelves)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        getShelves()
+    }, [userShelvesLength])
+
     return (
         <Backdrop>
             <AddAlbumWrapper>
                 <div className="header">
                     <div className="close" onClick={() => setShowMenu(false)}>
-
                     </div>
                 </div>
                 <h1>Add an album to your shelves</h1>
+                {userShelves ? (
+                    <ul>
+                        {userShelves.map((shelf, i) => <ShelfItem key={i} shelf={shelf} />)}
+                    </ul>
+                ) : (
+                    <p>No available shelves.</p>
+                )}
             </AddAlbumWrapper>
         </Backdrop>
     );
