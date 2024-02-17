@@ -24,14 +24,14 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="4.0970527"
-     inkscape:cx="-98.851547"
-     inkscape:cy="5.2476747"
-     inkscape:window-width="2560"
-     inkscape:window-height="1009"
-     inkscape:window-x="1072"
-     inkscape:window-y="537"
-     inkscape:window-maximized="1"
+     inkscape:zoom="11.588215"
+     inkscape:cx="42.456927"
+     inkscape:cy="39.781796"
+     inkscape:window-width="1236"
+     inkscape:window-height="1000"
+     inkscape:window-x="1073"
+     inkscape:window-y="545"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1">
     <inkscape:grid
        id="grid1"
@@ -61,16 +61,16 @@
        id="rect1-8"
        width="1.9166667"
        height="10"
-       x="12.041667"
-       y="8"
+       x="12.476323"
+       y="8.229167"
        ry="0.79861116" />
     <rect
        style="fill:#d4d4d4;stroke-width:0.295813"
        id="rect2"
        width="10"
        height="2"
-       x="8"
-       y="12"
+       x="8.4346561"
+       y="12.229167"
        ry="1" />
   </g>
 </svg>

@@ -25,14 +25,19 @@ router.post('/', authMiddleware, async (req, res) => {
 router.get('/get', authMiddleware, async (req, res) => {
     const { id } = req.user;
 
-    console.log(id)
-
     try {
         const shelves = await prisma.shelf.findMany({
             where: {
                 user_id: parseInt(id)
+            },
+            select: {
+                id: true,
+                name: true,
+                vinyl_on_shelf: true
             }
         })
+
+        console.log(shelves)
     
         res.json(shelves)
     } catch (error) {

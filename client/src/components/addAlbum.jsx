@@ -23,39 +23,42 @@ const AddAlbumWrapper = styled.div`
     border-radius: 1rem;
     background-color: ${props => props.theme.secondary};
 
-    .header {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        border-radius: 1rem;
-        background-color: ${props => props.theme.secondary};
-    }
-
-    h1 {
+    & > h1 {
         text-align: center;
         background-color: ${props => props.theme.secondary};
     }
+`
 
-    .close {
-        width: 2rem;
-        height: 2rem;
-        background-position: center;
-        transform: rotate(45deg);
-        margin: 0.5rem;
-        background-size: 2rem;
-        border-radius: 50%;
-        background-image: url(${close})
-    }
+const Header = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 1rem;
+    background-color: ${props => props.theme.secondary};
+`;
 
-    .close:hover {
+const Close = styled.div`
+    width: 2rem;
+    height: 2rem;
+    background-position: center;
+    transform: rotate(45deg);
+    margin: 0.5rem;
+    background-size: 2rem;
+    border-radius: 50%;
+    background-image: url(${close});
+
+    &:hover {
         cursor: pointer;
         background-color: ${props => props.theme.primary};
     }
-`
+`;
 
-export const AddAlbum = ({ setShowMenu }) => {
+const ResultsList = styled.ul`
+    list-style-type: none;
+`;
 
+export const AddAlbum = ({ albumData, setShowMenu }) => {
     const [userShelves, setUserShelves] = useState([])
 
     const userShelvesLength = Object.keys(userShelves).length;
@@ -95,15 +98,15 @@ export const AddAlbum = ({ setShowMenu }) => {
     return (
         <Backdrop>
             <AddAlbumWrapper>
-                <div className="header">
-                    <div className="close" onClick={() => setShowMenu(false)}>
-                    </div>
-                </div>
+                <Header>
+                    <Close onClick={() => setShowMenu(false)}/>
+                </Header>
                 <h1>Add an album to your shelves</h1>
                 {userShelves ? (
-                    <ul>
-                        {userShelves.map((shelf, i) => <ShelfItem key={i} shelf={shelf} />)}
-                    </ul>
+                    <ResultsList>
+                        {/* Prop drilling, yuck */}
+                        {userShelves.map((shelf, i) => <ShelfItem key={i} shelf={shelf} albumData={albumData}/>)}
+                    </ResultsList>
                 ) : (
                     <p>No available shelves.</p>
                 )}

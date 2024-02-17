@@ -15,35 +15,6 @@ const SearchResultWrapper = styled.li`
         margin-top: 0;
     }
 
-    .cover {
-        min-width: 80px;
-        height: 80px;
-        background-size: cover;
-        background-image: url(${props => props.cover});
-    }
-
-    .info {
-        display: flex;
-        align-items: center;
-        margin-left: 1rem;
-        flex-grow: 1;
-    }
-
-    .openModalButton {
-        min-width: 40px;
-        height: 40px;
-        background-image: url(${add});
-        background-position: center;
-        background-size: 2rem;
-        background-color: ${props => props.theme.secondary};
-        border-radius: 50%;
-    }
-
-    .openModalButton:hover {
-        cursor: pointer;
-        background-color: ${props => props.theme.primary};
-    }
-
     h1 {
         text-overflow: ellipsis;
         overflow: hidden;
@@ -51,29 +22,55 @@ const SearchResultWrapper = styled.li`
     }
 `;
 
+const Cover = styled.div`
+    min-width: 80px;
+    height: 80px;
+    background-size: cover;
+    border-radius: 0.5rem;
+    background-image: url(${props => props.cover});
+`
+
+const Info = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    flex-grow: 1;
+`;
+
+const OpenModalButton = styled.div`
+    min-width: 40px;
+    height: 40px;
+    background-image: url(${add});
+    background-position: center;
+    background-size: 2rem;
+    background-color: ${props => props.theme.secondary};
+    border-radius: 50%;
+
+    &:hover {
+        cursor: pointer;
+        background-color: ${props => props.theme.primary};
+    }
+`;
+
 const SearchResult = ({ album }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
-        <SearchResultWrapper cover={album.cover_image}>
-            <div className='cover'>
-
-            </div>
-            <div className='info'>
+        <SearchResultWrapper>
+            <Cover cover={album.cover_image}/>
+            <Info>
                 <div>
                     <h1>{album.title}</h1>
                     <p>{album.year}</p>
                 </div>
-            </div>
+            </Info>
             {Auth.loggedIn() ? (
-                <div className='openModalButton' onClick={() => setShowMenu(true)}>
-
-                </div>
+                <OpenModalButton onClick={() => setShowMenu(true)}/>
             ) : (
                 <></>
             )}
             {showMenu ? (
-                <AddAlbum setShowMenu={setShowMenu}/>
+                <AddAlbum albumData={album} setShowMenu={setShowMenu}/>
             ) : (
                 <></>
             )}
