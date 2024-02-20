@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import add from '../assets/add.svg';
 import { useEffect, useState } from "react";
@@ -27,11 +28,24 @@ const UpdateShelf = styled.div`
     background-image: url(${add});
     background-position: center;
     background-size: 2rem;
-    background-color: ${props => props.theme.primary};
+    background-color: ${props => props.inShelf === true ? props.theme.primary : 'green'};
+
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 export const ShelfItem = ({ shelf, albumData }) => {
-    const [inShelf, setInShelf] = useState()
+    const [inShelf, setInShelf] = useState(true)
+
+    useEffect(() => {
+        shelf.vinyl_on_shelf.forEach((vinyl) => {
+            // check if album already exists in collection
+            if (vinyl.id == albumData.id) {
+                setInShelf(true);
+            }
+        })
+    }, [])
 
     return (
         <ShelfItemWrapper>
@@ -39,7 +53,7 @@ export const ShelfItem = ({ shelf, albumData }) => {
 
             </Preview>
             <h1>{shelf.name}</h1>
-            <UpdateShelf>
+            <UpdateShelf inShelf={inShelf} onClick={() => setInShelf(!inShelf)}>
 
             </UpdateShelf>
         </ShelfItemWrapper>

@@ -36,8 +36,6 @@ router.get('/get', authMiddleware, async (req, res) => {
                 vinyl_on_shelf: true
             }
         })
-
-        console.log(shelves)
     
         res.json(shelves)
     } catch (error) {
