@@ -58,4 +58,19 @@ router.post('/addVinyl/:shelfId/:vinylId', async (req, res) => {
     }
 })
 
+router.delete('/deleteVinyl/:shelfId/:vinylId', async (req, res) => {
+    try {
+        const vinylOnShelf = await prisma.vinylOnShelf.delete({
+            data: {
+                shelf_id: parseInt(req.params.shelfId),
+                vinyl_id: parseInt(req.params.vinylId)
+            }
+        })
+
+        res.json(vinylOnShelf);
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
+})
+
 module.exports = router;

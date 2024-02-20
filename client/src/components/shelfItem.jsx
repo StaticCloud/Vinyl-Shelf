@@ -28,7 +28,7 @@ const UpdateShelf = styled.div`
     background-image: url(${add});
     background-position: center;
     background-size: 2rem;
-    background-color: ${props => props.inShelf === true ? props.theme.primary : 'green'};
+    background-color: ${props => props.inshelf === 'true' ? props.theme.primary : 'green'};
 
     &:hover {
         cursor: pointer;
@@ -38,14 +38,12 @@ const UpdateShelf = styled.div`
 export const ShelfItem = ({ shelf, albumData }) => {
     const [inShelf, setInShelf] = useState(true)
 
-    useEffect(() => {
-        shelf.vinyl_on_shelf.forEach((vinyl) => {
-            // check if album already exists in collection
-            if (vinyl.id == albumData.id) {
-                setInShelf(true);
-            }
-        })
-    }, [])
+    shelf.vinyl_on_shelf.forEach((vinyl) => {
+        // check if album already exists in collection
+        if (vinyl.id == albumData.id) {
+            setInShelf(true);
+        }
+    })
 
     return (
         <ShelfItemWrapper>
@@ -53,7 +51,7 @@ export const ShelfItem = ({ shelf, albumData }) => {
 
             </Preview>
             <h1>{shelf.name}</h1>
-            <UpdateShelf inShelf={inShelf} onClick={() => setInShelf(!inShelf)}>
+            <UpdateShelf inshelf={inShelf.toString()} onClick={() => setInShelf(!inShelf)}>
 
             </UpdateShelf>
         </ShelfItemWrapper>
