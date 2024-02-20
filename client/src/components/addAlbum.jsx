@@ -22,20 +22,22 @@ const AddAlbumWrapper = styled.div`
     height: 85svh;
     border-radius: 1rem;
     background-color: ${props => props.theme.secondary};
-
-    & > h1 {
-        text-align: center;
-        background-color: ${props => props.theme.secondary};
-    }
+    overflow-y: scroll;
+    position: relative;
 `
 
 const Header = styled.div`
-    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    border-radius: 1rem;
-    background-color: ${props => props.theme.secondary};
+    justify-content: space-between;
+    border-radius: 1rem 1rem 0 0;
+    background-color: ${props => props.theme.primary};
+    position: fixed;
+    width: 600px;
+
+    & > h1 {
+        margin-left: 1rem;
+    }
 `;
 
 const Close = styled.div`
@@ -50,12 +52,16 @@ const Close = styled.div`
 
     &:hover {
         cursor: pointer;
-        background-color: ${props => props.theme.primary};
+        background-color: ${props => props.theme.secondary};
     }
 `;
 
 const ResultsList = styled.ul`
     list-style-type: none;
+
+    li:first-child {
+        padding-top: 3rem;
+    }
 `;
 
 export const AddAlbum = ({ albumData, setShowMenu }) => {
@@ -99,13 +105,13 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
         <Backdrop>
             <AddAlbumWrapper>
                 <Header>
-                    <Close onClick={() => setShowMenu(false)}/>
+                    <h1>Add an album to your shelves</h1>
+                    <Close onClick={() => setShowMenu(false)} />
                 </Header>
-                <h1>Add an album to your shelves</h1>
                 {userShelves ? (
                     <ResultsList>
                         {/* Prop drilling, yuck */}
-                        {userShelves.map((shelf, i) => <ShelfItem key={i} shelf={shelf} albumData={albumData}/>)}
+                        {userShelves.map((shelf, i) => <ShelfItem key={i} shelf={shelf} albumData={albumData} />)}
                     </ResultsList>
                 ) : (
                     <p>No available shelves.</p>

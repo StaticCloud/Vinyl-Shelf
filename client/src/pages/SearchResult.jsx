@@ -28,6 +28,7 @@ const Cover = styled.div`
     background-size: cover;
     border-radius: 0.5rem;
     background-image: url(${props => props.cover});
+    background-color: ${props => props.theme.primary};
 `
 
 const Info = styled.div`

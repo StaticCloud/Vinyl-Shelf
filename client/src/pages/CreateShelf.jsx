@@ -2,14 +2,15 @@ import { FormWrapper } from '../components/formWrapper';
 import { StyledForm } from '../components/form';
 import { useState } from 'react';
 import { createShelf } from '../utils/API';
+import { redirect } from 'react-router-dom'
 import Auth from '../utils/auth';
 
 const NewCollection = () => {
-    const [shelfData, setCollectionData] = useState({ name: '' });
+    const [shelfData, setShelfData] = useState({ name: '' });
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setCollectionData({ ...shelfData, [name]: value });
+        setShelfData({ ...shelfData, [name]: value });
     };
 
     const handleFormSubmit = async (event) => {
@@ -28,7 +29,7 @@ const NewCollection = () => {
                 throw new Error('Something went wrong!');
             }
 
-            console.log(response)
+            window.location.assign('/shelves')
         } catch (error) {
             console.error(error);
         }
