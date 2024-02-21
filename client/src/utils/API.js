@@ -67,3 +67,21 @@ export const createVinyl = (payload) => {
         body: JSON.stringify(payload)
     })
 }
+
+export const addToShelf = (payload) => {
+    return fetch(`/api/shelf/addVinyl/${payload.shelfId}/${payload.vinylId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+}
+
+export const removeFromShelf = (payload) => {
+    return fetch(`/api/shelf/deleteVinyl/${payload.shelfId}/${payload.vinylId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+}

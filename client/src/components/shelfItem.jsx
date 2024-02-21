@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import add from '../assets/add.svg';
+import loading from '../assets/loading.svg'
+import check from '../assets/check.svg'
 import { useEffect, useState } from "react";
-import { createVinyl } from "../utils/API";
+import { createVinyl, addToShelf, removeFromShelf } from "../utils/API";
 
 const ShelfItemWrapper = styled.li`
     display: flex;
@@ -26,40 +28,73 @@ const UpdateShelf = styled.div`
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-image: url(${add});
+    background-image: url(${props => props.inshelf === 'false' ? add : check});
     background-position: center;
     background-size: 2rem;
-    background-color: ${props => props.inshelf === 'true' ? props.theme.primary : 'green'};
+    background-color: ${props => props.inshelf === 'false' ? props.theme.primary : 'green'};
 
     &:hover {
         cursor: pointer;
     }
 `;
 
-export const ShelfItem = ({ shelf, albumData }) => {
-    const [inShelf, setInShelf] = useState(true)
+const UpdatingShelfSpinner = styled.div`
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: url(${loading});
+    background-position: center;
+    background-size: 2rem;
+    animation: rotate 1s linear infinite;
+    background-color: ${props => props.theme.primary};
 
-    shelf.vinyl_on_shelf.forEach((vinyl) => {
-        // check if album already exists in collection
-        if (vinyl.id == albumData.id) {
-            setInShelf(true);
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
         }
-    })
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+`;
+
+export const ShelfItem = ({ shelf, albumData }) => {
+    const [inShelf, setInShelf] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        shelf.vinyl_on_shelf.forEach((vinyl) => {
+            // check if album already exists in collection
+            if (vinyl.vinyl_id == albumData.id) {
+                setInShelf(true);
+            }
+        })
+    }, [])
 
     const handleUpdateShelf = async () => {
+        setLoading(true)
+
         try {
-            await createVinyl(albumData)
+            const response = await createVinyl(albumData)
+
+            console.log(response)
         } catch (error) {
-            // If an error is thrown, the album already likely exists
-            // Do nothing and proceed normally with the program
+            console.log('')
+        }
+
+        const payload = {
+            shelfId: shelf.id,
+            vinylId: albumData.id
         }
 
         if (inShelf == false) {
-            // 
+            await addToShelf(payload)
         } else {
-            //
+            await removeFromShelf(payload)
         }
 
+        setLoading(false)
         setInShelf(!inShelf)
     }
 
@@ -69,9 +104,11 @@ export const ShelfItem = ({ shelf, albumData }) => {
 
             </Preview>
             <h1>{shelf.name}</h1>
-            <UpdateShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()}>
-
-            </UpdateShelf>
+            {!loading ? (
+                <UpdateShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()}/>
+            ) : (
+                <UpdatingShelfSpinner/>
+            )}
         </ShelfItemWrapper>
     );
 }

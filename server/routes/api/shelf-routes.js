@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { authMiddleware } = require('../../utils/auth') 
+const { authMiddleware } = require('../../utils/auth')
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
@@ -15,7 +15,7 @@ router.post('/', authMiddleware, async (req, res) => {
                 name
             }
         })
-    
+
         res.json(shelf)
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong!' })
@@ -36,7 +36,7 @@ router.get('/get', authMiddleware, async (req, res) => {
                 vinyl_on_shelf: true
             }
         })
-    
+
         res.json(shelves)
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong!' })
@@ -61,14 +61,17 @@ router.post('/addVinyl/:shelfId/:vinylId', async (req, res) => {
 router.delete('/deleteVinyl/:shelfId/:vinylId', async (req, res) => {
     try {
         const vinylOnShelf = await prisma.vinylOnShelf.delete({
-            data: {
-                shelf_id: parseInt(req.params.shelfId),
-                vinyl_id: parseInt(req.params.vinylId)
+            where: {
+                vinyl_id_shelf_id: {
+                    shelf_id: parseInt(req.params.shelfId),
+                    vinyl_id: parseInt(req.params.vinylId)
+                }
             }
         })
 
         res.json(vinylOnShelf);
     } catch (error) {
+        console.log(error)
         res.status(400).json({ message: 'Something went wrong!' })
     }
 })
