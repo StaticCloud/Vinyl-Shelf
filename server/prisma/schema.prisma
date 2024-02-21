@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,41 +12,40 @@ model User {
   username         String  @db.VarChar(30)
   email            String  @unique @db.VarChar(50)
   password         String
-  shelf_collection Shelf[]
   likes            Like[]
+  shelf_collection Shelf[]
 }
 
 model Shelf {
   id             Int            @id @default(autoincrement())
-  user           User           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id        Int
   name           String         @db.VarChar(30)
   likes          Like[]
+  user           User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
   vinyl_on_shelf VinylOnShelf[]
 }
 
 model Vinyl {
-  id             Int            @id @default(autoincrement())
+  id             Int            @id @unique
   title          String
-  discogs_id     Int
   cover_image    String
   vinyl_on_shelf VinylOnShelf[]
 }
 
 model Like {
-  user     User  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  shelf    Shelf @relation(fields: [shelf_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id  Int
   shelf_id Int
+  shelf    Shelf @relation(fields: [shelf_id], references: [id], onDelete: Cascade)
+  user     User  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@id([user_id, shelf_id])
 }
 
 model VinylOnShelf {
-  shelf    Shelf @relation(fields: [shelf_id], references: [id])
-  vinyl    Vinyl @relation(fields: [vinyl_id], references: [id])
   shelf_id Int
   vinyl_id Int
+  shelf    Shelf @relation(fields: [shelf_id], references: [id])
+  vinyl    Vinyl @relation(fields: [vinyl_id], references: [id])
 
   @@id([vinyl_id, shelf_id])
 }

@@ -19,9 +19,8 @@ CREATE TABLE "Shelf" (
 
 -- CreateTable
 CREATE TABLE "Vinyl" (
-    "id" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
-    "discogs_id" INTEGER NOT NULL,
     "cover_image" TEXT NOT NULL,
 
     CONSTRAINT "Vinyl_pkey" PRIMARY KEY ("id")
@@ -46,14 +45,17 @@ CREATE TABLE "VinylOnShelf" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Vinyl_id_key" ON "Vinyl"("id");
+
 -- AddForeignKey
 ALTER TABLE "Shelf" ADD CONSTRAINT "Shelf_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Like" ADD CONSTRAINT "Like_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Like" ADD CONSTRAINT "Like_shelf_id_fkey" FOREIGN KEY ("shelf_id") REFERENCES "Shelf"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Like" ADD CONSTRAINT "Like_shelf_id_fkey" FOREIGN KEY ("shelf_id") REFERENCES "Shelf"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Like" ADD CONSTRAINT "Like_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "VinylOnShelf" ADD CONSTRAINT "VinylOnShelf_shelf_id_fkey" FOREIGN KEY ("shelf_id") REFERENCES "Shelf"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

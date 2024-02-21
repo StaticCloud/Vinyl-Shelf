@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import add from '../assets/add.svg';
 import { useEffect, useState } from "react";
+import { createVinyl } from "../utils/API";
 
 const ShelfItemWrapper = styled.li`
     display: flex;
@@ -45,13 +46,30 @@ export const ShelfItem = ({ shelf, albumData }) => {
         }
     })
 
+    const handleUpdateShelf = async () => {
+        try {
+            await createVinyl(albumData)
+        } catch (error) {
+            // If an error is thrown, the album already likely exists
+            // Do nothing and proceed normally with the program
+        }
+
+        if (inShelf == false) {
+            // 
+        } else {
+            //
+        }
+
+        setInShelf(!inShelf)
+    }
+
     return (
         <ShelfItemWrapper>
             <Preview>
 
             </Preview>
             <h1>{shelf.name}</h1>
-            <UpdateShelf inshelf={inShelf.toString()} onClick={() => setInShelf(!inShelf)}>
+            <UpdateShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()}>
 
             </UpdateShelf>
         </ShelfItemWrapper>

@@ -57,3 +57,13 @@ export const getUserShelves = (payload) => {
         }
     })
 }
+
+export const createVinyl = (payload) => {
+    return fetch('/api/vinyls', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload)
+    })
+}

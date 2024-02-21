@@ -22,13 +22,13 @@ router.get('/discogs/:query', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { title, discogs_id, cover_image } = req.body;
+    const { title, id, cover_image } = req.body;
 
     try {
         const vinyl = await prisma.vinyl.create({
             data: {
+                id,
                 title,
-                discogs_id,
                 cover_image
             }
         })

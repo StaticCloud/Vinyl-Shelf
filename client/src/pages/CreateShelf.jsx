@@ -2,7 +2,6 @@ import { FormWrapper } from '../components/formWrapper';
 import { StyledForm } from '../components/form';
 import { useState } from 'react';
 import { createShelf } from '../utils/API';
-import { redirect } from 'react-router-dom'
 import Auth from '../utils/auth';
 
 const NewCollection = () => {
