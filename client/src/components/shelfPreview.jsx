@@ -44,7 +44,12 @@ export const ShelfPreview = ({ shelf }) => {
                 {(shelf.vinyl_on_shelf.length < 4) ? (
                     <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
                 ) : (
-                    <></>
+                    <>
+                        <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
+                        <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
+                        <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
+                        <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
+                    </>
                 )}
             </AlbumsWrapper>
             <ShelfOptions>
