@@ -114,7 +114,8 @@ const Collections = () => {
 
     return (
         <ShelfWrapper>
-            <h1>{userData.username}&apos;s Shelves</h1>
+            <p>Logged in as:</p>
+            <h2>{userData.username}</h2>
             <Link to="/new_shelf">
                 <AddShelf/>
             </Link>
