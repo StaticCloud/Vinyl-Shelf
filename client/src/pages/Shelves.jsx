@@ -1,9 +1,10 @@
 import Auth from '../utils/auth';
 import styled from 'styled-components';
-import { Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMe } from '../utils/API';
 import { ShelfPreview } from '../components/shelfPreview';
+import add_shelf from '../assets/add_shelf.svg';
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -13,14 +14,18 @@ const ShelfWrapper = styled.section`
     & > a,
     & > a:visited {
         display: inline-block;
-        font-weight: bold;
-        font-size: 0.9rem;
-        text-decoration: none;
+        position: fixed;
+        right: 20px;
+        bottom: 70px;
         padding: 0.5rem;
         border-radius: 2rem;
         margin: 0.5rem 0;
         color: ${props => props.theme.bg};
-        background-color: ${props => props.theme.fg};
+        background-color: ${props => props.theme.primary};
+    }
+
+    & > a:hover {
+        background-color: ${props => props.theme.secondary};
     }
 `;
 
@@ -51,6 +56,14 @@ const ViewLikedShelves = styled.div`
     &:hover {
         cursor: pointer;
     }
+`;
+
+const AddShelf = styled.div`
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-size: 3rem;
+    background-image: url(${add_shelf});
 `;
 
 const ShelfView = styled.ul``;
@@ -102,7 +115,9 @@ const Collections = () => {
     return (
         <ShelfWrapper>
             <h1>{userData.username}&apos;s Shelves</h1>
-            <Link to="/new_shelf">Create Shelf</Link>
+            <Link to="/new_shelf">
+                <AddShelf/>
+            </Link>
             <ViewSelector>
                 <ViewShelves onClick={() => handleViewChange()} view={view}>
                     <p>Created Shelves</p>

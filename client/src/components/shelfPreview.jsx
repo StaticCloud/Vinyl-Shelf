@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import profile_light from '../assets/profile_light.svg'
 
 const ShelfPreviewWrapper = styled.li`
     display: block;
@@ -26,30 +27,42 @@ const AlbumMini = styled.div`
     border-radius: 20%;
     background-position: center;
     background-size: cover;
+    background-color: ${props => props.theme.secondary};
     background-image: url(${props => props.cover});
 `
 
 const ShelfOptions = styled.div`
-    flex-grow: 1;
-
     margin-left: 1rem;
     display: flex;
     align-items: center;
+`;
+
+const EmptyShelf = styled.div`
+    flex-grow: 1;
+    border-radius: 20%;
+    background-position: center;
+    background-size: 3rem;
+    background-color: ${props => props.theme.secondary};
+    background-image: url(${profile_light});
 `;
 
 export const ShelfPreview = ({ shelf }) => {
     return (
         <ShelfPreviewWrapper>
             <AlbumsWrapper>
-                {(shelf.vinyl_on_shelf.length < 4) ? (
-                    <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
-                ) : (
-                    <>
+                {shelf.vinyl_on_shelf.length ? (
+                    (shelf.vinyl_on_shelf.length < 4) ? (
                         <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
-                        <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
-                        <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
-                        <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
-                    </>
+                    ) : (
+                        <>
+                            <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
+                        </>
+                    )
+                ) : (
+                    <EmptyShelf></EmptyShelf>
                 )}
             </AlbumsWrapper>
             <ShelfOptions>
