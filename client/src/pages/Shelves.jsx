@@ -11,6 +11,11 @@ const ShelfWrapper = styled.section`
     padding: 1rem;
     margin: 0 auto;
 
+    & > h1 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+
     & > a,
     & > a:visited {
         display: inline-block;
@@ -115,7 +120,7 @@ const Collections = () => {
     return (
         <ShelfWrapper>
             <p>Logged in as:</p>
-            <h2>{userData.username}</h2>
+            <h1>{userData.username}</h1>
             <Link to="/new_shelf">
                 <AddShelf/>
             </Link>
