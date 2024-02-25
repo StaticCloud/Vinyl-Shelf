@@ -49,11 +49,20 @@ export const createShelf = (token, body) => {
 }
 
 export const getUserShelves = (payload) => {
-    return fetch('/api/shelf/get', {
+    return fetch('/api/shelf/me', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${payload}`
+        }
+    })
+}
+
+export const getShelf = (id) => {
+    return fetch(`/api/shelf/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
         }
     })
 }

@@ -7,6 +7,7 @@ import Search from './pages/Search.jsx';
 import Shelves from './pages/Shelves.jsx';
 import NewShelf from './pages/CreateShelf.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Shelf from './pages/Shelf.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login/>
+      },
+      {
+        path: '/shelf/:id',
+        element: <Shelf/>
       }
     ]
   }

@@ -22,7 +22,30 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 })
 
-router.get('/get', authMiddleware, async (req, res) => {
+router.get('/:id', async (req, res) => {
+    try {
+        const shelf = await prisma.shelf.findUnique({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            select: {
+                id: true,
+                name: true,
+                vinyl_on_shelf: {
+                    include: {
+                        vinyl: true
+                    }
+                }
+            }
+        })
+
+        res.json(shelf)
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
+})
+
+router.get('/me', authMiddleware, async (req, res) => {
     const { id } = req.user;
 
     try {

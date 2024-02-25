@@ -71,6 +71,8 @@ const LinkIcon = styled.div`
 `;
 
 export const ShelfPreview = ({ shelf }) => {
+    console.log(shelf)
+
     return (
         <ShelfPreviewWrapper>
             <AlbumsWrapper>
@@ -92,7 +94,7 @@ export const ShelfPreview = ({ shelf }) => {
             <ShelfOptions>
                 <h1>{shelf.name}</h1>
                 <ButtonWrapper>
-                    <Link to="/">
+                    <Link to={`/shelf/${shelf.id}`}>
                         <LinkIcon icon={eye}/>
                     </Link>
                 </ButtonWrapper>
