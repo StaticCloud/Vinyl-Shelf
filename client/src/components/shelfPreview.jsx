@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import profile_light from '../assets/profile_light.svg'
+import eye from '../assets/eye.svg'
+import { Link } from "react-router-dom"
 
 const ShelfPreviewWrapper = styled.li`
     display: block;
@@ -33,8 +35,7 @@ const AlbumMini = styled.div`
 
 const ShelfOptions = styled.div`
     margin-left: 1rem;
-    display: flex;
-    align-items: center;
+    margin: auto 1rem;
 `;
 
 const EmptyShelf = styled.div`
@@ -44,6 +45,29 @@ const EmptyShelf = styled.div`
     background-size: 3rem;
     background-color: ${props => props.theme.secondary};
     background-image: url(${profile_light});
+`;
+
+const ButtonWrapper = styled.div`
+    border-radius: 2rem;
+    display: inline-flex;
+    margin-top: 5px;
+    height: 30px;
+    background-color: ${props => props.theme.primary};
+
+    a {
+        display: block;
+        width: 30px;
+        height: 30px;
+    }
+`;
+
+const LinkIcon = styled.div`
+    width: 30px;
+    height: 30px;
+
+    background-position: center;
+    background-size: 2.5rem;
+    background-image: url(${props => props.icon});
 `;
 
 export const ShelfPreview = ({ shelf }) => {
@@ -67,6 +91,11 @@ export const ShelfPreview = ({ shelf }) => {
             </AlbumsWrapper>
             <ShelfOptions>
                 <h1>{shelf.name}</h1>
+                <ButtonWrapper>
+                    <Link to="/">
+                        <LinkIcon icon={eye}/>
+                    </Link>
+                </ButtonWrapper>
             </ShelfOptions>
         </ShelfPreviewWrapper>
     );
