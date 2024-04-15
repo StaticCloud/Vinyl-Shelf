@@ -36,6 +36,10 @@ const AlbumMini = styled.div`
 const ShelfOptions = styled.div`
     margin-left: 1rem;
     margin: auto 1rem;
+
+    h1 {
+        text-decoration: none;
+    }
 `;
 
 const EmptyShelf = styled.div`
@@ -47,58 +51,32 @@ const EmptyShelf = styled.div`
     background-image: url(${profile_light});
 `;
 
-const ButtonWrapper = styled.div`
-    border-radius: 2rem;
-    display: inline-flex;
-    margin-top: 5px;
-    height: 30px;
-    background-color: ${props => props.theme.primary};
-
-    a {
-        display: block;
-        width: 30px;
-        height: 30px;
-    }
-`;
-
-const LinkIcon = styled.div`
-    width: 30px;
-    height: 30px;
-
-    background-position: center;
-    background-size: 2.5rem;
-    background-image: url(${props => props.icon});
-`;
-
 export const ShelfPreview = ({ shelf }) => {
     console.log(shelf)
 
     return (
-        <ShelfPreviewWrapper>
-            <AlbumsWrapper>
-                {shelf.vinyl_on_shelf.length ? (
-                    (shelf.vinyl_on_shelf.length < 4) ? (
-                        <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
-                    ) : (
-                        <>
+        <Link to={`/shelf/${shelf.id}`}>
+            <ShelfPreviewWrapper>
+                <AlbumsWrapper>
+                    {shelf.vinyl_on_shelf.length ? (
+                        (shelf.vinyl_on_shelf.length < 4) ? (
                             <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
-                            <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
-                            <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
-                            <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
-                        </>
-                    )
-                ) : (
-                    <EmptyShelf></EmptyShelf>
-                )}
-            </AlbumsWrapper>
-            <ShelfOptions>
-                <h1>{shelf.name}</h1>
-                <ButtonWrapper>
-                    <Link to={`/shelf/${shelf.id}`}>
-                        <LinkIcon icon={eye}/>
-                    </Link>
-                </ButtonWrapper>
-            </ShelfOptions>
-        </ShelfPreviewWrapper>
+                        ) : (
+                            <>
+                                <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
+                                <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
+                                <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
+                                <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
+                            </>
+                        )
+                    ) : (
+                        <EmptyShelf></EmptyShelf>
+                    )}
+                </AlbumsWrapper>
+                <ShelfOptions>
+                    <h1>{shelf.name}</h1>
+                </ShelfOptions>
+            </ShelfPreviewWrapper>
+        </Link>
     );
 }

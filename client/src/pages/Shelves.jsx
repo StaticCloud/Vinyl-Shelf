@@ -6,7 +6,7 @@ import { getMe } from '../utils/API';
 import { ShelfPreview } from '../components/shelfPreview';
 import add_shelf from '../assets/add_shelf.svg';
 
-const ShelfWrapper = styled.section`
+const ShelvesWrapper = styled.section`
     max-width: 600px;
     padding: 1rem;
     margin: 0 auto;
@@ -71,7 +71,12 @@ const AddShelf = styled.div`
     background-image: url(${add_shelf});
 `;
 
-const ShelfView = styled.ul``;
+const ShelfView = styled.ul`
+    a {
+        text-decoration: none;
+        color: ${props => props.theme.fg};
+    }
+`;
 
 const Collections = () => {
     const [userData, setUserData] = useState({});
@@ -118,7 +123,7 @@ const Collections = () => {
     }
 
     return (
-        <ShelfWrapper>
+        <ShelvesWrapper>
             <p>Logged in as:</p>
             <h1>{userData.username}</h1>
             <Link to="/new_shelf">
@@ -135,7 +140,7 @@ const Collections = () => {
             <ShelfView>
                 {shelves.map((shelf, i) => <ShelfPreview key={i} shelf={shelf}/>)}
             </ShelfView>
-        </ShelfWrapper>
+        </ShelvesWrapper>
     );
 }
 

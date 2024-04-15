@@ -64,6 +64,13 @@ const ResultsList = styled.ul`
     }
 `;
 
+const CenteredContent = styled.div`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 export const AddAlbum = ({ albumData, setShowMenu }) => {
     const [userShelves, setUserShelves] = useState([])
 
@@ -86,7 +93,6 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                 }
 
                 const response = await getUserShelves(token);
-
                 if (!response.ok) {
                     throw new Error('something went wrong!');
                 }
@@ -108,13 +114,15 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                     <h1>Add an album to your shelves</h1>
                     <Close onClick={() => setShowMenu(false)} />
                 </Header>
-                {userShelves ? (
+                {userShelves.length ? (
                     <ResultsList>
                         {/* Prop drilling, yuck */}
                         {userShelves.map((shelf, i) => <ShelfItem key={i} shelf={shelf} albumData={albumData} />)}
                     </ResultsList>
                 ) : (
-                    <p>No available shelves.</p>
+                    <CenteredContent>
+                        <p>No available shelves.</p>
+                    </CenteredContent>
                 )}
             </AddAlbumWrapper>
         </Backdrop>
