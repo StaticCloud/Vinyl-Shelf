@@ -33,7 +33,11 @@ router.get('/me', authMiddleware, async (req, res) => {
             select: {
                 id: true,
                 name: true,
-                vinyl_on_shelf: true
+                vinyl_on_shelf: {
+                    include: {
+                        vinyl: true
+                    }
+                }
             }
         })
 

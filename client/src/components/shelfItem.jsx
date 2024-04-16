@@ -3,6 +3,7 @@ import styled from "styled-components";
 import add from '../assets/add.svg';
 import loading from '../assets/loading.svg'
 import check from '../assets/check.svg'
+import profile_light from '../assets/profile_light.svg'
 import { useEffect, useState } from "react";
 import { createVinyl, addToShelf, removeFromShelf } from "../utils/API";
 
@@ -21,7 +22,11 @@ const Preview = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 0.5rem;
-    background-color: ${props => props.theme.primary}
+    background-color: ${props => props.theme.primary};
+
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
 `;
 
 const UpdateShelf = styled.div`
@@ -57,6 +62,27 @@ const UpdatingShelfSpinner = styled.div`
             transform: rotate(360deg);
         }
     }
+`;
+
+const AlbumMini = styled.div`
+    flex-grow: 1;
+    min-width: 15px;
+    display: block;
+    margin: 1px;
+    border-radius: 20%;
+    background-position: center;
+    background-size: cover;
+    background-color: ${props => props.theme.secondary};
+    background-image: url(${props => props.cover});
+`
+
+const EmptyShelf = styled.div`
+    flex-grow: 1;
+    border-radius: 20%;
+    background-position: center;
+    background-size: 2rem;
+    background-color: ${props => props.theme.secondary};
+    background-image: url(${profile_light});
 `;
 
 export const ShelfItem = ({ shelf, albumData }) => {
@@ -101,13 +127,26 @@ export const ShelfItem = ({ shelf, albumData }) => {
     return (
         <ShelfItemWrapper>
             <Preview>
-
+                {shelf.vinyl_on_shelf.length ? (
+                    (shelf.vinyl_on_shelf.length < 4) ? (
+                        <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
+                    ) : (
+                        <>
+                            <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
+                        </>
+                    )
+                ) : (
+                    <EmptyShelf></EmptyShelf>
+                )}
             </Preview>
             <h1>{shelf.name}</h1>
             {!loading ? (
-                <UpdateShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()}/>
+                <UpdateShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()} />
             ) : (
-                <UpdatingShelfSpinner/>
+                <UpdatingShelfSpinner />
             )}
         </ShelfItemWrapper>
     );

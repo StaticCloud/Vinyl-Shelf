@@ -15,7 +15,7 @@ const AlbumsWrapper = styled.div`
     border-radius: 1rem;
 
     background-color: ${props => props.theme.primary};
-    display: grid;
+
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
