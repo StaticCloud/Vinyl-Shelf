@@ -93,7 +93,8 @@ router.get('/:id', async (req, res) => {
                     include: {
                         vinyl: true
                     }
-                }
+                },
+                user_id: true
             }
         })
 

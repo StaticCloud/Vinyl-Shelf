@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { getShelf } from "../utils/API";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import trash from '../assets/trash.svg';
+import auth from "../utils/auth";
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -12,7 +14,7 @@ const ShelfWrapper = styled.section`
 const ShelfHeader = styled.div`
     & > h1 {
         font-size: 3rem;
-        margin-bottom: 2rem;
+        margin-bottom: .5rem;
     }
 `;
 
@@ -39,6 +41,20 @@ const Cover = styled.div`
     background-image: url(${props => props.cover});
 `
 
+const SettingsTab = styled.div`
+    margin-bottom: 2rem;
+`;
+
+const SettingsButton = styled.div`
+    width: 40px;
+    height: 40px;
+    background-size: 2rem;
+    border-radius: 50%;
+    background-position: center;
+    background-image: url(${props => props.icon});
+    background-color: ${props => props.theme.primary};
+`;
+
 const Shelf = () => {
     const { id } = useParams();
     const [shelfData, setShelfData] = useState([]);
@@ -46,6 +62,7 @@ const Shelf = () => {
     const shelfDataLength = Object.keys(shelfData).length;
 
     console.log(shelfData)
+    console.log(auth.getProfile())
 
     useEffect(() => {
         const getShelfData = async () => {
@@ -71,9 +88,16 @@ const Shelf = () => {
         <ShelfWrapper>
             <ShelfHeader>
                 <h1>{shelfData.name}</h1>
+                {auth.getProfile().data.id == shelfData.user_id ? (
+                    <SettingsTab>
+                        <SettingsButton icon={trash}></SettingsButton>
+                    </SettingsTab>
+                ) : (
+                    <></>
+                )}
             </ShelfHeader>
             <Vinyls>
-                {shelfData.vinyl_on_shelf?.map(({ vinyl }, i) => 
+                {shelfData.vinyl_on_shelf?.map(({ vinyl }, i) =>
                     <Vinyl key={i}>
                         <Cover cover={vinyl.cover_image}></Cover>
                         <h1>{vinyl.title}</h1>
