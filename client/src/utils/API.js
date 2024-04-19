@@ -48,6 +48,16 @@ export const createShelf = (token, body) => {
     })
 }
 
+export const deleteShelf = (id, token) => {
+    return fetch(`/api/shelf/${id}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`
+        }
+    })
+}
+
 export const getUserShelves = (payload) => {
     return fetch('/api/shelf/me', {
         method: "GET",

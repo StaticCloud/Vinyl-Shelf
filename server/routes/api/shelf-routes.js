@@ -22,6 +22,21 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 })
 
+router.delete('/:id', authMiddleware, async (req, res) => {
+    try {
+        const shelf = await prisma.shelf.findUnique({
+            where: {
+                id: req.params.id,
+                user_id: req.user.id
+            }
+        })
+
+        res.json(shelf)
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
+})
+
 router.get('/me', authMiddleware, async (req, res) => {
     const { id } = req.user;
 
