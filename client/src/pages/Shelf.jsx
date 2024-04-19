@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import trash from '../assets/trash.svg';
 import auth from "../utils/auth";
+import { ConfirmDelete } from "../components/confirmDelete";
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -58,6 +59,7 @@ const SettingsButton = styled.div`
 const Shelf = () => {
     const { id } = useParams();
     const [shelfData, setShelfData] = useState([]);
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     const shelfDataLength = Object.keys(shelfData).length;
 
@@ -90,7 +92,7 @@ const Shelf = () => {
                 <h1>{shelfData.name}</h1>
                 {auth.getProfile().data.id == shelfData.user_id ? (
                     <SettingsTab>
-                        <SettingsButton icon={trash}></SettingsButton>
+                        <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
                     </SettingsTab>
                 ) : (
                     <></>
@@ -104,6 +106,11 @@ const Shelf = () => {
                     </Vinyl>
                 )}
             </Vinyls>
+            {showConfirmDelete ? (
+                <ConfirmDelete shelfData={shelfData} setShowConfirmDelete={setShowConfirmDelete}/>
+            ) : (
+                <></>
+            )}
         </ShelfWrapper>
     );
 }
