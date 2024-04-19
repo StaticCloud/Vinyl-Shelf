@@ -30,13 +30,15 @@ const Vinyl = styled.li`
 
     & > h1 {
         margin-left: 20px;
+        font-size: 1.3rem;
     }
 `
 
 const Cover = styled.div`
     border-radius: 1rem;
-    width: 90px;
-    height: 90px;
+    min-width: 80px;
+    height: 80px;
+    display: block;
     background-size: cover;
     background-position: center;
     background-image: url(${props => props.cover});
@@ -54,6 +56,11 @@ const SettingsButton = styled.div`
     background-position: center;
     background-image: url(${props => props.icon});
     background-color: ${props => props.theme.primary};
+
+    &:hover {
+        cursor: pointer;
+        background-color: ${props => props.theme.secondary};
+    }
 `;
 
 const Shelf = () => {
