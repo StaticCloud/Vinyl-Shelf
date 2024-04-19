@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import close from '../../src/assets/add.svg';
 import { useEffect } from "react";
+import { deleteShelf } from '../utils/API';
 
 const Backdrop = styled.div`
     width: 100svw;
@@ -83,7 +84,7 @@ const AlertButton = styled.div`
     background-color: ${props => props.theme.primary};
 `;
 
-export const ConfirmDelete = ({ setShowConfirmDelete, shelfData }) => {
+export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
 
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -91,6 +92,26 @@ export const ConfirmDelete = ({ setShowConfirmDelete, shelfData }) => {
             document.body.style.overflow = "scroll"
         };
     }, [])
+
+    const handleDeleteShelf = async () => {
+        try {
+            const token = auth.loggedIn() ? auth.getToken() : null;
+
+            if (!token) {
+                return false;
+            }
+
+            const response = await deleteShelf(token, shelfData.id);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            window.location.assign('/shelves')
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <Backdrop>
@@ -102,7 +123,7 @@ export const ConfirmDelete = ({ setShowConfirmDelete, shelfData }) => {
                 <AlertBody>
                     <p>Are you sure you want to delete <b>{shelfData.name}</b>?</p>
                     <AlertButtonWrapper>
-                        <AlertButton>
+                        <AlertButton onClick={() => handleDeleteShelf()}>
                             Delete
                         </AlertButton>
                         <AlertButton onClick={() => setShowConfirmDelete(false)}>

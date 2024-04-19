@@ -48,7 +48,7 @@ export const createShelf = (token, body) => {
     })
 }
 
-export const deleteShelf = (id, token) => {
+export const deleteShelf = (token, id) => {
     return fetch(`/api/shelf/${id}`, {
         method: 'DELETE',
         headers: {

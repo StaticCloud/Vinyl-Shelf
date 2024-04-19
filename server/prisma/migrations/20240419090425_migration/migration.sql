@@ -58,7 +58,7 @@ ALTER TABLE "Like" ADD CONSTRAINT "Like_shelf_id_fkey" FOREIGN KEY ("shelf_id") 
 ALTER TABLE "Like" ADD CONSTRAINT "Like_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "VinylOnShelf" ADD CONSTRAINT "VinylOnShelf_shelf_id_fkey" FOREIGN KEY ("shelf_id") REFERENCES "Shelf"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "VinylOnShelf" ADD CONSTRAINT "VinylOnShelf_shelf_id_fkey" FOREIGN KEY ("shelf_id") REFERENCES "Shelf"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "VinylOnShelf" ADD CONSTRAINT "VinylOnShelf_vinyl_id_fkey" FOREIGN KEY ("vinyl_id") REFERENCES "Vinyl"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "VinylOnShelf" ADD CONSTRAINT "VinylOnShelf_vinyl_id_fkey" FOREIGN KEY ("vinyl_id") REFERENCES "Vinyl"("id") ON DELETE CASCADE ON UPDATE CASCADE;

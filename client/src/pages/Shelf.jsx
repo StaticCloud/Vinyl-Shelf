@@ -3,7 +3,7 @@ import { getShelf } from "../utils/API";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import trash from '../assets/trash.svg';
-import auth from "../utils/auth";
+import Auth from "../utils/auth";
 import { ConfirmDelete } from "../components/confirmDelete";
 
 const ShelfWrapper = styled.section`
@@ -70,9 +70,6 @@ const Shelf = () => {
 
     const shelfDataLength = Object.keys(shelfData).length;
 
-    console.log(shelfData)
-    console.log(auth.getProfile())
-
     useEffect(() => {
         const getShelfData = async () => {
             try {
@@ -97,7 +94,7 @@ const Shelf = () => {
         <ShelfWrapper>
             <ShelfHeader>
                 <h1>{shelfData.name}</h1>
-                {auth.getProfile().data.id == shelfData.user_id ? (
+                {Auth.getProfile().data.id == shelfData.user_id ? (
                     <SettingsTab>
                         <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
                     </SettingsTab>
@@ -114,7 +111,7 @@ const Shelf = () => {
                 )}
             </Vinyls>
             {showConfirmDelete ? (
-                <ConfirmDelete shelfData={shelfData} setShowConfirmDelete={setShowConfirmDelete}/>
+                <ConfirmDelete auth={Auth} shelfData={shelfData} setShowConfirmDelete={setShowConfirmDelete}/>
             ) : (
                 <></>
             )}
