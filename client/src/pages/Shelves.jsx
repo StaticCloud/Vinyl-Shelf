@@ -78,6 +78,30 @@ const ShelfView = styled.ul`
     }
 `;
 
+const EmptyShelvesWrapper = styled.div`
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        display: flex;
+        align-items: center;
+    }
+`;
+
+const InlineIcon = styled.span`
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 3px;
+    background-position: center;
+    background-size: 1.8rem;
+    background-image: url(${add_shelf});
+    background-color: ${props => props.theme.primary};
+    border-radius: 50%;
+`;
+
 const Collections = () => {
     const [userData, setUserData] = useState({});
     const [view, setView] = useState('shelves');
@@ -93,15 +117,15 @@ const Collections = () => {
                 if (!token) {
                     window.location.assign('/login')
                 }
-    
+
                 const response = await getMe(token);
-    
+
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
-    
+
                 const user = await response.json();
-  
+
                 setUserData(user);
                 setShelves(user.shelf_collection);
             } catch (error) {
@@ -127,7 +151,7 @@ const Collections = () => {
             <p>Logged in as:</p>
             <h1>{userData.username}</h1>
             <Link to="/new_shelf">
-                <AddShelf/>
+                <AddShelf />
             </Link>
             <ViewSelector>
                 <ViewShelves onClick={() => handleViewChange()} view={view}>
@@ -137,9 +161,25 @@ const Collections = () => {
                     <p>Liked Shelves</p>
                 </ViewLikedShelves>
             </ViewSelector>
-            <ShelfView>
-                {shelves.map((shelf, i) => <ShelfPreview key={i} shelf={shelf}/>)}
-            </ShelfView>
+            {view === "shelves" ? (
+                <>
+                    {shelves.length ? (
+                        <ShelfView>
+                            {shelves.map((shelf, i) => <ShelfPreview key={i} shelf={shelf} />)}
+                        </ShelfView>
+                    ) : (
+                        <EmptyShelvesWrapper>
+                            <p>You have no shelves. Create a shelf <InlineIcon></InlineIcon> to get started.</p>
+                        </EmptyShelvesWrapper>
+                    )}
+                </>
+            ) : (
+                <>
+
+                </>
+            )}
+
+
         </ShelvesWrapper>
     );
 }

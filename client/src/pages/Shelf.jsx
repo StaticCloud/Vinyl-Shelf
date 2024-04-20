@@ -5,6 +5,7 @@ import styled from "styled-components";
 import trash from '../assets/trash.svg';
 import Auth from "../utils/auth";
 import { ConfirmDelete } from "../components/confirmDelete";
+import search_light from '../assets/search_light.svg';
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -63,6 +64,30 @@ const SettingsButton = styled.div`
     }
 `;
 
+const EmptyShelvesWrapper = styled.div`
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        display: flex;
+        align-items: center;
+    }
+`;
+
+const InlineIcon = styled.span`
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 3px;
+    background-position: center;
+    background-size: 1.8rem;
+    background-image: url(${search_light});
+    background-color: ${props => props.theme.primary};
+    border-radius: 50%;
+`;
+
 const Shelf = () => {
     const { id } = useParams();
     const [shelfData, setShelfData] = useState([]);
@@ -103,15 +128,26 @@ const Shelf = () => {
                 )}
             </ShelfHeader>
             <Vinyls>
-                {shelfData.vinyl_on_shelf?.map(({ vinyl }, i) =>
-                    <Vinyl key={i}>
-                        <Cover cover={vinyl.cover_image}></Cover>
-                        <h1>{vinyl.title}</h1>
-                    </Vinyl>
+                {shelfData?.vinyl_on_shelf?.length ? (
+                    <>
+                        {shelfData.vinyl_on_shelf?.map(({ vinyl }, i) =>
+                            <Vinyl key={i}>
+                                <Cover cover={vinyl.cover_image}></Cover>
+                                <h1>{vinyl.title}</h1>
+                            </Vinyl>
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <EmptyShelvesWrapper>
+                            <p>This shelf is empty. Search <InlineIcon></InlineIcon> for records to add to your shelf.</p>
+                        </EmptyShelvesWrapper>
+                    </>
                 )}
+
             </Vinyls>
             {showConfirmDelete ? (
-                <ConfirmDelete auth={Auth} shelfData={shelfData} setShowConfirmDelete={setShowConfirmDelete}/>
+                <ConfirmDelete auth={Auth} shelfData={shelfData} setShowConfirmDelete={setShowConfirmDelete} />
             ) : (
                 <></>
             )}
