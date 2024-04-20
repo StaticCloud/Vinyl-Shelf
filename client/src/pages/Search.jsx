@@ -18,7 +18,7 @@ const SearchWrapper = styled.form`
 const SearchBar = styled.input`
     display: inline-block;
     background-color: ${props => props.theme.primary};
-    border-radius: 0.5rem 0 0 0.5rem;
+    border-radius: 5rem 0 0 5rem;
     padding: 0.7rem;
     font-size: 1rem;
     outline: none;
@@ -48,7 +48,7 @@ const SubmitSearch = styled.input`
     background-size: 2.5rem;
     background-image: url(${search_light});
     outline: none;
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-radius: 0 5rem 5rem 0;
 
     &:hover {
         cursor: pointer;
@@ -113,7 +113,7 @@ const Search = () => {
                 </SearchResults>
             ) : (
                 <NoResultsWrapper>
-                    <p>Your results will appear here...</p>
+                    <p>Enter an album name to get started.</p>
                 </NoResultsWrapper>
             )}
         </>

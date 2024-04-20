@@ -13,7 +13,7 @@ const ShelvesWrapper = styled.section`
 
     & > h1 {
         font-size: 3rem;
-        margin-bottom: 2rem;
+        margin: .8rem 0;
     }
 
     & > a,
@@ -148,7 +148,7 @@ const Collections = () => {
 
     return (
         <ShelvesWrapper>
-            <p>Logged in as:</p>
+            <p>User profile for:</p>
             <h1>{userData.username}</h1>
             <Link to="/new_shelf">
                 <AddShelf />

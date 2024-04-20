@@ -60,7 +60,7 @@ const AlertBody = styled.div`
 
     p {
         font-size: 1.2rem;
-        margin-bottom: 1rem;
+        margin-bottom: 3rem;
     }
 `;
 
@@ -68,6 +68,7 @@ const AlertButtonWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 1rem;
+    justify-content: flex-end;
 `;
 
 const AlertButton = styled.div`
@@ -75,7 +76,6 @@ const AlertButton = styled.div`
         cursor: pointer;
     }
     
-    flex: 1;
     text-align: center;
     padding: 1rem;
     margin: 2px;
