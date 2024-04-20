@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import close from '../../src/assets/add.svg';
 import Auth from '../utils/auth';
@@ -69,6 +70,10 @@ const CenteredContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    a {
+        color: ${props => props.theme.fg}
+    }
 `;
 
 export const AddAlbum = ({ albumData, setShowMenu }) => {
@@ -121,7 +126,7 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                     </ResultsList>
                 ) : (
                     <CenteredContent>
-                        <p>No available shelves.</p>
+                        <p>No available shelves. Click <Link to='/new_shelf'>here</Link> to create one.</p>
                     </CenteredContent>
                 )}
             </AddAlbumWrapper>

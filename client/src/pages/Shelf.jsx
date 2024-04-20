@@ -18,6 +18,8 @@ const ShelfHeader = styled.div`
         font-size: 3rem;
         margin-bottom: .5rem;
     }
+
+    border-bottom: 2px solid ${props => props.theme.fg};
 `;
 
 const Vinyls = styled.ul`
@@ -46,7 +48,7 @@ const Cover = styled.div`
 `
 
 const SettingsTab = styled.div`
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 `;
 
 const SettingsButton = styled.div`

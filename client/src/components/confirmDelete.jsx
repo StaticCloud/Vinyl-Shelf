@@ -74,6 +74,7 @@ const AlertButtonWrapper = styled.div`
 const AlertButton = styled.div`
     &:hover {
         cursor: pointer;
+        background-color: ${props => props.theme.secondary};
     }
     
     text-align: center;
