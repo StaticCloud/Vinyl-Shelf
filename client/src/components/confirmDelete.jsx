@@ -29,7 +29,7 @@ const Header = styled.div`
     align-items: center;
     justify-content: space-between;
     border-radius: 1rem 1rem 0 0;
-    background-color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.secondary};
     position: fixed;
     width: 600px;
 
@@ -51,7 +51,7 @@ const Close = styled.div`
 
     &:hover {
         cursor: pointer;
-        background-color: ${props => props.theme.secondary};
+        background-color: ${props => props.theme.primary};
     }
 `;
 
@@ -74,7 +74,7 @@ const AlertButtonWrapper = styled.div`
 const AlertButton = styled.div`
     &:hover {
         cursor: pointer;
-        background-color: ${props => props.theme.secondary};
+        background-color: ${props => props.theme.primary};
     }
     
     text-align: center;
@@ -82,7 +82,7 @@ const AlertButton = styled.div`
     margin: 2px;
     border-radius: 1rem;
 
-    background-color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.secondary};
 `;
 
 export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {

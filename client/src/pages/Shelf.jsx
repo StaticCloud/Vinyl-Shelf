@@ -31,7 +31,7 @@ const Vinyl = styled.li`
     align-items: center;
     margin: 1rem 0;
 
-    & > h1 {
+    & > p {
         margin-left: 20px;
         font-size: 1.3rem;
     }
@@ -90,6 +90,24 @@ const InlineIcon = styled.span`
     border-radius: 50%;
 `;
 
+const DeleteVinyl = styled.div`
+    min-width: 30px;
+    min-height: 30px;
+    display: block;
+    border-radius: 50%;
+    background-image: url(${trash});
+    background-position: center;
+    background-size: 2rem;
+    background-color: ${props => props.theme.primary};
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    // I can't believe this actually works
+    margin-left: auto;
+`;
+
 const Shelf = () => {
     const { id } = useParams();
     const [shelfData, setShelfData] = useState([]);
@@ -117,17 +135,19 @@ const Shelf = () => {
         getShelfData();
     }, [shelfDataLength])
 
+    console.log(shelfData)
+
     return (
         <ShelfWrapper>
             <ShelfHeader>
                 <h1>{shelfData.name}</h1>
-                {Auth.getProfile().data.id == shelfData.user_id ? (
-                    <SettingsTab>
+                <SettingsTab>
+                    {Auth.getProfile().data.id == shelfData.user_id ? (
                         <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
-                    </SettingsTab>
-                ) : (
-                    <></>
-                )}
+                    ) : (
+                        <></>
+                    )}
+                </SettingsTab>
             </ShelfHeader>
             <Vinyls>
                 {shelfData?.vinyl_on_shelf?.length ? (
@@ -135,7 +155,12 @@ const Shelf = () => {
                         {shelfData.vinyl_on_shelf?.map(({ vinyl }, i) =>
                             <Vinyl key={i}>
                                 <Cover cover={vinyl.cover_image}></Cover>
-                                <h1>{vinyl.title}</h1>
+                                <p>{vinyl.title}</p>
+                                {Auth.getProfile().data.id == shelfData.user_id ? (
+                                    <DeleteVinyl></DeleteVinyl>
+                                ) : (
+                                    <></>
+                                )}
                             </Vinyl>
                         )}
                     </>
