@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getShelf } from "../utils/API";
+import { getShelf, removeFromShelf } from "../utils/API";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import trash from '../assets/trash.svg';
@@ -102,6 +102,7 @@ const DeleteVinyl = styled.div`
 
     &:hover {
         cursor: pointer;
+        background-color: ${props => props.theme.secondary};
     }
 
     // I can't believe this actually works
@@ -135,7 +136,26 @@ const Shelf = () => {
         getShelfData();
     }, [shelfDataLength])
 
-    console.log(shelfData)
+    const handleRemoveFromShelf = async (vinyl) => {
+        const payload = {
+            shelfId: shelfData.id,
+            vinylId: vinyl.id
+        }
+
+        try {
+            const response = await removeFromShelf(payload);
+
+            console.log(response)
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            setShelfData(shelfData.vinyl_on_shelf.filter(album => album.id != vinyl.id))
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <ShelfWrapper>
@@ -157,7 +177,7 @@ const Shelf = () => {
                                 <Cover cover={vinyl.cover_image}></Cover>
                                 <p>{vinyl.title}</p>
                                 {Auth.getProfile().data.id == shelfData.user_id ? (
-                                    <DeleteVinyl></DeleteVinyl>
+                                    <DeleteVinyl onClick={async () => handleRemoveFromShelf(vinyl)}></DeleteVinyl>
                                 ) : (
                                     <></>
                                 )}
