@@ -4,7 +4,7 @@ const { authMiddleware } = require('../../utils/auth')
 
 const prisma = new PrismaClient();
 
-router.post('/:userId/:shelfId', authMiddleware, async (req, res) => {
+router.post('/:userId/:shelfId', async (req, res) => {
     try {
         const like = await prisma.like.create({
             data: {

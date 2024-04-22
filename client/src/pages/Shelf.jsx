@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { getShelf, removeFromShelf } from "../utils/API";
+import { getShelf, removeFromShelf, likeShelf } from "../utils/API";
 import { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import trash from '../assets/trash.svg';
 import like from '../assets/like.svg';
 import Auth from "../utils/auth";
@@ -70,7 +70,7 @@ const SettingsButton = styled.div`
 `;
 
 const LikeButton = styled(SettingsButton)`
-    
+    background-color: ${props => props.liked == 'false' ? props.theme.primary : "green"};
 `
 
 const EmptyShelvesWrapper = styled.div`
@@ -122,6 +122,7 @@ const DeleteVinyl = styled.div`
 const Shelf = () => {
     const { id } = useParams();
     const [shelfData, setShelfData] = useState([]);
+    const [isLiked, setIsLiked] = useState();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     const shelfDataLength = Object.keys(shelfData).length;
@@ -137,7 +138,17 @@ const Shelf = () => {
                 }
 
                 const shelf = await response.json();
+                console.log(shelf)
+
                 setShelfData(shelf)
+
+                for (let i = 0; i < shelf.likes.length; i++) {
+                    if (shelf.likes[0].user_id === Auth.getProfile().data.id) {
+                        setIsLiked('true');
+                    } else {
+                        setIsLiked('false');
+                    }
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -147,12 +158,12 @@ const Shelf = () => {
     }, [shelfDataLength])
 
     const handleRemoveFromShelf = async (vinyl) => {
-        const payload = {
-            shelfId: shelfData.id,
-            vinylId: vinyl.id
-        }
-
         try {
+            const payload = {
+                shelfId: shelfData.id,
+                vinylId: vinyl.id
+            }
+
             const response = await removeFromShelf(payload);
 
             if (!response.ok) {
@@ -162,6 +173,25 @@ const Shelf = () => {
             setShelfData(shelfData.vinyls_on_shelf.filter(album => album.id != vinyl.id))
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    const handleLikeShelf = async () => {
+        try {
+            const payload = {
+                shelfId: shelfData.id,
+                userId: Auth.getProfile().data.id
+            }
+
+            const response = await likeShelf(payload)
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            setIsLiked('true');
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -177,7 +207,7 @@ const Shelf = () => {
                     ) : (
                         <></>
                     )}
-                    <LikeButton icon={like}></LikeButton>
+                    <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
                 </SettingsTab>
             </ShelfHeader>
             <Vinyls>

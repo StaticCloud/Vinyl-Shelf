@@ -106,7 +106,7 @@ export const removeFromShelf = (payload) => {
 }
 
 export const likeShelf = (payload) => {
-    return fetch(`/api/like/${payload.user_id}/${payload.shelf_id}`, {
+    return fetch(`/api/like/${payload.userId}/${payload.shelfId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
