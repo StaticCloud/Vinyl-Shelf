@@ -58,15 +58,15 @@ export const ShelfPreview = ({ shelf }) => {
         <Link to={`/shelf/${shelf.id}`}>
             <ShelfPreviewWrapper>
                 <AlbumsWrapper>
-                    {shelf.vinyl_on_shelf.length ? (
-                        (shelf.vinyl_on_shelf.length < 4) ? (
-                            <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
+                    {shelf.vinyls_on_shelf.length ? (
+                        (shelf.vinyls_on_shelf.length < 4) ? (
+                            <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
                         ) : (
                             <>
-                                <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
-                                <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
-                                <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
-                                <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
+                                <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
+                                <AlbumMini cover={shelf.vinyls_on_shelf[1].vinyl.cover_image} />
+                                <AlbumMini cover={shelf.vinyls_on_shelf[2].vinyl.cover_image} />
+                                <AlbumMini cover={shelf.vinyls_on_shelf[3].vinyl.cover_image} />
                             </>
                         )
                     ) : (

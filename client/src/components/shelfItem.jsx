@@ -81,7 +81,6 @@ const EmptyShelf = styled.div`
     border-radius: 20%;
     background-position: center;
     background-size: 2rem;
-    background-color: ${props => props.theme.secondary};
     background-image: url(${profile_light});
 `;
 
@@ -90,7 +89,7 @@ export const ShelfItem = ({ shelf, albumData }) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        shelf.vinyl_on_shelf.forEach((vinyl) => {
+        shelf.vinyls_on_shelf.forEach((vinyl) => {
             // check if album already exists in collection
             if (vinyl.vinyl_id == albumData.id) {
                 setInShelf(true);
@@ -127,15 +126,15 @@ export const ShelfItem = ({ shelf, albumData }) => {
     return (
         <ShelfItemWrapper>
             <Preview>
-                {shelf.vinyl_on_shelf.length ? (
-                    (shelf.vinyl_on_shelf.length < 4) ? (
-                        <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
+                {shelf.vinyls_on_shelf.length ? (
+                    (shelf.vinyls_on_shelf.length < 4) ? (
+                        <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
                     ) : (
                         <>
-                            <AlbumMini cover={shelf.vinyl_on_shelf[0].vinyl.cover_image} />
-                            <AlbumMini cover={shelf.vinyl_on_shelf[1].vinyl.cover_image} />
-                            <AlbumMini cover={shelf.vinyl_on_shelf[2].vinyl.cover_image} />
-                            <AlbumMini cover={shelf.vinyl_on_shelf[3].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyls_on_shelf[1].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyls_on_shelf[2].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyls_on_shelf[3].vinyl.cover_image} />
                         </>
                     )
                 ) : (

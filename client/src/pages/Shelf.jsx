@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { getShelf, removeFromShelf } from "../utils/API";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import trash from '../assets/trash.svg';
+import like from '../assets/like.svg';
 import Auth from "../utils/auth";
 import { ConfirmDelete } from "../components/confirmDelete";
 import search_light from '../assets/search_light.svg';
@@ -19,7 +20,7 @@ const ShelfHeader = styled.div`
         margin-bottom: .5rem;
     }
 
-    border-bottom: 2px solid ${props => props.theme.fg};
+    border-bottom: 1px solid ${props => props.theme.fg};
 `;
 
 const Vinyls = styled.ul`
@@ -49,13 +50,15 @@ const Cover = styled.div`
 
 const SettingsTab = styled.div`
     margin-bottom: 1rem;
+    display: flex;
 `;
 
 const SettingsButton = styled.div`
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background-size: 2rem;
     border-radius: 50%;
+    margin-right: 5px;
     background-position: center;
     background-image: url(${props => props.icon});
     background-color: ${props => props.theme.primary};
@@ -65,6 +68,10 @@ const SettingsButton = styled.div`
         background-color: ${props => props.theme.secondary};
     }
 `;
+
+const LikeButton = styled(SettingsButton)`
+    
+`
 
 const EmptyShelvesWrapper = styled.div`
     height: 400px;
@@ -148,13 +155,11 @@ const Shelf = () => {
         try {
             const response = await removeFromShelf(payload);
 
-            console.log(response)
-
             if (!response.ok) {
                 throw new Error('Something went wrong!');
             }
 
-            setShelfData(shelfData.vinyl_on_shelf.filter(album => album.id != vinyl.id))
+            setShelfData(shelfData.vinyls_on_shelf.filter(album => album.id != vinyl.id))
         } catch (error) {
             console.error(error);
         }
@@ -166,16 +171,19 @@ const Shelf = () => {
                 <h1>{shelfData.name}</h1>
                 <SettingsTab>
                     {Auth.getProfile().data.id == shelfData.user_id ? (
-                        <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
+                        <>
+                            <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
+                        </>
                     ) : (
                         <></>
                     )}
+                    <LikeButton icon={like}></LikeButton>
                 </SettingsTab>
             </ShelfHeader>
             <Vinyls>
-                {shelfData?.vinyl_on_shelf?.length ? (
+                {shelfData?.vinyls_on_shelf?.length ? (
                     <>
-                        {shelfData.vinyl_on_shelf?.map(({ vinyl }, i) =>
+                        {shelfData.vinyls_on_shelf?.map(({ vinyl }, i) =>
                             <Vinyl key={i}>
                                 <Cover cover={vinyl.cover_image}></Cover>
                                 <p>{vinyl.title}</p>

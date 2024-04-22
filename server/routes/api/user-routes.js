@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         include: {
             shelf_collection: {
                 include: {
-                    vinyl_on_shelf: {
+                    vinyls_on_shelf: {
                         include: {
                             vinyl: true
                         }
@@ -61,7 +61,7 @@ router.get('/me', authMiddleware, async (req, res) => {
             username: true,
             shelf_collection: {
                 include: {
-                    vinyl_on_shelf: {
+                    vinyls_on_shelf: {
                         include: {
                             vinyl: true
                         }

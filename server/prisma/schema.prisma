@@ -22,14 +22,14 @@ model Shelf {
   name           String         @db.VarChar(30)
   likes          Like[]
   user           User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  vinyl_on_shelf VinylOnShelf[]
+  vinyls_on_shelf VinyslOnShelf[]
 }
 
 model Vinyl {
   id             Int            @id @unique
   title          String
   cover_image    String
-  vinyl_on_shelf VinylOnShelf[]
+  vinyls_on_shelf VinyslOnShelf[]
 }
 
 model Like {
@@ -41,7 +41,7 @@ model Like {
   @@id([user_id, shelf_id])
 }
 
-model VinylOnShelf {
+model VinyslOnShelf {
   shelf_id Int
   vinyl_id Int
   shelf    Shelf @relation(fields: [shelf_id], references: [id], onDelete: Cascade)

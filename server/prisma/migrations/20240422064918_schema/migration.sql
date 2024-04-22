@@ -35,11 +35,11 @@ CREATE TABLE "Like" (
 );
 
 -- CreateTable
-CREATE TABLE "VinylOnShelf" (
+CREATE TABLE "VinyslOnShelf" (
     "shelf_id" INTEGER NOT NULL,
     "vinyl_id" INTEGER NOT NULL,
 
-    CONSTRAINT "VinylOnShelf_pkey" PRIMARY KEY ("vinyl_id","shelf_id")
+    CONSTRAINT "VinyslOnShelf_pkey" PRIMARY KEY ("vinyl_id","shelf_id")
 );
 
 -- CreateIndex
@@ -58,7 +58,7 @@ ALTER TABLE "Like" ADD CONSTRAINT "Like_shelf_id_fkey" FOREIGN KEY ("shelf_id") 
 ALTER TABLE "Like" ADD CONSTRAINT "Like_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "VinylOnShelf" ADD CONSTRAINT "VinylOnShelf_shelf_id_fkey" FOREIGN KEY ("shelf_id") REFERENCES "Shelf"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "VinyslOnShelf" ADD CONSTRAINT "VinyslOnShelf_shelf_id_fkey" FOREIGN KEY ("shelf_id") REFERENCES "Shelf"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "VinylOnShelf" ADD CONSTRAINT "VinylOnShelf_vinyl_id_fkey" FOREIGN KEY ("vinyl_id") REFERENCES "Vinyl"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "VinyslOnShelf" ADD CONSTRAINT "VinyslOnShelf_vinyl_id_fkey" FOREIGN KEY ("vinyl_id") REFERENCES "Vinyl"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -48,7 +48,7 @@ router.get('/me', authMiddleware, async (req, res) => {
             select: {
                 id: true,
                 name: true,
-                vinyl_on_shelf: {
+                vinyls_on_shelf: {
                     include: {
                         vinyl: true
                     }
@@ -64,14 +64,14 @@ router.get('/me', authMiddleware, async (req, res) => {
 
 router.post('/addVinyl/:shelfId/:vinylId', async (req, res) => {
     try {
-        const vinylOnShelf = await prisma.vinylOnShelf.create({
+        const vinylsOnShelf = await prisma.vinyslOnShelf.create({
             data: {
                 shelf_id: parseInt(req.params.shelfId),
                 vinyl_id: parseInt(req.params.vinylId)
             }
         })
 
-        res.json(vinylOnShelf);
+        res.json(vinylsOnShelf);
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong!' })
     }
@@ -79,7 +79,7 @@ router.post('/addVinyl/:shelfId/:vinylId', async (req, res) => {
 
 router.delete('/deleteVinyl/:shelfId/:vinylId', async (req, res) => {
     try {
-        const vinylOnShelf = await prisma.vinylOnShelf.delete({
+        const deletedFromShelf = await prisma.vinyslOnShelf.delete({
             where: {
                 vinyl_id_shelf_id: {
                     shelf_id: parseInt(req.params.shelfId),
@@ -88,7 +88,7 @@ router.delete('/deleteVinyl/:shelfId/:vinylId', async (req, res) => {
             }
         })
 
-        res.json(vinylOnShelf);
+        res.json(deletedFromShelf);
     } catch (error) {
         console.log(error)
         res.status(400).json({ message: 'Something went wrong!' })
@@ -104,7 +104,7 @@ router.get('/:id', async (req, res) => {
             select: {
                 id: true,
                 name: true,
-                vinyl_on_shelf: {
+                vinyls_on_shelf: {
                     include: {
                         vinyl: true
                     }
