@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getShelf, removeFromShelf, likeShelf } from "../utils/API";
+import { getShelf, removeFromShelf, likeShelf, deleteLike } from "../utils/API";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import trash from '../assets/trash.svg';
@@ -71,6 +71,10 @@ const SettingsButton = styled.div`
 
 const LikeButton = styled(SettingsButton)`
     background-color: ${props => props.liked == 'false' ? props.theme.primary : "green"};
+
+    &:hover {
+        background-color: ${props => props.liked == 'true' ? "green" : props.theme.secondary};;
+    }
 `
 
 const EmptyShelvesWrapper = styled.div`
@@ -122,7 +126,7 @@ const DeleteVinyl = styled.div`
 const Shelf = () => {
     const { id } = useParams();
     const [shelfData, setShelfData] = useState([]);
-    const [isLiked, setIsLiked] = useState();
+    const [isLiked, setIsLiked] = useState('false');
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     const shelfDataLength = Object.keys(shelfData).length;
@@ -131,7 +135,6 @@ const Shelf = () => {
         const getShelfData = async () => {
             try {
                 const response = await getShelf(id);
-
 
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
@@ -183,13 +186,19 @@ const Shelf = () => {
                 userId: Auth.getProfile().data.id
             }
 
-            const response = await likeShelf(payload)
+            let response;
+
+            if (isLiked === 'false') {
+                response = await likeShelf(payload)
+                setIsLiked('true')
+            } else {
+                response = await deleteLike(payload)
+                setIsLiked('false')
+            }
 
             if (!response.ok) {
                 throw new Error('Something went wrong!');
             }
-
-            setIsLiked('true');
         } catch (error) {
             console.error(error)
         }

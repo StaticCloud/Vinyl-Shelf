@@ -109,8 +109,16 @@ export const likeShelf = (payload) => {
     return fetch(`/api/like/${payload.userId}/${payload.shelfId}`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${payload}`
+            "Content-Type": "application/json"
+        }
+    })
+}
+
+export const deleteLike = (payload) => {
+    return fetch(`/api/like/${payload.userId}/${payload.shelfId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
         }
     })
 }
