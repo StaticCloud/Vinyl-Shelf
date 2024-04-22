@@ -38,7 +38,7 @@ const Vinyl = styled.li`
 `
 
 const Cover = styled.div`
-    border-radius: 1rem;
+    border-radius: 5px;
     min-width: 80px;
     height: 80px;
     display: block;
@@ -74,6 +74,9 @@ const EmptyShelvesWrapper = styled.div`
 
     p {
         display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
         align-items: center;
     }
 `;
@@ -187,7 +190,8 @@ const Shelf = () => {
                 ) : (
                     <>
                         <EmptyShelvesWrapper>
-                            <p>This shelf is empty. Search <InlineIcon></InlineIcon> for records to add to your shelf.</p>
+                            <p>This shelf is empty.
+                            Search <InlineIcon></InlineIcon> for records to add to your shelf.</p>
                         </EmptyShelvesWrapper>
                     </>
                 )}

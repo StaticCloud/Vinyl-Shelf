@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Auth from "../utils/auth";
+import { useEffect } from "react";
 
 const HomeWrapper = styled.div`
     display: flex;
@@ -34,9 +35,13 @@ const HomeWrapper = styled.div`
 
 const Home = () => {
 
-    if (Auth.loggedIn()) {
-        window.location.assign('/shelves');
-    }
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (Auth.loggedIn()) {
+            navigate('/shelves');
+        }
+    }, [])
 
     return (
         <HomeWrapper>

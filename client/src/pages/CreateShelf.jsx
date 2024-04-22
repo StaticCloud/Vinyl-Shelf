@@ -2,10 +2,12 @@ import { FormWrapper } from '../components/formWrapper';
 import { StyledForm } from '../components/form';
 import { useState } from 'react';
 import { createShelf } from '../utils/API';
+import { useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
 
 const NewCollection = () => {
     const [shelfData, setShelfData] = useState({ name: '' });
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -28,7 +30,7 @@ const NewCollection = () => {
                 throw new Error('Something went wrong!');
             }
 
-            window.location.assign('/shelves')
+            navigate('/shelves')
         } catch (error) {
             console.error(error);
         }

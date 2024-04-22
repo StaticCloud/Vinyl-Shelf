@@ -12,9 +12,9 @@ const ShelfPreviewWrapper = styled.li`
 const AlbumsWrapper = styled.div`
     width: 90px;
     height: 90px;
-    border-radius: 1rem;
+    border-radius: 5px;
 
-    background-color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.secondary};
 
     padding: 10px;
     display: flex;
@@ -26,7 +26,7 @@ const AlbumMini = styled.div`
     min-width: 30px;
     display: block;
     margin: 2px;
-    border-radius: 20%;
+    border-radius: 5px;
     background-position: center;
     background-size: cover;
     background-color: ${props => props.theme.secondary};
@@ -37,17 +37,17 @@ const ShelfOptions = styled.div`
     margin-left: 1rem;
     margin: auto 1rem;
 
-    h1 {
+    p {
         text-decoration: none;
+        font-size: 1.3rem;
     }
 `;
 
 const EmptyShelf = styled.div`
     flex-grow: 1;
-    border-radius: 20%;
+    border-radius: 10px;
     background-position: center;
     background-size: 3rem;
-    background-color: ${props => props.theme.secondary};
     background-image: url(${profile_light});
 `;
 
@@ -74,7 +74,7 @@ export const ShelfPreview = ({ shelf }) => {
                     )}
                 </AlbumsWrapper>
                 <ShelfOptions>
-                    <h1>{shelf.name}</h1>
+                    <p>{shelf.name}</p>
                 </ShelfOptions>
             </ShelfPreviewWrapper>
         </Link>

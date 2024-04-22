@@ -1,6 +1,6 @@
 import Auth from '../utils/auth';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMe } from '../utils/API';
 import { ShelfPreview } from '../components/shelfPreview';
@@ -39,12 +39,13 @@ const ViewSelector = styled.div`
     display: flex;
 `;
 
-const ViewShelves = styled.div`
+const ViewCreatedShelves = styled.div`
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid ${props => props.view === 'shelves' ? props.theme.fg : props.theme.bg};
+    border-radius: 50px;
+    background-color: ${props => props.view === 'shelves' ? props.theme.primary : props.theme.bg};
 
     &:hover {
         cursor: pointer;
@@ -56,7 +57,8 @@ const ViewLikedShelves = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid ${props => props.view === 'shelves' ? props.theme.bg : props.theme.fg};
+    border-radius: 50px;
+    background-color: ${props => props.view === 'shelves' ? props.theme.bg : props.theme.primary};
 
     &:hover {
         cursor: pointer;
@@ -106,6 +108,7 @@ const Collections = () => {
     const [userData, setUserData] = useState({});
     const [view, setView] = useState('shelves');
     const [shelves, setShelves] = useState([]);
+    const navigate = useNavigate()
 
     const userDataLength = Object.keys(userData).length;
 
@@ -115,7 +118,7 @@ const Collections = () => {
                 const token = Auth.loggedIn() ? Auth.getToken() : null;
 
                 if (!token) {
-                    window.location.assign('/login')
+                    navigate('/login')
                 }
 
                 const response = await getMe(token);
@@ -154,9 +157,9 @@ const Collections = () => {
                 <AddShelf />
             </Link>
             <ViewSelector>
-                <ViewShelves onClick={() => handleViewChange()} view={view}>
+                <ViewCreatedShelves onClick={() => handleViewChange()} view={view}>
                     <p>Created Shelves</p>
-                </ViewShelves>
+                </ViewCreatedShelves>
                 <ViewLikedShelves onClick={() => handleViewChange()} view={view}>
                     <p>Liked Shelves</p>
                 </ViewLikedShelves>

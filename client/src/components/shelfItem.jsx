@@ -21,7 +21,7 @@ const ShelfItemWrapper = styled.li`
 const Preview = styled.div`
     width: 50px;
     height: 50px;
-    border-radius: 0.5rem;
+    border-radius: 5px;
     background-color: ${props => props.theme.primary};
 
     padding: 5px;
@@ -69,7 +69,7 @@ const AlbumMini = styled.div`
     min-width: 15px;
     display: block;
     margin: 1px;
-    border-radius: 20%;
+    border-radius: 8%;
     background-position: center;
     background-size: cover;
     background-color: ${props => props.theme.secondary};

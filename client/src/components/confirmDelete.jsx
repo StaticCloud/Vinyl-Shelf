@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import close from '../../src/assets/add.svg';
 import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import { deleteShelf } from '../utils/API';
 
 const Backdrop = styled.div`
@@ -87,6 +88,8 @@ const AlertButton = styled.div`
 
 export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         document.body.style.overflow = "hidden";
         return () => {
@@ -108,7 +111,7 @@ export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
                 throw new Error('Something went wrong!');
             }
 
-            window.location.assign('/shelves')
+            navigate('/shelves')
         } catch (error) {
             console.error(error);
         }
