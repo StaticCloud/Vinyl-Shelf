@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getMe } from '../utils/API';
 import { ShelfPreview } from '../components/shelfPreview';
 import add_shelf from '../assets/add_shelf.svg';
+import search from '../assets/search_light.svg'
 
 const ShelvesWrapper = styled.section`
     max-width: 600px;
@@ -35,34 +36,28 @@ const ShelvesWrapper = styled.section`
 `;
 
 const ViewSelector = styled.div`
-    height: 50px;
     display: flex;
 `;
 
-const ViewCreatedShelves = styled.div`
-    flex-grow: 1;
+const ViewShelves = styled.div`
     display: flex;
+    padding: 10px 20px;
+    margin: 0 5px 5px 0;
     align-items: center;
     justify-content: center;
     border-radius: 50px;
-    background-color: ${props => props.view === 'shelves' ? props.theme.primary : props.theme.bg};
 
     &:hover {
         cursor: pointer;
     }
+`
+
+const ViewCreatedShelves = styled(ViewShelves)`
+    background-color: ${props => props.view === 'shelves' ? props.theme.primary : props.theme.secondary};
 `;
 
-const ViewLikedShelves = styled.div`
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-    background-color: ${props => props.view === 'shelves' ? props.theme.bg : props.theme.primary};
-
-    &:hover {
-        cursor: pointer;
-    }
+const ViewLikedShelves = styled(ViewShelves)`
+    background-color: ${props => props.view === 'shelves' ? props.theme.secondary : props.theme.primary};
 `;
 
 const AddShelf = styled.div`
@@ -99,7 +94,7 @@ const InlineIcon = styled.span`
     margin: 3px;
     background-position: center;
     background-size: 1.8rem;
-    background-image: url(${add_shelf});
+    background-image: url(${props => props.icon});
     background-color: ${props => props.theme.primary};
     border-radius: 50%;
 `;
@@ -108,7 +103,10 @@ const Collections = () => {
     const [userData, setUserData] = useState({});
     const [view, setView] = useState('shelves');
     const [shelves, setShelves] = useState([]);
+    const [likedShelves, setLikedShelves] = useState([])
     const navigate = useNavigate()
+
+    console.log(userData)
 
     const userDataLength = Object.keys(userData).length;
 
@@ -131,6 +129,7 @@ const Collections = () => {
 
                 setUserData(user);
                 setShelves(user.shelf_collection);
+                setLikedShelves(user.likes)
             } catch (error) {
                 console.error(error);
             }
@@ -172,13 +171,21 @@ const Collections = () => {
                         </ShelfView>
                     ) : (
                         <EmptyShelvesWrapper>
-                            <p>You have no shelves. Create a shelf <InlineIcon></InlineIcon> to get started.</p>
+                            <p>You have no shelves. Create a shelf <InlineIcon icon={add_shelf}></InlineIcon> to get started.</p>
                         </EmptyShelvesWrapper>
                     )}
                 </>
             ) : (
                 <>
-
+                    {likedShelves.length ? (
+                        <ShelfView>
+                            {likedShelves.map((likedShelf, i) => <ShelfPreview key={i} shelf={likedShelf.shelf} />)}
+                        </ShelfView>
+                    ) : (
+                        <EmptyShelvesWrapper>
+                            <p>You have no liked shelves. Search <InlineIcon icon={search}></InlineIcon> for shelves to get started.</p>
+                        </EmptyShelvesWrapper>
+                    )}
                 </>
             )}
 

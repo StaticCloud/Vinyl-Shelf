@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import profile_light from '../assets/profile_light.svg'
-import eye from '../assets/eye.svg'
 import { Link } from "react-router-dom"
 
 const ShelfPreviewWrapper = styled.li`

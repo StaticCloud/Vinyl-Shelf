@@ -71,7 +71,13 @@ router.get('/me', authMiddleware, async (req, res) => {
             likes: {
                 include: {
                     shelf: {
-                        select: { name: true }
+                        include: {
+                            vinyls_on_shelf: {
+                                include: {
+                                    vinyl: true
+                                }
+                            },
+                        }
                     }
                 }
             }
