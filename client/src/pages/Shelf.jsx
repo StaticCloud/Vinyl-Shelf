@@ -131,12 +131,12 @@ const Shelf = () => {
             try {
                 const response = await getShelf(id);
 
+
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
 
                 const shelf = await response.json();
-
                 setShelfData(shelf)
             } catch (error) {
                 console.error(error);

@@ -98,6 +98,7 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                 }
 
                 const response = await getUserShelves(token);
+
                 if (!response.ok) {
                     throw new Error('something went wrong!');
                 }

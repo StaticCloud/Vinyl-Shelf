@@ -52,13 +52,18 @@ router.get('/me', authMiddleware, async (req, res) => {
                     include: {
                         vinyl: true
                     }
+                },
+                likes: {
+                    include: {
+                        user: true
+                    }
                 }
             }
         })
 
         res.json(shelves)
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(400).json(error)
     }
 })
 
@@ -107,6 +112,11 @@ router.get('/:id', async (req, res) => {
                 vinyls_on_shelf: {
                     include: {
                         vinyl: true
+                    }
+                },
+                likes: {
+                    include: {
+                        user: true
                     }
                 },
                 user_id: true

@@ -52,8 +52,6 @@ const EmptyShelf = styled.div`
 `;
 
 export const ShelfPreview = ({ shelf }) => {
-    console.log(shelf)
-
     return (
         <Link to={`/shelf/${shelf.id}`}>
             <ShelfPreviewWrapper>

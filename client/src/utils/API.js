@@ -104,3 +104,13 @@ export const removeFromShelf = (payload) => {
         }
     })
 }
+
+export const likeShelf = (payload) => {
+    return fetch(`/api/like/${payload.user_id}/${payload.shelf_id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${payload}`
+        }
+    })
+}
