@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import add from '../assets/add.svg';
-import loading from '../assets/loading.svg'
+import { LoadingMini } from "./loadingMini";
 import check from '../assets/check.svg'
 import profile_light from '../assets/profile_light.svg'
 import { useEffect, useState } from "react";
@@ -40,27 +40,6 @@ const UpdateShelf = styled.div`
 
     &:hover {
         cursor: pointer;
-    }
-`;
-
-const UpdatingShelfSpinner = styled.div`
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-image: url(${loading});
-    background-position: center;
-    background-size: 2rem;
-    animation: rotate 1s linear infinite;
-    background-color: ${props => props.theme.primary};
-
-    @keyframes rotate {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
     }
 `;
 
@@ -145,7 +124,7 @@ export const ShelfItem = ({ shelf, albumData }) => {
             {!loading ? (
                 <UpdateShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()} />
             ) : (
-                <UpdatingShelfSpinner />
+                <LoadingMini />
             )}
         </ShelfItemWrapper>
     );

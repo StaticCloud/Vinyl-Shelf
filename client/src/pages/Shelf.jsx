@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getShelf, removeFromShelf, likeShelf, deleteLike } from "../utils/API";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -8,8 +8,10 @@ import Auth from "../utils/auth";
 import { ConfirmDelete } from "../components/confirmDelete";
 import search_light from '../assets/search_light.svg';
 import share from '../assets/share.svg'
+import edit from '../assets/edit.svg'
 import { Loading } from "../components/loading";
 import { Popup } from "../components/popup";
+import { LoadingMini } from "../components/loadingMini";
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -20,10 +22,38 @@ const ShelfWrapper = styled.section`
 const ShelfHeader = styled.div`
     & > h1 {
         font-size: 3rem;
-        margin-bottom: .5rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+        font-weight: normal;
+    }
+
+    & > h2 {
+        margin-bottom: 1rem;
+    }
+
+    a {
+        font-weight: bold;
+        text-decoration: none;
+        color: ${props => props.theme.fg};
     }
 
     border-bottom: 1px solid ${props => props.theme.fg};
+`;
+
+const TotalLikes = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+
+    & > div {
+        width: 30px;
+        height: 30px;
+        background-size: 2.5rem;
+        background-position: center;
+        background-image: url(${like});
+    }
 `;
 
 const Vinyls = styled.ul`
@@ -61,7 +91,7 @@ const SettingsButton = styled.div`
     height: 30px;
     background-size: 2rem;
     border-radius: 50%;
-    margin-right: 5px;
+    margin-left: 5px;
     background-position: center;
     background-image: url(${props => props.icon});
     background-color: ${props => props.theme.primary};
@@ -74,6 +104,7 @@ const SettingsButton = styled.div`
 
 const LikeButton = styled(SettingsButton)`
     background-color: ${props => props.liked == 'false' ? props.theme.primary : "green"};
+    margin-left: 0px;
 
     &:hover {
         background-color: ${props => props.liked == 'true' ? "green" : props.theme.secondary};;
@@ -128,11 +159,18 @@ const DeleteVinyl = styled.div`
 
 const Shelf = () => {
     const { id } = useParams();
+    const [loading, setLoading] = useState(true);
+    const [loadingLike, setLoadingLike] = useState(false)
+
     const [shelfData, setShelfData] = useState([]);
-    const [popup, setPopup] = useState(false);
+    const [popup, setPopup] = useState({
+        visible: false,
+        text: ''
+    });
+
     const [isLiked, setIsLiked] = useState('false');
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [totalLikes, setTotalLikes] = useState(0)
 
     const shelfDataLength = Object.keys(shelfData).length;
 
@@ -158,6 +196,7 @@ const Shelf = () => {
                 }
 
                 setLoading(false)
+                setTotalLikes(shelf.likes.length)
             } catch (error) {
                 console.error(error);
             }
@@ -187,6 +226,8 @@ const Shelf = () => {
 
     const handleLikeShelf = async () => {
         try {
+            setLoadingLike(true)
+
             const payload = {
                 shelfId: shelfData.id,
                 userId: Auth.getProfile().data.id
@@ -196,15 +237,21 @@ const Shelf = () => {
 
             if (isLiked === 'false') {
                 response = await likeShelf(payload)
-                setIsLiked('true')
+                setIsLiked('true');
+                setTotalLikes(totalLikes + 1);
+                triggerPopup(`Added ${shelfData.name} to liked shelves`);
             } else {
                 response = await deleteLike(payload)
-                setIsLiked('false')
+                setIsLiked('false');
+                setTotalLikes(totalLikes - 1);
+                triggerPopup(`Removed ${shelfData.name} from liked shelves`);
             }
 
             if (!response.ok) {
                 throw new Error('Something went wrong!');
             }
+
+            setLoadingLike(false)
         } catch (error) {
             console.error(error)
         }
@@ -212,40 +259,60 @@ const Shelf = () => {
 
     const HandleShare = async () => {
         await navigator.clipboard.writeText(window.location.href)
-        setPopup(true)
+        triggerPopup("Copied to clipboard.")
+    }
+
+    const triggerPopup = (text) => {
+        setPopup({
+            visible: true,
+            text: text
+        })
 
         setTimeout(() => {
-            setPopup(false)
-        }, 6000)
-
+            setPopup({
+                ...popup,
+                visible: false
+            })
+        }, 5000)
     }
 
     return (
         <ShelfWrapper>
-            {loading ? (
+            {loading === true ? (
                 <Loading></Loading>
             ) : (
                 <></>
             )}
 
-            {popup === true ? (
-                <Popup text={'Copied to clipboard.'}></Popup>
+            {popup.visible === true ? (
+                <Popup text={popup.text}></Popup>
             ) : (
                 <></>
             )}
-            
+
             <ShelfHeader>
                 <h1>{shelfData.name}</h1>
+                <h2>By <Link to={`/profile/${shelfData.user_id}`}>{shelfData?.user?.username}</Link></h2>
                 <SettingsTab>
+                    {!loadingLike ? (
+                        <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
+                    ) : (
+                        <LoadingMini/>
+                    )}
+                    
+                    <SettingsButton onClick={() => HandleShare()} icon={share}></SettingsButton>
                     {Auth.getProfile().data.id == shelfData.user_id ? (
                         <>
-                            <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
                             <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
+                            <SettingsButton icon={edit}></SettingsButton>
                         </>
                     ) : (
                         <></>
                     )}
-                    <SettingsButton onClick={() => HandleShare()} icon={share}></SettingsButton>
+                    <TotalLikes>
+                        <div></div>
+                        <h2>{totalLikes}</h2>
+                    </TotalLikes>
                 </SettingsTab>
             </ShelfHeader>
             <Vinyls>
@@ -267,7 +334,7 @@ const Shelf = () => {
                     <>
                         <EmptyShelvesWrapper>
                             <p>This shelf is empty.
-                            Search <InlineIcon></InlineIcon> for records to add to your shelf.</p>
+                                Search <InlineIcon></InlineIcon> for records to add to your shelf.</p>
                         </EmptyShelvesWrapper>
                     </>
                 )}

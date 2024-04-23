@@ -119,7 +119,8 @@ router.get('/:id', async (req, res) => {
                         user: true
                     }
                 },
-                user_id: true
+                user_id: true,
+                user: true
             }
         })
 
