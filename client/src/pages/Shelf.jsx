@@ -157,6 +157,38 @@ const DeleteVinyl = styled.div`
     margin-left: auto;
 `;
 
+const TitleEditor = styled.input`
+    width: 100%;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: none;
+    color: ${props => props.theme.fg};
+    border-bottom: 1px solid ${props => props.theme.fg};
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+const TitleEditorButtonWrapper = styled.div`
+    display: flex;
+    margin-bottom: 1rem;
+`;
+
+const TitleEditorButton = styled.p`
+    &:hover {
+        cursor: pointer;
+    }
+
+    padding: .5rem 1rem;
+    margin-right: .5rem;
+    border-radius: 2rem;
+    font-weight: bold;
+    font-size: .9rem;
+    color: ${props => props.theme.fg};
+    background-color: ${props => props.theme.primary};
+`;
+
 const Shelf = () => {
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
@@ -170,7 +202,9 @@ const Shelf = () => {
 
     const [isLiked, setIsLiked] = useState('false');
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-    const [totalLikes, setTotalLikes] = useState(0)
+    const [totalLikes, setTotalLikes] = useState(0);
+    const [editing, setEditing] = useState(false);
+    const [editedTitle, setEditedTitle] = useState('');
 
     const shelfDataLength = Object.keys(shelfData).length;
 
@@ -197,6 +231,7 @@ const Shelf = () => {
 
                 setLoading(false)
                 setTotalLikes(shelf.likes.length)
+                setEditedTitle(shelf.name);
             } catch (error) {
                 console.error(error);
             }
@@ -291,20 +326,41 @@ const Shelf = () => {
             )}
 
             <ShelfHeader>
-                <h1>{shelfData.name}</h1>
-                <h2>By <Link to={`/profile/${shelfData.user_id}`}>{shelfData?.user?.username}</Link></h2>
+                {!editing ? (
+                    <>
+                        <h1>{shelfData.name}</h1>
+                        <h2>By <Link to={`/profile/${shelfData.user_id}`}>{shelfData?.user?.username}</Link></h2>
+                    </>
+                ) : (
+                    <>
+                        <TitleEditor
+                            value={editedTitle}
+                            onChange={(e) => setEditedTitle(e.target.value)}
+                            placeholder="Enter a shelf title..."></TitleEditor>
+                        <TitleEditorButtonWrapper>
+                            <TitleEditorButton>
+                                Save
+                            </TitleEditorButton>
+                            <TitleEditorButton onClick={() => setEditing(false)}>
+                                Cancel
+                            </TitleEditorButton>
+                        </TitleEditorButtonWrapper>
+
+                    </>
+                )}
+
                 <SettingsTab>
                     {!loadingLike ? (
                         <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
                     ) : (
-                        <LoadingMini/>
+                        <LoadingMini />
                     )}
-                    
+
                     <SettingsButton onClick={() => HandleShare()} icon={share}></SettingsButton>
                     {Auth.getProfile().data.id == shelfData.user_id ? (
                         <>
                             <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
-                            <SettingsButton icon={edit}></SettingsButton>
+                            <SettingsButton onClick={() => setEditing(true)} icon={edit}></SettingsButton>
                         </>
                     ) : (
                         <></>
