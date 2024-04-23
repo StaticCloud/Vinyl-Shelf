@@ -7,7 +7,9 @@ import like from '../assets/like.svg';
 import Auth from "../utils/auth";
 import { ConfirmDelete } from "../components/confirmDelete";
 import search_light from '../assets/search_light.svg';
+import share from '../assets/share.svg'
 import { Loading } from "../components/loading";
+import { Popup } from "../components/popup";
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -127,6 +129,7 @@ const DeleteVinyl = styled.div`
 const Shelf = () => {
     const { id } = useParams();
     const [shelfData, setShelfData] = useState([]);
+    const [popup, setPopup] = useState(false);
     const [isLiked, setIsLiked] = useState('false');
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -207,6 +210,16 @@ const Shelf = () => {
         }
     }
 
+    const HandleShare = async () => {
+        await navigator.clipboard.writeText(window.location.href)
+        setPopup(true)
+
+        setTimeout(() => {
+            setPopup(false)
+        }, 6000)
+
+    }
+
     return (
         <ShelfWrapper>
             {loading ? (
@@ -214,17 +227,25 @@ const Shelf = () => {
             ) : (
                 <></>
             )}
+
+            {popup === true ? (
+                <Popup text={'Copied to clipboard.'}></Popup>
+            ) : (
+                <></>
+            )}
+            
             <ShelfHeader>
                 <h1>{shelfData.name}</h1>
                 <SettingsTab>
                     {Auth.getProfile().data.id == shelfData.user_id ? (
                         <>
+                            <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
                             <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
                         </>
                     ) : (
                         <></>
                     )}
-                    <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
+                    <SettingsButton onClick={() => HandleShare()} icon={share}></SettingsButton>
                 </SettingsTab>
             </ShelfHeader>
             <Vinyls>
