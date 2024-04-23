@@ -319,7 +319,12 @@ const Shelf = () => {
                 throw new Error('Something went wrong!');
             }
 
-            console.log(response)
+            setShelfData({
+                ...shelfData,
+                name: editedTitle
+            })
+            setEditing(false)
+            triggerPopup("Successfully updated shelf.")
         } catch (error) {
             console.log(error)
         }
