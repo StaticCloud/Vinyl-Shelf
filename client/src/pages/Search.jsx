@@ -3,6 +3,7 @@ import { useState } from "react";
 import { search } from "../utils/API";
 import search_light from '../assets/search_light.svg'
 import SearchResult from "./SearchResult";
+import { Loading } from "../components/loading";
 
 const SearchWrapper = styled.form`
     display: block;
@@ -65,11 +66,13 @@ const NoResultsWrapper = styled.section`
 
 const Search = () => {
     const [searchInput, setSearchInput] = useState('');
-
+    const [loading, setLoading] = useState(false)
+    const [emptyText, setEmptyText] = useState('Enter an album name to get started.')
     const [searchedAlbums, setSearchedAlbums] = useState([]);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true)
 
         if (!searchInput) {
             return false;
@@ -84,8 +87,16 @@ const Search = () => {
 
             const { results } = await response.json();
 
-            setSearchedAlbums(results);
+            console.log(results)
+
+            if (!results.length) {
+                setSearchedAlbums([])
+                setEmptyText(`No results for ${searchInput}.`)
+            } else {
+                setSearchedAlbums(results);
+            }
             setSearchInput('');
+            setLoading(false);
         } catch (error) {
             console.error(error);
         }
@@ -93,6 +104,11 @@ const Search = () => {
 
     return (
         <>
+            {loading ? (
+                <Loading></Loading>
+            ) : (
+                <></>
+            )} 
             <SearchWrapper onSubmit={handleFormSubmit}>
                 <SearchBar
                     placeholder="Enter an album title..."
@@ -113,7 +129,7 @@ const Search = () => {
                 </SearchResults>
             ) : (
                 <NoResultsWrapper>
-                    <p>Enter an album name to get started.</p>
+                    <p>{emptyText}</p>
                 </NoResultsWrapper>
             )}
         </>

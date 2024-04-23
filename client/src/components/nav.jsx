@@ -22,6 +22,7 @@ const StyledNav = styled.nav`
     width: 100svw;
     height: 60px;
     bottom: 0;
+    z-index: 2;
     justify-content: space-evenly;
 
     a {
