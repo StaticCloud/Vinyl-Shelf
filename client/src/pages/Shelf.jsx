@@ -7,6 +7,7 @@ import like from '../assets/like.svg';
 import Auth from "../utils/auth";
 import { ConfirmDelete } from "../components/confirmDelete";
 import search_light from '../assets/search_light.svg';
+import { Loading } from "../components/loading";
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -128,6 +129,7 @@ const Shelf = () => {
     const [shelfData, setShelfData] = useState([]);
     const [isLiked, setIsLiked] = useState('false');
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const shelfDataLength = Object.keys(shelfData).length;
 
@@ -141,7 +143,6 @@ const Shelf = () => {
                 }
 
                 const shelf = await response.json();
-                console.log(shelf)
 
                 setShelfData(shelf)
 
@@ -152,6 +153,8 @@ const Shelf = () => {
                         setIsLiked('false');
                     }
                 }
+
+                setLoading(false)
             } catch (error) {
                 console.error(error);
             }
@@ -206,6 +209,11 @@ const Shelf = () => {
 
     return (
         <ShelfWrapper>
+            {loading ? (
+                <Loading></Loading>
+            ) : (
+                <></>
+            )}
             <ShelfHeader>
                 <h1>{shelfData.name}</h1>
                 <SettingsTab>

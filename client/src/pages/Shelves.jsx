@@ -4,8 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMe } from '../utils/API';
 import { ShelfPreview } from '../components/shelfPreview';
+import { Loading } from '../components/loading';
 import add_shelf from '../assets/add_shelf.svg';
-import search from '../assets/search_light.svg'
+import search from '../assets/search_light.svg';
 
 const ShelvesWrapper = styled.section`
     max-width: 600px;
@@ -104,9 +105,8 @@ const Collections = () => {
     const [view, setView] = useState('shelves');
     const [shelves, setShelves] = useState([]);
     const [likedShelves, setLikedShelves] = useState([])
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
-
-    console.log(userData)
 
     const userDataLength = Object.keys(userData).length;
 
@@ -130,6 +130,7 @@ const Collections = () => {
                 setUserData(user);
                 setShelves(user.shelf_collection);
                 setLikedShelves(user.likes)
+                setLoading(false);
             } catch (error) {
                 console.error(error);
             }
@@ -150,6 +151,12 @@ const Collections = () => {
 
     return (
         <ShelvesWrapper>
+            {loading ? (
+                <Loading></Loading>
+            ) : (
+                <></>
+            )}
+            
             <p>User profile for:</p>
             <h1>{userData.username}</h1>
             <Link to="/new_shelf">
