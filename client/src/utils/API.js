@@ -122,3 +122,14 @@ export const deleteLike = (payload) => {
         }
     })
 }
+
+export const updateShelf = (payload) => {
+    console.log(payload)
+    return fetch(`/api/shelf/${payload.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    })
+}

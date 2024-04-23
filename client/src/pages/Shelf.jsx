@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { getShelf, removeFromShelf, likeShelf, deleteLike } from "../utils/API";
+import { getShelf, removeFromShelf, likeShelf, deleteLike, updateShelf } from "../utils/API";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import trash from '../assets/trash.svg';
@@ -311,6 +311,20 @@ const Shelf = () => {
         }, 5000)
     }
 
+    const HandleUpdateShelf = async (payload) => {
+        try {
+            const response = await updateShelf(payload);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <ShelfWrapper>
             {loading === true ? (
@@ -338,7 +352,7 @@ const Shelf = () => {
                             onChange={(e) => setEditedTitle(e.target.value)}
                             placeholder="Enter a shelf title..."></TitleEditor>
                         <TitleEditorButtonWrapper>
-                            <TitleEditorButton>
+                            <TitleEditorButton onClick={() => HandleUpdateShelf({ id: shelfData.id, title: editedTitle })}>
                                 Save
                             </TitleEditorButton>
                             <TitleEditorButton onClick={() => setEditing(false)}>

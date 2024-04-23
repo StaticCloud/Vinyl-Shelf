@@ -130,4 +130,21 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.put('/:id', async (req, res) => {
+    try {
+        const shelf = await prisma.shelf.update({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            data: {
+                name: req.body.title
+            }
+        })
+
+        res.json(shelf);
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
+})
+
 module.exports = router;
