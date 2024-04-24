@@ -4,11 +4,13 @@ import { searchVinyls, searchShelves } from "../utils/API";
 import search_light from '../assets/search_light.svg'
 import SearchResult from "./SearchResult";
 import { Loading } from "../components/loading";
+import ToggleableButton from "../components/toggleableButton";
 
 const SearchWrapper = styled.form`
     display: block;
     position: relative;
-    padding: 2rem;
+    padding: 2rem 2rem 0 2rem;
+    margin-bottom: 1rem;
     background-color: ${props => props.theme.bg};
 
     p {
@@ -58,10 +60,16 @@ const SubmitSearch = styled.input`
 
 const NoResultsWrapper = styled.section`
     display: flex;
-    height: calc(100svh - 105.4px);
+    height: calc(100svh - 177.4px);
     align-items: center;
     justify-content: center;
     text-align: center;
+`;
+
+const SearchToggleWrapper = styled.div`
+    display: flex;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
 `;
 
 const Search = () => {
@@ -70,6 +78,13 @@ const Search = () => {
     const [emptyText, setEmptyText] = useState('Enter an album name to get started.')
     const [searchedAlbums, setSearchedAlbums] = useState([]);
     const [searchedShelves, setSearchedShelves] = useState([])
+
+    const [searchFilter, setSearchFilter] = useState({
+        vinylView: true,
+        shelfView: false
+    })
+
+    console.log(searchFilter)
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -118,8 +133,8 @@ const Search = () => {
                 <Loading></Loading>
             ) : (
                 <></>
-            )} 
-            
+            )}
+
             <SearchWrapper onSubmit={handleFormSubmit}>
                 <SearchBar
                     placeholder="Enter an album title..."
@@ -130,13 +145,38 @@ const Search = () => {
                 <SubmitSearch type="submit" value=" ">
                 </SubmitSearch>
             </SearchWrapper>
+            <SearchToggleWrapper>
+                <ToggleableButton text={"Vinyls"}
+                    selected={searchFilter.vinylView}
+                    onClick={() => setSearchFilter({
+                        vinylView: true,
+                        shelfView: false
+                    })}>
+                    <p>Vinyls</p>
+                </ToggleableButton>
+                <ToggleableButton text={"Shelves"}
+                    selected={searchFilter.shelfView}
+                    onClick={() => setSearchFilter({
+                        vinylView: false,
+                        shelfView: true
+                    })}>
+                    <p>Shelves</p>
+                </ToggleableButton>
+            </SearchToggleWrapper>
             {searchedAlbums.length ? (
                 <SearchResults>
-                    {searchedAlbums.map((album, i) => {
-                        return (
-                            <SearchResult album={album} key={i} />
-                        )
-                    })}
+                    {searchFilter.vinylView === true ? (
+                        <>
+                            {searchedAlbums.map((album, i) => {
+                                return (
+                                    <SearchResult album={album} key={i} />
+                                )
+                            })}
+                        </>
+                    ) : (
+                        <></>
+                    )}
+
                 </SearchResults>
             ) : (
                 <NoResultsWrapper>
