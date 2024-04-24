@@ -44,11 +44,13 @@ const ViewShelves = styled.div`
 `
 
 const ViewCreatedShelves = styled(ViewShelves)`
-    background-color: ${props => props.view === 'shelves' ? props.theme.primary : props.theme.secondary};
+    color: ${props => props.view === 'shelves' ? props.theme.bg : props.theme.fg};
+    background-color: ${props => props.view === 'shelves' ? props.theme.fg : props.theme.secondary};
 `;
 
 const ViewLikedShelves = styled(ViewShelves)`
-    background-color: ${props => props.view === 'shelves' ? props.theme.secondary : props.theme.primary};
+    color: ${props => props.view === 'shelves' ? props.theme.fg : props.theme.bg};
+    background-color: ${props => props.view === 'shelves' ? props.theme.secondary : props.theme.fg};
 `;
 
 const AddShelf = styled.div`

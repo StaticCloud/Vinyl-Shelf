@@ -191,8 +191,10 @@ const TitleEditorButton = styled.p`
 
 const Shelf = () => {
     const { id } = useParams();
+
     const [loading, setLoading] = useState(true);
-    const [loadingLike, setLoadingLike] = useState(false)
+    const [loadingLike, setLoadingLike] = useState(false);
+    const [loadingEdit, setLoadingEdit] = useState(false);
 
     const [shelfData, setShelfData] = useState([]);
     const [popup, setPopup] = useState({
@@ -313,6 +315,8 @@ const Shelf = () => {
 
     const HandleUpdateShelf = async (payload) => {
         try {
+            setLoadingEdit(true);
+
             const response = await updateShelf(payload);
 
             if (!response.ok) {
@@ -323,8 +327,10 @@ const Shelf = () => {
                 ...shelfData,
                 name: editedTitle
             })
+
             setEditing(false)
             triggerPopup("Successfully updated shelf.")
+            setLoadingEdit(false);
         } catch (error) {
             console.log(error)
         }
@@ -357,12 +363,19 @@ const Shelf = () => {
                             onChange={(e) => setEditedTitle(e.target.value)}
                             placeholder="Enter a shelf title..."></TitleEditor>
                         <TitleEditorButtonWrapper>
-                            <TitleEditorButton onClick={() => HandleUpdateShelf({ id: shelfData.id, title: editedTitle })}>
-                                Save
-                            </TitleEditorButton>
-                            <TitleEditorButton onClick={() => setEditing(false)}>
-                                Cancel
-                            </TitleEditorButton>
+                            {!loadingEdit ? (
+                                <>
+                                    <TitleEditorButton onClick={() => HandleUpdateShelf({ id: shelfData.id, title: editedTitle })}>
+                                        Save
+                                    </TitleEditorButton>
+                                    <TitleEditorButton onClick={() => setEditing(false)}>
+                                        Cancel
+                                    </TitleEditorButton>
+                                </>
+                            ) : (
+                                <LoadingMini />
+                            )}
+
                         </TitleEditorButtonWrapper>
 
                     </>
