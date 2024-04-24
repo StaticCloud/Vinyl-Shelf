@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { search } from "../utils/API";
+import { searchVinyls } from "../utils/API";
 import search_light from '../assets/search_light.svg'
 import SearchResult from "./SearchResult";
 import { Loading } from "../components/loading";
@@ -79,7 +79,7 @@ const Search = () => {
         }
 
         try {
-            const response = await search(searchInput);
+            const response = await searchVinyls(searchInput);
 
             if (!response.ok) {
                 throw new Error('something went wrong!');

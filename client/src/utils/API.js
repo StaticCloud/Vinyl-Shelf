@@ -129,8 +129,17 @@ export const removeFromShelf = (payload) => {
 }
 
 // Search
-export const search = (query) => {
+export const searchVinyls = (query) => {
     return fetch(`/api/vinyls/discogs/${query}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+}
+
+export const searchShelves = (query) => {
+    return fetch(`/api/shelf/search/${query}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

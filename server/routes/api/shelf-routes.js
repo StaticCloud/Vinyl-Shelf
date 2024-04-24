@@ -147,4 +147,21 @@ router.put('/:id', async (req, res) => {
     }
 })
 
+router.get('/search/:query', async (req, res) => {
+    const query = req.params.query;
+
+    try {
+        const shelves = await.shelf.findMany({
+            where: {
+                name: {
+                    contains: query,
+                    mode: 'insensitive'
+                }
+            }
+        })
+    } catch (error) {
+        res.status(400).json({ message: 'Something went wrong!' })
+    }
+})
+
 module.exports = router;
