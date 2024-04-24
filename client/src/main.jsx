@@ -4,7 +4,7 @@ import Login from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
 import App from './App.jsx';
 import Search from './pages/Search.jsx';
-import Shelves from './pages/Shelves.jsx';
+import Profile from './pages/Profile.jsx';
 import NewShelf from './pages/CreateShelf.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Shelf from './pages/Shelf.jsx';
@@ -20,8 +20,8 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/shelves',
-        element: <Shelves/>
+        path: '/user/:id',
+        element: <Profile/>
       },
       {
         path: '/search',

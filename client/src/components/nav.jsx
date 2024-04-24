@@ -50,7 +50,7 @@ export const Nav = () => {
             </Link>
             {Auth.loggedIn() ? (
                 <>
-                    <Link to="/shelves">
+                    <Link to={`/user/${Auth.getProfile().data.id}`}>
                         <NavItem icon={profile_light}>
 
                         </NavItem>

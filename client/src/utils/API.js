@@ -27,12 +27,12 @@ export const search = (query) => {
     })
 }
 
-export const getMe = (payload) => {
-    return fetch('/api/users/me', {
+export const getUser = (payload) => {
+    return fetch(`/api/users/${payload.id}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${payload}`
+            authorization: `Bearer ${payload.token}`
         }
     })
 }

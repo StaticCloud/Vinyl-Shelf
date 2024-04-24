@@ -39,7 +39,7 @@ const Home = () => {
 
     useEffect(() => {
         if (Auth.loggedIn()) {
-            navigate('/shelves');
+            navigate(`/user/${Auth.getProfile().data.id}`)
         }
     }, [])
 

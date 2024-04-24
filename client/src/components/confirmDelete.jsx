@@ -3,6 +3,7 @@ import close from '../../src/assets/add.svg';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { deleteShelf } from '../utils/API';
+import Auth from "../utils/auth";
 
 const Backdrop = styled.div`
     width: 100svw;
@@ -111,7 +112,7 @@ export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
                 throw new Error('Something went wrong!');
             }
 
-            navigate('/shelves')
+            navigate(`/user/${Auth.getProfile().data.id}`)
         } catch (error) {
             console.error(error);
         }

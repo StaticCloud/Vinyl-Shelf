@@ -1,8 +1,8 @@
 import Auth from '../utils/auth';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getMe } from '../utils/API';
+import { getUser } from '../utils/API';
 import { ShelfPreview } from '../components/shelfPreview';
 import { Loading } from '../components/loading';
 import add_shelf from '../assets/add_shelf.svg';
@@ -101,6 +101,7 @@ const InlineIcon = styled.span`
 `;
 
 const Collections = () => {
+    const { id } = useParams();
     const [userData, setUserData] = useState({});
     const [view, setView] = useState('shelves');
     const [shelves, setShelves] = useState([]);
@@ -111,7 +112,7 @@ const Collections = () => {
     const userDataLength = Object.keys(userData).length;
 
     useEffect(() => {
-        const getUser = async () => {
+        const getUserOnMount = async () => {
             try {
                 const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -119,7 +120,7 @@ const Collections = () => {
                     navigate('/login')
                 }
 
-                const response = await getMe(token);
+                const response = await getUser({ token: token, id: id });
 
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
@@ -136,7 +137,7 @@ const Collections = () => {
             }
         }
 
-        getUser();
+        getUserOnMount();
     }, [userDataLength])
 
     const handleViewChange = () => {

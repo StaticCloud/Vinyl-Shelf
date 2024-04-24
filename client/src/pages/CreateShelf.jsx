@@ -30,7 +30,7 @@ const NewCollection = () => {
                 throw new Error('Something went wrong!');
             }
 
-            navigate('/shelves')
+            navigate(`/user/${Auth.getProfile().data.id}`)
         } catch (error) {
             console.error(error);
         }

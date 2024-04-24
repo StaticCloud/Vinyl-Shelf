@@ -49,8 +49,8 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/me', authMiddleware, async (req, res) => {
-    const { id } = req.user;
+router.get('/:id', authMiddleware, async (req, res) => {
+    const id = parseInt(req.params.id);
 
     const user = await prisma.user.findUnique({
         where: {
