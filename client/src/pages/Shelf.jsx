@@ -348,7 +348,7 @@ const Shelf = () => {
                 {!editing ? (
                     <>
                         <h1>{shelfData.name}</h1>
-                        <h2>By <Link to={`/profile/${shelfData.user_id}`}>{shelfData?.user?.username}</Link></h2>
+                        <h2>By <Link to={`/user/${shelfData.user_id}`}>{shelfData?.user?.username}</Link></h2>
                     </>
                 ) : (
                     <>

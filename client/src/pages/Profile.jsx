@@ -15,24 +15,14 @@ const ShelvesWrapper = styled.section`
 
     & > h1 {
         font-size: 3rem;
-        margin: .8rem 0;
     }
 
     & > a,
     & > a:visited {
-        display: inline-block;
-        position: fixed;
-        right: 20px;
-        bottom: 70px;
-        padding: 0.5rem;
-        border-radius: 2rem;
-        margin: 0.5rem 0;
-        color: ${props => props.theme.bg};
-        background-color: ${props => props.theme.primary};
-    }
-
-    & > a:hover {
-        background-color: ${props => props.theme.secondary};
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 1rem;
     }
 `;
 
@@ -62,11 +52,17 @@ const ViewLikedShelves = styled(ViewShelves)`
 `;
 
 const AddShelf = styled.div`
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background-position: center;
-    background-size: 3rem;
+    background-size: 2rem;
     background-image: url(${add_shelf});
+    background-color: ${props => props.theme.primary};
+    border-radius: 50px;
+
+    &:hover {
+        background-color: ${props => props.theme.secondary};
+    }
 `;
 
 const ShelfView = styled.ul`
@@ -157,7 +153,7 @@ const Collections = () => {
             ) : (
                 <></>
             )}
-            
+
             <p>User profile for:</p>
             <h1>{userData.username}</h1>
             <Link to="/new_shelf">
@@ -170,6 +166,7 @@ const Collections = () => {
                 <ViewLikedShelves onClick={() => handleViewChange()} view={view}>
                     <p>Liked Shelves</p>
                 </ViewLikedShelves>
+
             </ViewSelector>
             {view === "shelves" ? (
                 <>
@@ -196,8 +193,6 @@ const Collections = () => {
                     )}
                 </>
             )}
-
-
         </ShelvesWrapper>
     );
 }

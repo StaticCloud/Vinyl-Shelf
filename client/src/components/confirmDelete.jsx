@@ -61,7 +61,7 @@ const AlertBody = styled.div`
     margin: 60px 20px 0 20px;
 
     p {
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-bottom: 3rem;
     }
 `;
