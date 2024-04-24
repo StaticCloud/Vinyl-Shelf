@@ -151,7 +151,7 @@ router.get('/search/:query', async (req, res) => {
     const query = req.params.query;
 
     try {
-        const shelves = await.shelf.findMany({
+        const shelves = await prisma.shelf.findMany({
             where: {
                 name: {
                     contains: query,
@@ -159,6 +159,8 @@ router.get('/search/:query', async (req, res) => {
                 }
             }
         })
+
+        res.json(shelves)
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong!' })
     }

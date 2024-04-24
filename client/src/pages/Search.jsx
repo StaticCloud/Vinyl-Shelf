@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { searchVinyls } from "../utils/API";
+import { searchVinyls, searchShelves } from "../utils/API";
 import search_light from '../assets/search_light.svg'
 import SearchResult from "./SearchResult";
 import { Loading } from "../components/loading";
@@ -69,6 +69,7 @@ const Search = () => {
     const [loading, setLoading] = useState(false)
     const [emptyText, setEmptyText] = useState('Enter an album name to get started.')
     const [searchedAlbums, setSearchedAlbums] = useState([]);
+    const [searchedShelves, setSearchedShelves] = useState([])
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -79,22 +80,31 @@ const Search = () => {
         }
 
         try {
-            const response = await searchVinyls(searchInput);
+            const response = await Promise.all([searchVinyls(searchInput), searchShelves(searchInput)]);
 
-            if (!response.ok) {
+            if (!response[0].ok && !response[1].ok) {
                 throw new Error('something went wrong!');
             }
 
-            const { results } = await response.json();
+            const searchData = await Promise.all([response[0].json(), response[1].json()]);
 
-            console.log(results)
+            const vinyls = searchData[0].results;
+            const shelves = searchData[1];
 
-            if (!results.length) {
+            if (!vinyls.length) {
                 setSearchedAlbums([])
                 setEmptyText(`No results for ${searchInput}.`)
             } else {
-                setSearchedAlbums(results);
+                setSearchedAlbums(vinyls);
             }
+
+            if (!shelves.length) {
+                setSearchedShelves([])
+                setEmptyText(`No results for ${searchInput}.`)
+            } else {
+                setSearchedAlbums(vinyls);
+            }
+
             setSearchInput('');
             setLoading(false);
         } catch (error) {
@@ -109,6 +119,7 @@ const Search = () => {
             ) : (
                 <></>
             )} 
+            
             <SearchWrapper onSubmit={handleFormSubmit}>
                 <SearchBar
                     placeholder="Enter an album title..."
