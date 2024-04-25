@@ -154,7 +154,7 @@ const Search = () => {
             </SearchWrapper>
             {searchedAlbums.length || searchedShelves.length ? (
                 <SearchToggleWrapper>
-                    <ToggleableButton text={"Vinyls"}
+                    <ToggleableButton
                         selected={searchFilter.vinylView}
                         onClick={() => setSearchFilter({
                             vinylView: true,
@@ -162,7 +162,7 @@ const Search = () => {
                         })}>
                         <p>Vinyls</p>
                     </ToggleableButton>
-                    <ToggleableButton text={"Shelves"}
+                    <ToggleableButton
                         selected={searchFilter.shelfView}
                         onClick={() => setSearchFilter({
                             vinylView: false,

@@ -7,11 +7,15 @@ import { ShelfPreview } from '../components/shelfPreview';
 import { Loading } from '../components/loading';
 import add_shelf from '../assets/add_shelf.svg';
 import search from '../assets/search_light.svg';
+import ToggleableButton from '../components/toggleableButton';
 
 const ShelvesWrapper = styled.section`
-    max-width: 600px;
-    padding: 1rem;
     margin: 0 auto;
+`;
+
+const HeaderWrapper = styled.div`
+    padding: 2rem 2rem 0 2rem;
+    margin-bottom: 1rem;
 
     & > h1 {
         font-size: 3rem;
@@ -29,29 +33,6 @@ const ShelvesWrapper = styled.section`
 const ViewSelector = styled.div`
     display: flex;
     margin-bottom: 2rem;
-`;
-
-const ViewShelves = styled.div`
-    display: flex;
-    padding: 10px 20px;
-    margin: 0 5px 5px 0;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-
-    &:hover {
-        cursor: pointer;
-    }
-`
-
-const ViewCreatedShelves = styled(ViewShelves)`
-    color: ${props => props.view === 'shelves' ? props.theme.bg : props.theme.fg};
-    background-color: ${props => props.view === 'shelves' ? props.theme.fg : props.theme.secondary};
-`;
-
-const ViewLikedShelves = styled(ViewShelves)`
-    color: ${props => props.view === 'shelves' ? props.theme.fg : props.theme.bg};
-    background-color: ${props => props.view === 'shelves' ? props.theme.secondary : props.theme.fg};
 `;
 
 const AddShelf = styled.div`
@@ -114,6 +95,11 @@ const Collections = () => {
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
+    const [filter, setFilter] = useState({
+        createdShelves: true,
+        likedShelves: false
+    })
+
     const userDataLength = Object.keys(userData).length;
 
     useEffect(() => {
@@ -162,22 +148,33 @@ const Collections = () => {
             ) : (
                 <></>
             )}
+            <HeaderWrapper>
+                <p>User profile for:</p>
+                <h1>{userData.username}</h1>
+                <Link to="/new_shelf">
+                    <AddShelf />
+                </Link>
+                <ViewSelector>
+                    <ToggleableButton 
+                        selected={filter.createdShelves}
+                        onClick={() => setFilter({
+                            createdShelves: true,
+                            likedShelves: false
+                        })}>
+                        <p>Created Shelves</p>
+                    </ToggleableButton>
+                    <ToggleableButton 
+                        selected={filter.likedShelves}
+                        onClick={() => setFilter({
+                            createdShelves: false,
+                            likedShelves: true
+                        })}>
+                        <p>Liked Shelves</p>
+                    </ToggleableButton>
 
-            <p>User profile for:</p>
-            <h1>{userData.username}</h1>
-            <Link to="/new_shelf">
-                <AddShelf />
-            </Link>
-            <ViewSelector>
-                <ViewCreatedShelves onClick={() => handleViewChange()} view={view}>
-                    <p>Created Shelves</p>
-                </ViewCreatedShelves>
-                <ViewLikedShelves onClick={() => handleViewChange()} view={view}>
-                    <p>Liked Shelves</p>
-                </ViewLikedShelves>
-
-            </ViewSelector>
-            {view === "shelves" ? (
+                </ViewSelector>
+            </HeaderWrapper>
+            {filter.createdShelves === true ? (
                 <>
                     {shelves.length ? (
                         <ShelfView>
