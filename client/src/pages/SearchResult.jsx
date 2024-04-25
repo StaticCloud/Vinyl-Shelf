@@ -53,29 +53,38 @@ const OpenModalButton = styled.div`
     }
 `;
 
-const SearchResult = ({ album }) => {
+const SearchResult = ({ album, shelf }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
-        <SearchResultWrapper>
-            <Cover cover={album.cover_image}/>
-            <Info>
-                <div>
-                    <h1>{album.title}</h1>
-                    <p>{album.year}</p>
-                </div>
-            </Info>
-            {Auth.loggedIn() ? (
-                <OpenModalButton onClick={() => setShowMenu(true)}/>
+        <>
+            {album ? (
+                <SearchResultWrapper>
+                    <Cover cover={album.cover_image} />
+                    <Info>
+                        <div>
+                            <h1>{album.title}</h1>
+                            <p>{album.year}</p>
+                        </div>
+                    </Info>
+                    {Auth.loggedIn() ? (
+                        <OpenModalButton onClick={() => setShowMenu(true)} />
+                    ) : (
+                        <></>
+                    )}
+                    {showMenu ? (
+                        <AddAlbum albumData={album} setShowMenu={setShowMenu} />
+                    ) : (
+                        <></>
+                    )}
+                </SearchResultWrapper>
             ) : (
-                <></>
+                <SearchResultWrapper>
+                </SearchResultWrapper>
             )}
-            {showMenu ? (
-                <AddAlbum albumData={album} setShowMenu={setShowMenu}/>
-            ) : (
-                <></>
-            )}
-        </SearchResultWrapper>
+        </>
+
+
     );
 }
 

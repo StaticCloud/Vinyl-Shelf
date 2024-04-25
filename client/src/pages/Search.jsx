@@ -84,8 +84,6 @@ const Search = () => {
         shelfView: false
     })
 
-    console.log(searchFilter)
-
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         setLoading(true)
@@ -117,7 +115,7 @@ const Search = () => {
                 setSearchedShelves([])
                 setEmptyText(`No results for ${searchInput}.`)
             } else {
-                setSearchedAlbums(vinyls);
+                setSearchedShelves(shelves);
             }
 
             setSearchInput('');
@@ -145,39 +143,71 @@ const Search = () => {
                 <SubmitSearch type="submit" value=" ">
                 </SubmitSearch>
             </SearchWrapper>
-            <SearchToggleWrapper>
-                <ToggleableButton text={"Vinyls"}
-                    selected={searchFilter.vinylView}
-                    onClick={() => setSearchFilter({
-                        vinylView: true,
-                        shelfView: false
-                    })}>
-                    <p>Vinyls</p>
-                </ToggleableButton>
-                <ToggleableButton text={"Shelves"}
-                    selected={searchFilter.shelfView}
-                    onClick={() => setSearchFilter({
-                        vinylView: false,
-                        shelfView: true
-                    })}>
-                    <p>Shelves</p>
-                </ToggleableButton>
-            </SearchToggleWrapper>
-            {searchedAlbums.length ? (
-                <SearchResults>
-                    {searchFilter.vinylView === true ? (
+            {searchedAlbums.length || searchedShelves.length ? (
+                <SearchToggleWrapper>
+                    <ToggleableButton text={"Vinyls"}
+                        selected={searchFilter.vinylView}
+                        onClick={() => setSearchFilter({
+                            vinylView: true,
+                            shelfView: false
+                        })}>
+                        <p>Vinyls</p>
+                    </ToggleableButton>
+                    <ToggleableButton text={"Shelves"}
+                        selected={searchFilter.shelfView}
+                        onClick={() => setSearchFilter({
+                            vinylView: false,
+                            shelfView: true
+                        })}>
+                        <p>Shelves</p>
+                    </ToggleableButton>
+                </SearchToggleWrapper>
+            ) : (
+                <></>
+            )}
+
+            {searchedAlbums.length || searchedShelves.length ? (
+                <>
+                    {searchedAlbums.length ? (
                         <>
-                            {searchedAlbums.map((album, i) => {
-                                return (
-                                    <SearchResult album={album} key={i} />
-                                )
-                            })}
+                            {searchFilter.vinylView === true ? (
+                                <SearchResults>
+                                    {searchedAlbums.map((album, i) => {
+                                        return (
+                                            <SearchResult album={album} key={i} />
+                                        )
+                                    })}
+                                </SearchResults>
+                            ) : (
+                                <></>
+                            )}
                         </>
                     ) : (
-                        <></>
+                        <NoResultsWrapper>
+                            <p>{emptyText}</p>
+                        </NoResultsWrapper>
                     )}
 
-                </SearchResults>
+                    {searchedShelves.length ? (
+                        <>
+                            {searchFilter.shelfView === true ? (
+                                <SearchResults>
+                                    {searchedShelves.map((shelf, i) => {
+                                        return (
+                                            <SearchResult shelf={shelf} key={i} />
+                                        )
+                                    })}
+                                </SearchResults>
+                            ) : (
+                                <></>
+                            )}
+                        </>
+                    ) : (
+                        <NoResultsWrapper>
+                            <p>{emptyText}</p>
+                        </NoResultsWrapper>
+                    )}
+                </>
             ) : (
                 <NoResultsWrapper>
                     <p>{emptyText}</p>
