@@ -157,6 +157,20 @@ router.get('/search/:query', async (req, res) => {
                     contains: query,
                     mode: 'insensitive'
                 }
+            },
+            select: {
+                id: true,
+                name: true,
+                vinyls_on_shelf: {
+                    include: {
+                        vinyl: true
+                    }
+                },
+                likes: {
+                    include: {
+                        user: true
+                    }
+                }
             }
         })
 

@@ -2,15 +2,13 @@ import styled from "styled-components";
 import profile_light from '../assets/profile_light.svg'
 import { Link } from "react-router-dom"
 
-const ShelfPreviewWrapper = styled.li`
-    display: block;
-    margin: 1rem 0;
+const ShelfPreviewWrapper = styled.div`
     display: flex;
 `
 
 const AlbumsWrapper = styled.div`
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
     border-radius: 5px;
 
     background-color: ${props => props.theme.secondary};
@@ -22,7 +20,7 @@ const AlbumsWrapper = styled.div`
 
 const AlbumMini = styled.div`
     flex-grow: 1;
-    min-width: 30px;
+    min-width: 20px;
     display: block;
     margin: 2px;
     border-radius: 5px;

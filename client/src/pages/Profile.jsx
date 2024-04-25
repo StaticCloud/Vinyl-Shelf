@@ -28,6 +28,7 @@ const ShelvesWrapper = styled.section`
 
 const ViewSelector = styled.div`
     display: flex;
+    margin-bottom: 2rem;
 `;
 
 const ViewShelves = styled.div`
@@ -68,10 +69,7 @@ const AddShelf = styled.div`
 `;
 
 const ShelfView = styled.ul`
-    a {
-        text-decoration: none;
-        color: ${props => props.theme.fg};
-    }
+    list-style-type: none;
 `;
 
 const EmptyShelvesWrapper = styled.div`
@@ -96,6 +94,15 @@ const InlineIcon = styled.span`
     background-image: url(${props => props.icon});
     background-color: ${props => props.theme.primary};
     border-radius: 50%;
+`;
+
+const LiWrapper = styled.li`
+    margin: 0 2rem 2rem 2rem;
+
+    a {
+        text-decoration: none;
+        color: ${props => props.theme.fg};
+    }
 `;
 
 const Collections = () => {
@@ -174,7 +181,11 @@ const Collections = () => {
                 <>
                     {shelves.length ? (
                         <ShelfView>
-                            {shelves.map((shelf, i) => <ShelfPreview key={i} shelf={shelf} />)}
+                            {shelves.map((shelf, i) => (
+                                <LiWrapper key={i}>
+                                    <ShelfPreview shelf={shelf} />
+                                </LiWrapper>)
+                            )}
                         </ShelfView>
                     ) : (
                         <EmptyShelvesWrapper>
@@ -186,7 +197,11 @@ const Collections = () => {
                 <>
                     {likedShelves.length ? (
                         <ShelfView>
-                            {likedShelves.map((likedShelf, i) => <ShelfPreview key={i} shelf={likedShelf.shelf} />)}
+                            {likedShelves.map((likedShelf, i) => (
+                                <LiWrapper key={i}>
+                                    <ShelfPreview shelf={likedShelf.shelf} />
+                                </LiWrapper>)
+                            )}
                         </ShelfView>
                     ) : (
                         <EmptyShelvesWrapper>

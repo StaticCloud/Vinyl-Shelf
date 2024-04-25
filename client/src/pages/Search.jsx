@@ -72,6 +72,15 @@ const SearchToggleWrapper = styled.div`
     margin-bottom: 2rem;
 `;
 
+const LiWrapper = styled.li`
+    margin: 0 2rem 2rem 2rem;
+
+    a {
+        text-decoration: none;
+        color: ${props => props.theme.fg};
+    }
+`;
+
 const Search = () => {
     const [searchInput, setSearchInput] = useState('');
     const [loading, setLoading] = useState(false)
@@ -174,7 +183,9 @@ const Search = () => {
                                 <SearchResults>
                                     {searchedAlbums.map((album, i) => {
                                         return (
-                                            <SearchResult album={album} key={i} />
+                                            <LiWrapper key={i}>
+                                                <SearchResult album={album} />
+                                            </LiWrapper>
                                         )
                                     })}
                                 </SearchResults>
@@ -194,7 +205,9 @@ const Search = () => {
                                 <SearchResults>
                                     {searchedShelves.map((shelf, i) => {
                                         return (
-                                            <SearchResult shelf={shelf} key={i} />
+                                            <LiWrapper key={i}>
+                                                <SearchResult shelf={shelf} />
+                                            </LiWrapper>
                                         )
                                     })}
                                 </SearchResults>

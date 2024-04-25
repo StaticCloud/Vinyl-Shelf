@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import add from '../assets/add.svg'
 import Auth from '../utils/auth';
 import { AddAlbum } from '../components/addAlbum';
+import { ShelfPreview } from '../components/shelfPreview';
 
-const SearchResultWrapper = styled.li`
+const SearchResultWrapper = styled.div`
     max-width: 100svw;
-    margin: 2rem;
+    width: 100%;
     display: flex;
     align-items: center;
 
@@ -19,6 +20,10 @@ const SearchResultWrapper = styled.li`
         text-overflow: ellipsis;
         overflow: hidden;
         font-size: 1rem;
+    }
+
+    a {
+        width: 100%;
     }
 `;
 
@@ -80,6 +85,7 @@ const SearchResult = ({ album, shelf }) => {
                 </SearchResultWrapper>
             ) : (
                 <SearchResultWrapper>
+                    <ShelfPreview shelf={shelf}></ShelfPreview>
                 </SearchResultWrapper>
             )}
         </>
