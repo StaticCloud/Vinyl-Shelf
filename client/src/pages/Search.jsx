@@ -3,8 +3,9 @@ import { useState } from "react";
 import { searchVinyls, searchShelves } from "../utils/API";
 import search_light from '../assets/search_light.svg'
 import SearchResult from "./SearchResult";
-import { Loading } from "../components/loading";
-import ToggleableButton from "../components/toggleableButton";
+import { Loading } from "../components/Loading";
+import ToggleableButton from "../components/ToggleableButton";
+import { UnorderedList, ListItem } from "../components/styled-list";
 
 const SearchWrapper = styled.form`
     display: block;
@@ -28,16 +29,6 @@ const SearchBar = styled.input`
     width: calc(100% - 41.4px);
     color: ${props => props.theme.fg};
 `
-
-const SearchResults = styled.ul`
-    list-style-type: none;
-    background-color: ${props => props.theme.bg};
-    padding-bottom: 80px;
-
-    & > p {
-        margin: 2rem;
-    }
-`;
 
 const SubmitSearch = styled.input`
     background-color: ${props => props.theme.secondary};
@@ -70,15 +61,6 @@ const SearchToggleWrapper = styled.div`
     display: flex;
     padding: 0 2rem;
     margin-bottom: 2rem;
-`;
-
-const LiWrapper = styled.li`
-    margin: 0 2rem 2rem 2rem;
-
-    a {
-        text-decoration: none;
-        color: ${props => props.theme.fg};
-    }
 `;
 
 const Search = () => {
@@ -180,15 +162,15 @@ const Search = () => {
                     {searchedAlbums.length ? (
                         <>
                             {searchFilter.vinylView === true ? (
-                                <SearchResults>
+                                <UnorderedList>
                                     {searchedAlbums.map((album, i) => {
                                         return (
-                                            <LiWrapper key={i}>
+                                            <ListItem key={i}>
                                                 <SearchResult album={album} />
-                                            </LiWrapper>
+                                            </ListItem>
                                         )
                                     })}
-                                </SearchResults>
+                                </UnorderedList>
                             ) : (
                                 <></>
                             )}
@@ -202,15 +184,15 @@ const Search = () => {
                     {searchedShelves.length ? (
                         <>
                             {searchFilter.shelfView === true ? (
-                                <SearchResults>
+                                <UnorderedList>
                                     {searchedShelves.map((shelf, i) => {
                                         return (
-                                            <LiWrapper key={i}>
+                                            <ListItem key={i}>
                                                 <SearchResult shelf={shelf} />
-                                            </LiWrapper>
+                                            </ListItem>
                                         )
                                     })}
-                                </SearchResults>
+                                </UnorderedList>
                             ) : (
                                 <></>
                             )}

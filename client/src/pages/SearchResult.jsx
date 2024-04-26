@@ -3,29 +3,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import add from '../assets/add.svg'
 import Auth from '../utils/auth';
-import { AddAlbum } from '../components/addAlbum';
-import { ShelfPreview } from '../components/shelfPreview';
-
-const SearchResultWrapper = styled.div`
-    max-width: 100svw;
-    width: 100%;
-    display: flex;
-    align-items: center;
-
-    &:first-child {
-        margin-top: 0;
-    }
-
-    h1 {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-size: 1rem;
-    }
-
-    a {
-        width: 100%;
-    }
-`;
+import { AddAlbum } from '../components/AddAlbum';
+import { ShelfPreview } from '../components/ShelfPreview';
+import { StyledSearchResult } from '../components/styled-search';
 
 const Cover = styled.div`
     min-width: 80px;
@@ -64,11 +44,11 @@ const SearchResult = ({ album, shelf }) => {
     return (
         <>
             {album ? (
-                <SearchResultWrapper>
+                <StyledSearchResult>
                     <Cover cover={album.cover_image} />
                     <Info>
                         <div>
-                            <h1>{album.title}</h1>
+                            <p>{album.title}</p>
                             <p>{album.year}</p>
                         </div>
                     </Info>
@@ -82,11 +62,11 @@ const SearchResult = ({ album, shelf }) => {
                     ) : (
                         <></>
                     )}
-                </SearchResultWrapper>
+                </StyledSearchResult>
             ) : (
-                <SearchResultWrapper>
+                <StyledSearchResult>
                     <ShelfPreview shelf={shelf}></ShelfPreview>
-                </SearchResultWrapper>
+                </StyledSearchResult>
             )}
         </>
 

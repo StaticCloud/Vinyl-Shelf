@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import close from '../../src/assets/add.svg';
 import Auth from '../utils/auth';
 import { getUserShelves } from "../utils/API";
-import { ShelfItem } from "./shelfItem";
+import { ShelfItem } from "./ShelfItem";
 
 const Backdrop = styled.div`
     width: 100svw;

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import add from '../assets/add.svg';
-import { LoadingMini } from "./loadingMini";
+import { LoadingMini } from "./LoadingMini";
 import check from '../assets/check.svg'
 import profile_light from '../assets/profile_light.svg'
 import { useEffect, useState } from "react";

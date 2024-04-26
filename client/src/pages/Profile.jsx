@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUser } from '../utils/API';
-import { ShelfPreview } from '../components/shelfPreview';
-import { Loading } from '../components/loading';
+import { ShelfPreview } from '../components/ShelfPreview';
+import { Loading } from '../components/Loading';
 import add_shelf from '../assets/add_shelf.svg';
 import search from '../assets/search_light.svg';
-import ToggleableButton from '../components/toggleableButton';
+import ToggleableButton from '../components/ToggleableButton';
+import { ListItem, UnorderedList } from '../components/styled-list';
 
-const ShelvesWrapper = styled.section`
+const ProfileWrapper = styled.section`
     margin: 0 auto;
 `;
 
@@ -49,10 +50,6 @@ const AddShelf = styled.div`
     }
 `;
 
-const ShelfView = styled.ul`
-    list-style-type: none;
-`;
-
 const EmptyShelvesWrapper = styled.div`
     height: 400px;
     display: flex;
@@ -77,19 +74,9 @@ const InlineIcon = styled.span`
     border-radius: 50%;
 `;
 
-const LiWrapper = styled.li`
-    margin: 0 2rem 2rem 2rem;
-
-    a {
-        text-decoration: none;
-        color: ${props => props.theme.fg};
-    }
-`;
-
 const Collections = () => {
     const { id } = useParams();
     const [userData, setUserData] = useState({});
-    const [view, setView] = useState('shelves');
     const [shelves, setShelves] = useState([]);
     const [likedShelves, setLikedShelves] = useState([])
     const [loading, setLoading] = useState(true)
@@ -131,18 +118,8 @@ const Collections = () => {
         getUserOnMount();
     }, [userDataLength])
 
-    const handleViewChange = () => {
-        if (view === 'shelves') {
-            setView('likedShelves')
-            setShelves(userData.likes)
-        } else {
-            setView('shelves')
-            setShelves(userData.shelf_collection)
-        }
-    }
-
     return (
-        <ShelvesWrapper>
+        <ProfileWrapper>
             {loading ? (
                 <Loading></Loading>
             ) : (
@@ -177,13 +154,13 @@ const Collections = () => {
             {filter.createdShelves === true ? (
                 <>
                     {shelves.length ? (
-                        <ShelfView>
+                        <UnorderedList>
                             {shelves.map((shelf, i) => (
-                                <LiWrapper key={i}>
+                                <ListItem key={i}>
                                     <ShelfPreview shelf={shelf} />
-                                </LiWrapper>)
+                                </ListItem>)
                             )}
-                        </ShelfView>
+                        </UnorderedList>
                     ) : (
                         <EmptyShelvesWrapper>
                             <p>You have no shelves. Create a shelf <InlineIcon icon={add_shelf}></InlineIcon> to get started.</p>
@@ -193,13 +170,13 @@ const Collections = () => {
             ) : (
                 <>
                     {likedShelves.length ? (
-                        <ShelfView>
+                        <UnorderedList>
                             {likedShelves.map((likedShelf, i) => (
-                                <LiWrapper key={i}>
+                                <ListItem key={i}>
                                     <ShelfPreview shelf={likedShelf.shelf} />
-                                </LiWrapper>)
+                                </ListItem>)
                             )}
-                        </ShelfView>
+                        </UnorderedList>
                     ) : (
                         <EmptyShelvesWrapper>
                             <p>You have no liked shelves. Search <InlineIcon icon={search}></InlineIcon> for shelves to get started.</p>
@@ -207,7 +184,7 @@ const Collections = () => {
                     )}
                 </>
             )}
-        </ShelvesWrapper>
+        </ProfileWrapper>
     );
 }
 

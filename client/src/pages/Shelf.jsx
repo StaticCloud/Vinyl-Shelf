@@ -5,13 +5,14 @@ import styled from "styled-components";
 import trash from '../assets/trash.svg';
 import like from '../assets/like.svg';
 import Auth from "../utils/auth";
-import { ConfirmDelete } from "../components/confirmDelete";
+import { ConfirmDelete } from "../components/ConfirmDelete";
 import search_light from '../assets/search_light.svg';
 import share from '../assets/share.svg'
 import edit from '../assets/edit.svg'
-import { Loading } from "../components/loading";
-import { Popup } from "../components/popup";
-import { LoadingMini } from "../components/loadingMini";
+import { Loading } from "../components/Loading";
+import { Popup } from "../components/Popup";
+import { LoadingMini } from "../components/LoadingMini";
+import { UnorderedList } from "../components/styled-list/unorderedList";
 
 const ShelfWrapper = styled.section`
     max-width: 600px;
@@ -54,10 +55,6 @@ const TotalLikes = styled.div`
         background-position: center;
         background-image: url(${like});
     }
-`;
-
-const Vinyls = styled.ul`
-    list-style-type: none;
 `;
 
 const Vinyl = styled.li`
@@ -403,7 +400,7 @@ const Shelf = () => {
                     </TotalLikes>
                 </SettingsTab>
             </ShelfHeader>
-            <Vinyls>
+            <UnorderedList>
                 {shelfData?.vinyls_on_shelf?.length ? (
                     <>
                         {shelfData.vinyls_on_shelf?.map(({ vinyl }, i) =>
@@ -427,7 +424,7 @@ const Shelf = () => {
                     </>
                 )}
 
-            </Vinyls>
+            </UnorderedList>
             {showConfirmDelete ? (
                 <ConfirmDelete auth={Auth} shelfData={shelfData} setShowConfirmDelete={setShowConfirmDelete} />
             ) : (
