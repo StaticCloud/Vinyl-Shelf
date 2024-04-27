@@ -7,7 +7,7 @@ import { ShelfPreview } from '../components/ShelfPreview';
 import { Loading } from '../components/Loading';
 import add_shelf from '../assets/add_shelf.svg';
 import search from '../assets/search_light.svg';
-import ToggleableButton from '../components/ToggleableButton';
+import ToggleableButton from '../components/styled-button/ToggleableButton';
 import { ListItem, UnorderedList } from '../components/styled-list';
 
 const ProfileWrapper = styled.section`

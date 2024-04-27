@@ -1,67 +1,10 @@
-import styled from "styled-components";
 import { useState } from "react";
 import { searchVinyls, searchShelves } from "../utils/API";
-import search_light from '../assets/search_light.svg'
 import SearchResult from "./SearchResult";
 import { Loading } from "../components/Loading";
-import ToggleableButton from "../components/ToggleableButton";
+import ToggleableButton from "../components/styled-button/ToggleableButton";
 import { UnorderedList, ListItem } from "../components/styled-list";
-
-const SearchWrapper = styled.form`
-    display: block;
-    position: relative;
-    padding: 2rem 2rem 0 2rem;
-    margin-bottom: 1rem;
-    background-color: ${props => props.theme.bg};
-
-    p {
-        margin-top: 1rem;
-    }
-`;
-
-const SearchBar = styled.input`
-    display: inline-block;
-    background-color: ${props => props.theme.primary};
-    border-radius: 5rem 0 0 5rem;
-    padding: 0.7rem;
-    font-size: 1rem;
-    outline: none;
-    width: calc(100% - 41.4px);
-    color: ${props => props.theme.fg};
-`
-
-const SubmitSearch = styled.input`
-    background-color: ${props => props.theme.secondary};
-    display: block;
-    width: 41.4px;
-    height: 41.4px;
-    background-position: center;
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    background-size: 2.5rem;
-    background-image: url(${search_light});
-    outline: none;
-    border-radius: 0 5rem 5rem 0;
-
-    &:hover {
-        cursor: pointer;
-    }
-`;
-
-const NoResultsWrapper = styled.section`
-    display: flex;
-    height: calc(100svh - 177.4px);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-`;
-
-const SearchToggleWrapper = styled.div`
-    display: flex;
-    padding: 0 2rem;
-    margin-bottom: 2rem;
-`;
+import { SearchWrapper, SubmitSearch, SearchBar, NoResults, ToggleWrapper } from "../components/styled-search";
 
 const Search = () => {
     const [searchInput, setSearchInput] = useState('');
@@ -135,7 +78,7 @@ const Search = () => {
                 </SubmitSearch>
             </SearchWrapper>
             {searchedAlbums.length || searchedShelves.length ? (
-                <SearchToggleWrapper>
+                <ToggleWrapper>
                     <ToggleableButton
                         selected={searchFilter.vinylView}
                         onClick={() => setSearchFilter({
@@ -152,7 +95,7 @@ const Search = () => {
                         })}>
                         <p>Shelves</p>
                     </ToggleableButton>
-                </SearchToggleWrapper>
+                </ToggleWrapper>
             ) : (
                 <></>
             )}
@@ -176,9 +119,9 @@ const Search = () => {
                             )}
                         </>
                     ) : (
-                        <NoResultsWrapper>
+                        <NoResults>
                             <p>{emptyText}</p>
-                        </NoResultsWrapper>
+                        </NoResults>
                     )}
 
                     {searchedShelves.length ? (
@@ -198,15 +141,15 @@ const Search = () => {
                             )}
                         </>
                     ) : (
-                        <NoResultsWrapper>
+                        <NoResults>
                             <p>{emptyText}</p>
-                        </NoResultsWrapper>
+                        </NoResults>
                     )}
                 </>
             ) : (
-                <NoResultsWrapper>
+                <NoResults>
                     <p>{emptyText}</p>
-                </NoResultsWrapper>
+                </NoResults>
             )}
         </>
     );

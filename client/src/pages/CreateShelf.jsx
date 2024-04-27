@@ -1,5 +1,4 @@
-import { FormWrapper } from '../components/formWrapper';
-import { StyledForm } from '../components/form';
+import { FormWrapper, Form } from '../components/styled-form'
 import { useState } from 'react';
 import { createShelf } from '../utils/API';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +37,7 @@ const NewCollection = () => {
 
     return (
         <FormWrapper>
-            <StyledForm onSubmit={handleFormSubmit}>
+            <Form onSubmit={handleFormSubmit}>
                 <h1>New Shelf</h1>
 
                 <input name="name"
@@ -48,7 +47,7 @@ const NewCollection = () => {
                     value={shelfData.name} />
 
                 <input type="submit" value="Create Shelf" disabled={!(shelfData.name)} />
-            </StyledForm>
+            </Form>
         </FormWrapper>
     );
 }

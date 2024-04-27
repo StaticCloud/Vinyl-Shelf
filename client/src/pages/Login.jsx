@@ -1,5 +1,4 @@
-import { FormWrapper } from '../components/formWrapper';
-import { StyledForm } from '../components/form';
+import { FormWrapper, Form } from '../components/styled-form';
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import { login } from '../utils/API';
@@ -32,7 +31,7 @@ const Login = () => {
 
     return (
         <FormWrapper>
-            <StyledForm onSubmit={handleFormSubmit}>
+            <Form onSubmit={handleFormSubmit}>
                 <h1>Login</h1>
 
                 <input name="email"
@@ -52,7 +51,7 @@ const Login = () => {
                 } type="submit" value="Login" />
 
                 <Link to="/signup">Or Sign Up</Link>
-            </StyledForm>
+            </Form>
         </FormWrapper>
     );
 }

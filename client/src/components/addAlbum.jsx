@@ -1,61 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import close from '../../src/assets/add.svg';
 import Auth from '../utils/auth';
 import { getUserShelves } from "../utils/API";
 import { ShelfItem } from "./ShelfItem";
-
-const Backdrop = styled.div`
-    width: 100svw;
-    height: 100svh;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    background-color: #00000055;
-`
-
-const AddAlbumWrapper = styled.div`
-    width: 600px;
-    height: 85svh;
-    border-radius: 1rem;
-    background-color: ${props => props.theme.secondary};
-    overflow-y: scroll;
-    position: relative;
-`
-
-const Header = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 1rem 1rem 0 0;
-    background-color: ${props => props.theme.secondary};
-    position: fixed;
-    width: 600px;
-
-    & > h1 {
-        margin-left: 1rem;
-    }
-`;
-
-const Close = styled.div`
-    width: 2rem;
-    height: 2rem;
-    background-position: center;
-    transform: rotate(45deg);
-    margin: 0.5rem;
-    background-size: 2rem;
-    border-radius: 50%;
-    background-image: url(${close});
-
-    &:hover {
-        cursor: pointer;
-        background-color: ${props => props.theme.primary};
-    }
-`;
+import { Backdrop, PopupWrapper, PopupHeader, PopupClose } from "./styled-popup";
 
 const ResultsList = styled.ul`
     list-style-type: none;
@@ -115,11 +64,11 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
 
     return (
         <Backdrop>
-            <AddAlbumWrapper>
-                <Header>
+            <PopupWrapper height={'85svh'}>
+                <PopupHeader>
                     <h1>Add an album to your shelves</h1>
-                    <Close onClick={() => setShowMenu(false)} />
-                </Header>
+                    <PopupClose onClick={() => setShowMenu(false)} />
+                </PopupHeader>
                 {userShelves.length ? (
                     <ResultsList>
                         {/* Prop drilling, yuck */}
@@ -130,7 +79,7 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                         <p>No available shelves. Click <Link to='/new_shelf'>here</Link> to create one.</p>
                     </CenteredContent>
                 )}
-            </AddAlbumWrapper>
+            </PopupWrapper>
         </Backdrop>
     );
 }

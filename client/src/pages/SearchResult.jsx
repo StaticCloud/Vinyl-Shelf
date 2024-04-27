@@ -5,7 +5,7 @@ import add from '../assets/add.svg'
 import Auth from '../utils/auth';
 import { AddAlbum } from '../components/AddAlbum';
 import { ShelfPreview } from '../components/ShelfPreview';
-import { StyledSearchResult } from '../components/styled-search';
+import { SearchResultWrapper } from '../components/styled-search';
 
 const Cover = styled.div`
     min-width: 80px;
@@ -44,7 +44,7 @@ const SearchResult = ({ album, shelf }) => {
     return (
         <>
             {album ? (
-                <StyledSearchResult>
+                <SearchResultWrapper>
                     <Cover cover={album.cover_image} />
                     <Info>
                         <div>
@@ -62,11 +62,11 @@ const SearchResult = ({ album, shelf }) => {
                     ) : (
                         <></>
                     )}
-                </StyledSearchResult>
+                </SearchResultWrapper>
             ) : (
-                <StyledSearchResult>
+                <SearchResultWrapper>
                     <ShelfPreview shelf={shelf}></ShelfPreview>
-                </StyledSearchResult>
+                </SearchResultWrapper>
             )}
         </>
 

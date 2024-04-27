@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { StyledForm } from "../components/form";
-import { FormWrapper } from '../components/formWrapper';
+import { FormWrapper, Form } from '../components/styled-form';
 import { Link } from 'react-router-dom'
 import { signUp } from '../utils/API';
 import Auth from '../utils/auth';
@@ -36,7 +35,7 @@ const SignUp = () => {
 
     return (
         <FormWrapper>
-            <StyledForm onSubmit={handleFormSubmit}>
+            <Form onSubmit={handleFormSubmit}>
                 <h1>Sign Up</h1>
 
                 <input name="username"
@@ -67,7 +66,7 @@ const SignUp = () => {
                 } type="submit" value="Sign Up" />
 
                 <Link to="/login">Or Login</Link>
-            </StyledForm>
+            </Form>
         </FormWrapper>
     )
 }
