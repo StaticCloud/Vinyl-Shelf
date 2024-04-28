@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import profile_light from '../assets/profile_light.svg'
 import { Link } from "react-router-dom"
+import { EmptyShelf } from "./styled-shelf";
 
 const ShelfPreviewWrapper = styled.div`
     display: flex;
@@ -40,14 +40,6 @@ const ShelfOptions = styled.div`
     }
 `;
 
-const EmptyShelf = styled.div`
-    flex-grow: 1;
-    border-radius: 10px;
-    background-position: center;
-    background-size: 3rem;
-    background-image: url(${profile_light});
-`;
-
 export const ShelfPreview = ({ shelf }) => {
     return (
         <Link to={`/shelf/${shelf.id}`}>
@@ -65,7 +57,7 @@ export const ShelfPreview = ({ shelf }) => {
                             </>
                         )
                     ) : (
-                        <EmptyShelf></EmptyShelf>
+                        <EmptyShelf />
                     )}
                 </AlbumsWrapper>
                 <ShelfOptions>

@@ -1,10 +1,6 @@
 import styled from "styled-components";
-import profile_light from '../../assets/profile_light.svg'
+import { EmptyShelf } from "../styled-shelf/EmptyShelf";
 
-export const EmptyShelfMini = styled.div`
-    flex-grow: 1;
-    border-radius: 20%;
-    background-position: center;
+export const EmptyShelfMini = styled(EmptyShelf)`
     background-size: 2rem;
-    background-image: url(${profile_light});
 `;
