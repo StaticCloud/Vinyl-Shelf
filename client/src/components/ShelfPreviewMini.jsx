@@ -1,69 +1,10 @@
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
-import add from '../assets/add.svg';
 import { LoadingMini } from "./LoadingMini";
-import check from '../assets/check.svg'
-import profile_light from '../assets/profile_light.svg'
 import { useEffect, useState } from "react";
 import { createVinyl, addToShelf, removeFromShelf } from "../utils/API";
+import { MiniShelfPreviewLi, MiniShelfPreviewContents, AddVinylToShelf, AlbumMini, EmptyShelfMini } from "./styled-shelf-mini";
 
-const ShelfItemWrapper = styled.li`
-    display: flex;
-    align-items: center;
-    margin: 1rem;
-
-    h1 {
-        margin-left: 10px;
-        flex-grow: 1;
-    }
-`;
-
-const Preview = styled.div`
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    background-color: ${props => props.theme.primary};
-
-    padding: 5px;
-    display: flex;
-    flex-wrap: wrap;
-`;
-
-const UpdateShelf = styled.div`
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-image: url(${props => props.inshelf === 'false' ? add : check});
-    background-position: center;
-    background-size: 2rem;
-    background-color: ${props => props.inshelf === 'false' ? props.theme.primary : 'green'};
-
-    &:hover {
-        cursor: pointer;
-    }
-`;
-
-const AlbumMini = styled.div`
-    flex-grow: 1;
-    min-width: 15px;
-    display: block;
-    margin: 1px;
-    border-radius: 8%;
-    background-position: center;
-    background-size: cover;
-    background-color: ${props => props.theme.secondary};
-    background-image: url(${props => props.cover});
-`
-
-const EmptyShelf = styled.div`
-    flex-grow: 1;
-    border-radius: 20%;
-    background-position: center;
-    background-size: 2rem;
-    background-image: url(${profile_light});
-`;
-
-export const ShelfItem = ({ shelf, albumData }) => {
+export const ShelfPreviewMini = ({ shelf, albumData }) => {
     const [inShelf, setInShelf] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -103,8 +44,8 @@ export const ShelfItem = ({ shelf, albumData }) => {
     }
 
     return (
-        <ShelfItemWrapper>
-            <Preview>
+        <MiniShelfPreviewLi>
+            <MiniShelfPreviewContents>
                 {shelf.vinyls_on_shelf.length ? (
                     (shelf.vinyls_on_shelf.length < 4) ? (
                         <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
@@ -117,15 +58,15 @@ export const ShelfItem = ({ shelf, albumData }) => {
                         </>
                     )
                 ) : (
-                    <EmptyShelf></EmptyShelf>
+                    <EmptyShelfMini/>
                 )}
-            </Preview>
+            </MiniShelfPreviewContents>
             <h1>{shelf.name}</h1>
             {!loading ? (
-                <UpdateShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()} />
+                <AddVinylToShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()} />
             ) : (
                 <LoadingMini />
             )}
-        </ShelfItemWrapper>
+        </MiniShelfPreviewLi>
     );
 }

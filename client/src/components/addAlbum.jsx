@@ -1,29 +1,9 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Auth from '../utils/auth';
 import { getUserShelves } from "../utils/API";
-import { ShelfItem } from "./ShelfItem";
-import { Backdrop, PopupWrapper, PopupHeader, PopupClose } from "./styled-popup";
-
-const ResultsList = styled.ul`
-    list-style-type: none;
-
-    li:first-child {
-        padding-top: 3rem;
-    }
-`;
-
-const CenteredContent = styled.div`
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    a {
-        color: ${props => props.theme.fg}
-    }
-`;
+import { ShelfPreviewMini } from "./ShelfPreviewMini";
+import { Backdrop, PopupWrapper, PopupHeader, PopupClose, PopupCentered, PopupList } from "./styled-popup";
 
 export const AddAlbum = ({ albumData, setShowMenu }) => {
     const [userShelves, setUserShelves] = useState([])
@@ -70,14 +50,14 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                     <PopupClose onClick={() => setShowMenu(false)} />
                 </PopupHeader>
                 {userShelves.length ? (
-                    <ResultsList>
+                    <PopupList>
                         {/* Prop drilling, yuck */}
-                        {userShelves.map((shelf, i) => <ShelfItem key={i} shelf={shelf} albumData={albumData} />)}
-                    </ResultsList>
+                        {userShelves.map((shelf, i) => <ShelfPreviewMini key={i} shelf={shelf} albumData={albumData} />)}
+                    </PopupList>
                 ) : (
-                    <CenteredContent>
+                    <PopupCentered>
                         <p>No available shelves. Click <Link to='/new_shelf'>here</Link> to create one.</p>
-                    </CenteredContent>
+                    </PopupCentered>
                 )}
             </PopupWrapper>
         </Backdrop>
