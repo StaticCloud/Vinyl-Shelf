@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { searchVinyls, searchShelves } from "../utils/API";
-import SearchResult from "./SearchResult";
+import { ShelfPreview } from "../components/ShelfPreview";
+import { VinylSearchResult } from "../components/VinylSearchResult";
 import { Loading } from "../components/Loading";
 import ToggleableButton from "../components/styled-button/ToggleableButton";
 import { UnorderedList, ListItem } from "../components/styled-list";
@@ -109,7 +110,7 @@ const Search = () => {
                                     {searchedAlbums.map((album, i) => {
                                         return (
                                             <ListItem key={i}>
-                                                <SearchResult album={album} />
+                                                <VinylSearchResult album={album} />
                                             </ListItem>
                                         )
                                     })}
@@ -131,7 +132,7 @@ const Search = () => {
                                     {searchedShelves.map((shelf, i) => {
                                         return (
                                             <ListItem key={i}>
-                                                <SearchResult shelf={shelf} />
+                                                <ShelfPreview shelf={shelf} />
                                             </ListItem>
                                         )
                                     })}

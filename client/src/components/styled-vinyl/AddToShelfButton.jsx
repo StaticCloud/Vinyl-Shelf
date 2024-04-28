@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import add from '../../assets/add.svg'
 
 export const AddToShelfButton = styled.div`
     min-width: 40px;

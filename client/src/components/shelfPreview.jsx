@@ -2,10 +2,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom"
 import { EmptyShelf } from "./styled-shelf";
 
-const ShelfPreviewWrapper = styled.div`
-    display: flex;
-`
-
 const AlbumsWrapper = styled.div`
     width: 80px;
     height: 80px;
@@ -43,27 +39,25 @@ const ShelfOptions = styled.div`
 export const ShelfPreview = ({ shelf }) => {
     return (
         <Link to={`/shelf/${shelf.id}`}>
-            <ShelfPreviewWrapper>
-                <AlbumsWrapper>
-                    {shelf.vinyls_on_shelf.length ? (
-                        (shelf.vinyls_on_shelf.length < 4) ? (
-                            <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
-                        ) : (
-                            <>
-                                <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
-                                <AlbumMini cover={shelf.vinyls_on_shelf[1].vinyl.cover_image} />
-                                <AlbumMini cover={shelf.vinyls_on_shelf[2].vinyl.cover_image} />
-                                <AlbumMini cover={shelf.vinyls_on_shelf[3].vinyl.cover_image} />
-                            </>
-                        )
+            <AlbumsWrapper>
+                {shelf.vinyls_on_shelf.length ? (
+                    (shelf.vinyls_on_shelf.length < 4) ? (
+                        <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
                     ) : (
-                        <EmptyShelf />
-                    )}
-                </AlbumsWrapper>
-                <ShelfOptions>
-                    <p>{shelf.name}</p>
-                </ShelfOptions>
-            </ShelfPreviewWrapper>
+                        <>
+                            <AlbumMini cover={shelf.vinyls_on_shelf[0].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyls_on_shelf[1].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyls_on_shelf[2].vinyl.cover_image} />
+                            <AlbumMini cover={shelf.vinyls_on_shelf[3].vinyl.cover_image} />
+                        </>
+                    )
+                ) : (
+                    <EmptyShelf />
+                )}
+            </AlbumsWrapper>
+            <ShelfOptions>
+                <p>{shelf.name}</p>
+            </ShelfOptions>
         </Link>
     );
 }
