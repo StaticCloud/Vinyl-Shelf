@@ -5,7 +5,7 @@ export const MiniShelfPreviewLi = styled.li`
     align-items: center;
     margin: 1rem;
 
-    h1 {
+    p {
         margin-left: 10px;
         flex-grow: 1;
     }

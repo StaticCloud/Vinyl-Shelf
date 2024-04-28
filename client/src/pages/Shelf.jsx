@@ -10,8 +10,8 @@ import search_light from '../assets/search_light.svg';
 import share from '../assets/share.svg'
 import edit from '../assets/edit.svg'
 import { Loading } from "../components/Loading";
-import { Popup } from "../components/Popup";
-import { LoadingMini } from "../components/LoadingMini";
+import { Alert } from "../components/Alert";
+import { LoadingMini } from "../components/styled-loading";
 import { UnorderedList } from "../components/styled-list/unorderedList";
 
 const ShelfWrapper = styled.section`
@@ -342,7 +342,7 @@ const Shelf = () => {
             )}
 
             {popup.visible === true ? (
-                <Popup text={popup.text}></Popup>
+                <Alert text={popup.text}></Alert>
             ) : (
                 <></>
             )}

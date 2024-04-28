@@ -1,9 +1,7 @@
-import styled from "styled-components";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { deleteShelf } from '../utils/API';
 import { Backdrop, PopupWrapper, PopupHeader, PopupClose, PopupParagraphBody, PopupButtonWrapper, PopupButton } from "./styled-popup";
-import Auth from "../utils/auth";
 
 export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
 
@@ -30,7 +28,7 @@ export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
                 throw new Error('Something went wrong!');
             }
 
-            navigate(`/user/${Auth.getProfile().data.id}`)
+            navigate(`/user/${auth.getProfile().data.id}`)
         } catch (error) {
             console.error(error);
         }

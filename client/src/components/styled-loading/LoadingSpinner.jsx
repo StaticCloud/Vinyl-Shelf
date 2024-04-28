@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import loading from '../assets/loading.svg';
+import styled from "styled-components"
+import loading from '../../assets/loading.svg'
 
-export const LoadingMini = styled.div`
-    min-width: 30px;
-    min-height: 30px;
-    border-radius: 50%;
+export const LoadingSpinner = styled.div`
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 50px;
     background-image: url(${loading});
     background-position: center;
-    background-size: 2rem;
+    background-size: 3rem;
     animation: rotate 1s linear infinite;
     background-color: ${props => props.theme.primary};
 
@@ -20,4 +20,4 @@ export const LoadingMini = styled.div`
             transform: rotate(360deg);
         }
     }
-`;
+`

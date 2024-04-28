@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { LoadingMini } from "./LoadingMini";
+import { LoadingMini } from "./styled-loading";
 import { useEffect, useState } from "react";
 import { createVinyl, addToShelf, removeFromShelf } from "../utils/API";
 import { MiniShelfPreviewLi, MiniShelfPreviewContents, AddVinylToShelf, AlbumMini, EmptyShelfMini } from "./styled-shelf-mini";
@@ -61,7 +61,7 @@ export const ShelfPreviewMini = ({ shelf, albumData }) => {
                     <EmptyShelfMini/>
                 )}
             </MiniShelfPreviewContents>
-            <h1>{shelf.name}</h1>
+            <p>{shelf.name}</p>
             {!loading ? (
                 <AddVinylToShelf inshelf={inShelf.toString()} onClick={() => handleUpdateShelf()} />
             ) : (
