@@ -1,7 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { getShelf, removeFromShelf, likeShelf, deleteLike, updateShelf } from "../utils/API";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import trash from '../assets/trash.svg';
 import like from '../assets/like.svg';
 import Auth from "../utils/auth";
@@ -12,179 +11,10 @@ import edit from '../assets/edit.svg'
 import { Loading } from "../components/Loading";
 import { Alert } from "../components/Alert";
 import { LoadingMini } from "../components/styled-loading";
-import { UnorderedList } from "../components/styled-list/unorderedList";
-
-const ShelfWrapper = styled.section`
-    max-width: 600px;
-    padding: 1rem;
-    margin: 0 auto;
-`;
-
-const ShelfHeader = styled.div`
-    & > h1 {
-        font-size: 3rem;
-    }
-
-    h2 {
-        font-size: 1rem;
-        font-weight: normal;
-    }
-
-    & > h2 {
-        margin-bottom: 1rem;
-    }
-
-    a {
-        font-weight: bold;
-        text-decoration: none;
-        color: ${props => props.theme.fg};
-    }
-
-    border-bottom: 1px solid ${props => props.theme.fg};
-`;
-
-const TotalLikes = styled.div`
-    display: flex;
-    align-items: center;
-    margin-left: 5px;
-
-    & > div {
-        width: 30px;
-        height: 30px;
-        background-size: 2.5rem;
-        background-position: center;
-        background-image: url(${like});
-    }
-`;
-
-const Vinyl = styled.li`
-    display: flex;
-    align-items: center;
-    margin: 1rem 0;
-
-    & > p {
-        margin-left: 20px;
-        font-size: 1.3rem;
-    }
-`
-
-const Cover = styled.div`
-    border-radius: 5px;
-    min-width: 80px;
-    height: 80px;
-    display: block;
-    background-size: cover;
-    background-position: center;
-    background-image: url(${props => props.cover});
-`
-
-const SettingsTab = styled.div`
-    margin-bottom: 1rem;
-    display: flex;
-`;
-
-const SettingsButton = styled.div`
-    width: 30px;
-    height: 30px;
-    background-size: 2rem;
-    border-radius: 50%;
-    margin-left: 5px;
-    background-position: center;
-    background-image: url(${props => props.icon});
-    background-color: ${props => props.theme.primary};
-
-    &:hover {
-        cursor: pointer;
-        background-color: ${props => props.theme.secondary};
-    }
-`;
-
-const LikeButton = styled(SettingsButton)`
-    background-color: ${props => props.liked == 'false' ? props.theme.primary : "green"};
-    margin-left: 0px;
-
-    &:hover {
-        background-color: ${props => props.liked == 'true' ? "green" : props.theme.secondary};;
-    }
-`
-
-const EmptyShelvesWrapper = styled.div`
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    p {
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-    }
-`;
-
-const InlineIcon = styled.span`
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin: 3px;
-    background-position: center;
-    background-size: 1.8rem;
-    background-image: url(${search_light});
-    background-color: ${props => props.theme.primary};
-    border-radius: 50%;
-`;
-
-const DeleteVinyl = styled.div`
-    min-width: 30px;
-    min-height: 30px;
-    display: block;
-    border-radius: 50%;
-    background-image: url(${trash});
-    background-position: center;
-    background-size: 2rem;
-    background-color: ${props => props.theme.primary};
-
-    &:hover {
-        cursor: pointer;
-        background-color: ${props => props.theme.secondary};
-    }
-
-    // I can't believe this actually works
-    margin-left: auto;
-`;
-
-const TitleEditor = styled.input`
-    width: 100%;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    background: none;
-    color: ${props => props.theme.fg};
-    border-bottom: 1px solid ${props => props.theme.fg};
-
-    &:focus {
-        outline: none;
-    }
-`;
-
-const TitleEditorButtonWrapper = styled.div`
-    display: flex;
-    margin-bottom: 1rem;
-`;
-
-const TitleEditorButton = styled.p`
-    &:hover {
-        cursor: pointer;
-    }
-
-    padding: .5rem 1rem;
-    margin-right: .5rem;
-    border-radius: 2rem;
-    font-weight: bold;
-    font-size: .9rem;
-    color: ${props => props.theme.fg};
-    background-color: ${props => props.theme.primary};
-`;
+import { UnorderedList, ListItem } from "../components/styled-list";
+import { VinylInfo, Cover } from "../components/styled-vinyl";
+import { ShelfHeader, TotalLikes, SettingsTab, SettingsButton, LikeButton, DeleteVinyl, TitleEditor, TitleEditorButtonWrapper, TitleEditorButton } from "../components/styled-shelf-page";
+import { EmptyShelves, InlineIcon } from "../components/styled-profile-page";
 
 const Shelf = () => {
     const { id } = useParams();
@@ -334,7 +164,7 @@ const Shelf = () => {
     }
 
     return (
-        <ShelfWrapper>
+        <>
             {loading === true ? (
                 <Loading></Loading>
             ) : (
@@ -404,23 +234,25 @@ const Shelf = () => {
                 {shelfData?.vinyls_on_shelf?.length ? (
                     <>
                         {shelfData.vinyls_on_shelf?.map(({ vinyl }, i) =>
-                            <Vinyl key={i}>
+                            <ListItem key={i}>
                                 <Cover cover={vinyl.cover_image}></Cover>
-                                <p>{vinyl.title}</p>
-                                {Auth.getProfile().data.id == shelfData.user_id ? (
-                                    <DeleteVinyl onClick={async () => handleRemoveFromShelf(vinyl)}></DeleteVinyl>
-                                ) : (
-                                    <></>
-                                )}
-                            </Vinyl>
+                                <VinylInfo>
+                                    <p>{vinyl.title}</p>
+                                    {Auth.getProfile().data.id == shelfData.user_id ? (
+                                        <DeleteVinyl onClick={async () => handleRemoveFromShelf(vinyl)}></DeleteVinyl>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </VinylInfo>
+                            </ListItem>
                         )}
                     </>
                 ) : (
                     <>
-                        <EmptyShelvesWrapper>
+                        <EmptyShelves>
                             <p>This shelf is empty.
-                                Search <InlineIcon></InlineIcon> for records to add to your shelf.</p>
-                        </EmptyShelvesWrapper>
+                                Search <InlineIcon icon={search_light}></InlineIcon> for records to add to your shelf.</p>
+                        </EmptyShelves>
                     </>
                 )}
 
@@ -430,7 +262,7 @@ const Shelf = () => {
             ) : (
                 <></>
             )}
-        </ShelfWrapper>
+        </>
     );
 }
 
