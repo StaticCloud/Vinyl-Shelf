@@ -56,7 +56,7 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                     </PopupList>
                 ) : (
                     <PopupCentered>
-                        <p>No available shelves. Click <Link to='/new_shelf'>here</Link> to create one.</p>
+                        <p>No available shelves. Click <Link to='/new-shelf'>here</Link> to create one.</p>
                     </PopupCentered>
                 )}
             </PopupWrapper>

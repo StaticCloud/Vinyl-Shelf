@@ -1,6 +1,5 @@
 import Auth from '../utils/auth';
-import styled from 'styled-components';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUser } from '../utils/API';
 import { ShelfPreview } from '../components/ShelfPreview';
@@ -11,9 +10,11 @@ import ToggleableButton from '../components/styled-button/ToggleableButton';
 import { ListItem, UnorderedList } from '../components/styled-list';
 import { ProfileHeader, CreateShelf, EmptyShelves, InlineIcon } from '../components/styled-profile-page';
 import { ToggleWrapper } from '../components/styled-search';
+import { Alert } from '../components/Alert';
 
 const Profile = () => {
     const { id } = useParams();
+    const [params, setSearchParams] = useSearchParams();
     const [userData, setUserData] = useState({});
     const [shelves, setShelves] = useState([]);
     const [likedShelves, setLikedShelves] = useState([])
@@ -25,9 +26,26 @@ const Profile = () => {
         likedShelves: false
     })
 
+    const [popup, setPopup] = useState({
+        visible: false,
+        text: ''
+    });
+
     const userDataLength = Object.keys(userData).length;
 
     useEffect(() => {
+        if (params.get("add-success") === "true") {
+            triggerPopup('Shelf successfully added!')
+        } else if (params.get("add-success") === "false") {
+            triggerPopup('Shelf could not be created.')
+        }
+
+        if (params.get("delete-success") === "true") {
+            triggerPopup('Shelf successfully deleted!')
+        } else if (params.get("add-success") === "false") {
+            triggerPopup('Shelf could not be deleted.')
+        }
+
         const getUserOnMount = async () => {
             try {
                 const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -56,6 +74,20 @@ const Profile = () => {
         getUserOnMount();
     }, [userDataLength])
 
+    const triggerPopup = (text) => {
+        setPopup({
+            visible: true,
+            text: text
+        })
+
+        setTimeout(() => {
+            setPopup({
+                ...popup,
+                visible: false
+            })
+        }, 5000)
+    }
+
     return (
         <>
             {loading ? (
@@ -63,10 +95,16 @@ const Profile = () => {
             ) : (
                 <></>
             )}
+
+            {popup.visible === true ? (
+                <Alert text={popup.text}></Alert>
+            ) : (
+                <></>
+            )}
             <ProfileHeader>
                 <p>User profile for:</p>
                 <h1>{userData.username}</h1>
-                <Link to="/new_shelf">
+                <Link to="/new-shelf">
                     <CreateShelf />
                 </Link>
             </ProfileHeader>

@@ -29,7 +29,7 @@ const NewCollection = () => {
                 throw new Error('Something went wrong!');
             }
 
-            navigate(`/user/${Auth.getProfile().data.id}`)
+            navigate(`/user/${Auth.getProfile().data.id}?add-success=true`)
         } catch (error) {
             console.error(error);
         }

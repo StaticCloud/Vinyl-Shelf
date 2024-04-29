@@ -7,4 +7,19 @@ export const PopupWrapper = styled.div`
     background-color: ${props => props.theme.secondary};
     overflow-y: scroll;
     position: relative;
+    animation-name: pop-up;
+    animation-duration: .5s;
+
+    @keyframes pop-up {
+        from {
+            margin-top: 3rem;
+            opacity: 0;
+            
+        }
+
+        to {
+            margin-top: 0;
+            opacity: 1;
+        }
+    }
 `

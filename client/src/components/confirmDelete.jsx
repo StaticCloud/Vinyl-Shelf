@@ -28,7 +28,7 @@ export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
                 throw new Error('Something went wrong!');
             }
 
-            navigate(`/user/${auth.getProfile().data.id}`)
+            navigate(`/user/${auth.getProfile().data.id}?delete-success=true`)
         } catch (error) {
             console.error(error);
         }

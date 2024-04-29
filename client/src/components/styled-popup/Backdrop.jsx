@@ -10,4 +10,17 @@ export const Backdrop = styled.div`
     top: 0;
     left: 0;
     background-color: #00000055;
+    animation-name: fade-in;
+    animation-duration: .5s;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 `

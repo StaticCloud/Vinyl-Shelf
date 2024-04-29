@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: <Search/>
       },
       {
-        path: '/new_shelf',
+        path: '/new-shelf',
         element: <NewShelf/>
       },
       {
