@@ -116,13 +116,13 @@ const Search = () => {
                                     })}
                                 </UnorderedList>
                             ) : (
-                                <></>
+                                <NoResults>
+                                    <p>{emptyText}</p>
+                                </NoResults>
                             )}
                         </>
                     ) : (
-                        <NoResults>
-                            <p>{emptyText}</p>
-                        </NoResults>
+                        <></>
                     )}
 
                     {searchedShelves.length ? (
@@ -138,19 +138,17 @@ const Search = () => {
                                     })}
                                 </UnorderedList>
                             ) : (
-                                <></>
+                                <NoResults>
+                                    <p>{emptyText}</p>
+                                </NoResults>
                             )}
                         </>
                     ) : (
-                        <NoResults>
-                            <p>{emptyText}</p>
-                        </NoResults>
+                        <></>
                     )}
                 </>
             ) : (
-                <NoResults>
-                    <p>{emptyText}</p>
-                </NoResults>
+                <></>
             )}
         </>
     );
