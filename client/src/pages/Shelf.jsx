@@ -249,7 +249,7 @@ const Shelf = () => {
                     </>
                 ) : (
                     <>
-                        <EmptyShelves>
+                        <EmptyShelves height={"calc(100svh - 229px)"}>
                             <p>This shelf is empty.
                                 Search <InlineIcon icon={search_light}></InlineIcon> for records to add to your shelf.</p>
                         </EmptyShelves>

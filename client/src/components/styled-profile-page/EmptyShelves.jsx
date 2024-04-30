@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const EmptyShelves = styled.div`
-    height: 400px;
+    height: ${props => props.height};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,5 +9,7 @@ export const EmptyShelves = styled.div`
     p {
         display: flex;
         align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 `;

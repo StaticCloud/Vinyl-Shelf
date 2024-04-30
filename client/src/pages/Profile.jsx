@@ -137,7 +137,7 @@ const Profile = () => {
                             )}
                         </UnorderedList>
                     ) : (
-                        <EmptyShelves>
+                        <EmptyShelves height={"calc(100svh - 319px)"}>
                             <p>You have no shelves. Create a shelf <InlineIcon icon={add_shelf}></InlineIcon> to get started.</p>
                         </EmptyShelves>
                     )}
@@ -153,7 +153,7 @@ const Profile = () => {
                             )}
                         </UnorderedList>
                     ) : (
-                        <EmptyShelves>
+                        <EmptyShelves height={"calc(100svh - 319px)"}>
                             <p>You have no liked shelves. Search <InlineIcon icon={search}></InlineIcon> for shelves to get started.</p>
                         </EmptyShelves>
                     )}

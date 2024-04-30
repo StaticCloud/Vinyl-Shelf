@@ -6,8 +6,8 @@ export const PopupHeader = styled.div`
     justify-content: space-between;
     border-radius: 1rem 1rem 0 0;
     background-color: ${props => props.theme.secondary};
-    position: fixed;
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
 
     & > h1 {
         font-size: 1rem;
