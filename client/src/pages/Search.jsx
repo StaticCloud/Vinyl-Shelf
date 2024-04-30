@@ -103,9 +103,9 @@ const Search = () => {
 
             {searchedAlbums.length || searchedShelves.length ? (
                 <>
-                    {searchedAlbums.length ? (
+                    {searchFilter.vinylView === true ? (
                         <>
-                            {searchFilter.vinylView === true ? (
+                            {searchedAlbums.length ? (
                                 <UnorderedList>
                                     {searchedAlbums.map((album, i) => {
                                         return (
@@ -125,9 +125,9 @@ const Search = () => {
                         <></>
                     )}
 
-                    {searchedShelves.length ? (
+                    {searchFilter.shelfView === true ? (
                         <>
-                            {searchFilter.shelfView === true ? (
+                            {searchedShelves.length ? (
                                 <UnorderedList>
                                     {searchedShelves.map((shelf, i) => {
                                         return (
@@ -148,7 +148,9 @@ const Search = () => {
                     )}
                 </>
             ) : (
-                <></>
+                <NoResults>
+                    <p>{emptyText}</p>
+                </NoResults>
             )}
         </>
     );

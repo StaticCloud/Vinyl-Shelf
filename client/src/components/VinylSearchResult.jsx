@@ -11,7 +11,7 @@ export const VinylSearchResult = ({ album }) => {
             <Cover cover={album.cover_image} />
             <VinylInfo>
                 <div>
-                    <p>{album.title}</p>
+                    <b><p>{album.title}</p></b>
                     <p>{album.year}</p>
                 </div>
             </VinylInfo>

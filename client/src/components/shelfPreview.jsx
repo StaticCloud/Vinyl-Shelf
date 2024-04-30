@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { EmptyShelf, ShelfPreviewContents, AlbumRegular, ShelfInfo } from "./styled-shelf";
 
 export const ShelfPreview = ({ shelf }) => {
+    console.log(shelf)
     return (
         <Link to={`/shelf/${shelf.id}`}>
             <ShelfPreviewContents>
@@ -21,7 +22,8 @@ export const ShelfPreview = ({ shelf }) => {
                 )}
             </ShelfPreviewContents>
             <ShelfInfo>
-                <p>{shelf.name}</p>
+                <b><p>{shelf.name}</p></b>
+                <p>{shelf.user.username}</p>
             </ShelfInfo>
         </Link>
     );

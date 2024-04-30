@@ -6,6 +6,5 @@ export const ShelfInfo = styled.div`
 
     p {
         text-decoration: none;
-        font-size: 1.3rem;
     }
 `;

@@ -170,7 +170,8 @@ router.get('/search/:query', async (req, res) => {
                     include: {
                         user: true
                     }
-                }
+                },
+                user: true
             }
         })
 
