@@ -7,6 +7,10 @@ const MainContent = styled.main`
   height: 100svh;
   background-color: ${props => props.theme.bg};
   color: ${props => props.theme.fg};
+
+  @media screen and (min-width: 768px) {
+    margin-left: 60px; 
+  }
 `;
 
 const theme = {
@@ -21,8 +25,8 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <Nav/>
         <MainContent>
-          <Nav/>
           <Outlet/>
         </MainContent>
       </ThemeProvider>
