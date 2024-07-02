@@ -55,8 +55,8 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                         {userShelves.map((shelf, i) => <ShelfPreviewMini key={i} shelf={shelf} albumData={albumData} />)}
                     </PopupList>
                 ) : (
-                    <PopupCentered>
-                        <p>No available shelves. Click <Link to='/new-shelf'>here</Link> to create one.</p>
+                    <PopupCentered difference={"48px"}>
+                        <p>No available shelves. Click <b><Link to='/new-shelf'>here</Link></b> to create one.</p>
                     </PopupCentered>
                 )}
             </PopupWrapper>

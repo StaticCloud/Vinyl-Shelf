@@ -22,8 +22,8 @@ export const ShelfPreview = ({ shelf }) => {
                 )}
             </ShelfPreviewContents>
             <ShelfInfo>
-                <b><p>{shelf.name}</p></b>
-                <p>{shelf.user.username}</p>
+                <b><p>{shelf?.name}</p></b>
+                <p>{shelf?.user?.username}</p>
             </ShelfInfo>
         </Link>
     );
