@@ -5,7 +5,7 @@ import trash from '../assets/trash.svg';
 import like from '../assets/like.svg';
 import Auth from "../utils/auth";
 import { ConfirmDelete } from "../components/ConfirmDelete";
-import search_light from '../assets/search_light.svg';
+import search from '../assets/search.svg';
 import share from '../assets/share.svg'
 import edit from '../assets/edit.svg'
 import { Loading } from "../components/Loading";
@@ -258,7 +258,7 @@ const Shelf = () => {
                     <>
                         <EmptyShelves height={"calc(100svh - 229px)"}>
                             <p>This shelf is empty.
-                                Search <InlineIcon icon={search_light}></InlineIcon> for records to add to your shelf.</p>
+                                Search <InlineIcon icon={search}></InlineIcon> for records to add to your shelf.</p>
                         </EmptyShelves>
                     </>
                 )}

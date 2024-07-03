@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import search_light from '../../assets/search_light.svg'
+import search from '../../assets/search.svg'
 
 export const SubmitSearch = styled.input`
     background-color: ${props => props.theme.secondary};
@@ -11,7 +11,7 @@ export const SubmitSearch = styled.input`
     top: 2rem;
     right: 2rem;
     background-size: 2.5rem;
-    background-image: url(${search_light});
+    background-image: url(${search});
     outline: none;
     border-radius: 0 5rem 5rem 0;
 

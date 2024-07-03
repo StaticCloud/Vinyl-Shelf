@@ -86,7 +86,7 @@ const Search = () => {
                     onChange={(e) => setSearchInput(e.target.value)}>
 
                 </SearchBar>
-                <SubmitSearch type="submit" value=" ">
+                <SubmitSearch type="submit" value=" " disabled={!searchInput}>
                 </SubmitSearch>
             </SearchWrapper>
             {searchedAlbums.length || searchedShelves.length ? (
