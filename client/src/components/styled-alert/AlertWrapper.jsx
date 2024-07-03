@@ -14,4 +14,16 @@ export const AlertWrapper = styled.div`
         95%  { bottom: 60px;}
         100% { bottom: -40px; }
     }
+
+    @media screen and (min-width: 768px) { 
+        width: calc(100% - 60px);
+        left: 60px;
+
+        @keyframes mount {
+            0%   { bottom: -40px; }
+            5%  { bottom: 0px; }
+            95%  { bottom: 0px;}
+            100% { bottom: -40px; }
+        }
+    }
 `;
