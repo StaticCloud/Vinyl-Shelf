@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import { login } from '../utils/API';
 import Auth from '../utils/auth';
+import { Alert } from '../components/Alert';
 
 const Login = () => {
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -12,6 +13,11 @@ const Login = () => {
         setUserFormData({ ...userFormData, [name]: value });
     };
 
+    const [popup, setPopup] = useState({
+        visible: false,
+        text: ''
+    });
+
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
@@ -19,6 +25,7 @@ const Login = () => {
             const response = await login(userFormData);
 
             if (!response.ok) {
+                triggerPopup('Something went wrong!')
                 throw new Error('Something went wrong!');
             }
 
@@ -29,32 +36,55 @@ const Login = () => {
         }
     }
 
+    const triggerPopup = (text) => {
+        setPopup({
+            visible: true,
+            text: text
+        })
+
+        setTimeout(() => {
+            setPopup({
+                ...popup,
+                visible: false
+            })
+        }, 5000)
+    }
+
     return (
-        <FormWrapper>
-            <Form onSubmit={handleFormSubmit}>
-                <h1>Login</h1>
+        <>
+            {popup.visible === true ? (
+                <Alert text={popup.text}></Alert>
+            ) : (
+                <></>
+            )}
+            <FormWrapper>
+                <Form onSubmit={handleFormSubmit}>
+                    <h1>Login</h1>
 
-                <input name="email"
-                    id="email"
-                    type="email"
-                    placeholder="Enter Email..."
-                    onChange={handleInputChange}
-                    value={userFormData.email} />
+                    <input name="email"
+                        id="email"
+                        type="email"
+                        maxLength={50}
+                        placeholder="Enter Email..."
+                        onChange={handleInputChange}
+                        value={userFormData.email} />
 
-                <input name="password"
-                    id="password"
-                    type="password"
-                    placeholder="Enter Password..."
-                    onChange={handleInputChange}
-                    value={userFormData.password} />
+                    <input name="password"
+                        id="password"
+                        type="password"
+                        maxLength={16}
+                        placeholder="Enter Password..."
+                        onChange={handleInputChange}
+                        value={userFormData.password} />
 
-                <input disabled={
-                    !(userFormData.email && userFormData.password)
-                } type="submit" value="Login" />
+                    <input disabled={
+                        !(userFormData.email && userFormData.password)
+                    } type="submit" value="Login" />
 
-                <Link to="/signup">Or Sign Up</Link>
-            </Form>
-        </FormWrapper>
+                    <Link to="/signup">Or Sign Up</Link>
+                </Form>
+            </FormWrapper>
+        </>
     );
 }
 

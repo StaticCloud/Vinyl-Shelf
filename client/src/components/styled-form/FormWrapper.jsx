@@ -16,4 +16,8 @@ export const FormWrapper = styled.div`
         border-bottom: 1px solid ${props => props.theme.fg};
         margin: 1rem;
     }
+
+    @media screen and (min-width: 768px) { 
+        width: calc(100% - 60px);
+    }
 `;

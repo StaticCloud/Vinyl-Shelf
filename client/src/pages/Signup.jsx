@@ -3,6 +3,7 @@ import { FormWrapper, Form } from '../components/styled-form';
 import { Link } from 'react-router-dom'
 import { signUp } from '../utils/API';
 import Auth from '../utils/auth';
+import { Alert } from '../components/Alert';
 
 const SignUp = () => {
     const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
@@ -11,6 +12,11 @@ const SignUp = () => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value });
     };
+
+    const [popup, setPopup] = useState({
+        visible: false,
+        text: ''
+    });
 
     const handleFormSubmit = async (event) => {
         event.preventDefault()
@@ -23,6 +29,7 @@ const SignUp = () => {
             const response = await signUp(userFormData);
 
             if (!response.ok) {
+                triggerPopup('Something went wrong!')
                 throw new Error('Something went wrong!');
             }
 
@@ -33,44 +40,69 @@ const SignUp = () => {
         }
     }
 
+    const triggerPopup = (text) => {
+        setPopup({
+            visible: true,
+            text: text
+        })
+
+        setTimeout(() => {
+            setPopup({
+                ...popup,
+                visible: false
+            })
+        }, 5000)
+    }
+
     return (
-        <FormWrapper>
-            <Form onSubmit={handleFormSubmit}>
-                <h1>Sign Up</h1>
+        <>
+            {popup.visible === true ? (
+                <Alert text={popup.text}></Alert>
+            ) : (
+                <></>
+            )}
 
-                <input name="username"
-                    id="username"
-                    placeholder="Enter Username..."
-                    onChange={handleInputChange}
-                    value={userFormData.username} />
+            <FormWrapper>
+                <Form onSubmit={handleFormSubmit}>
+                    <h1>Sign Up</h1>
 
-                <input name="email"
-                    id="email"
-                    type="email"
-                    placeholder="Enter Email..."
-                    onChange={handleInputChange}
-                    value={userFormData.email} />
+                    <input name="username"
+                        id="username"
+                        maxLength={20}
+                        placeholder="Enter Username..."
+                        onChange={handleInputChange}
+                        value={userFormData.username} />
 
-                <input name="password"
-                    id="password"
-                    type="password"
-                    placeholder="Enter Password..."
-                    onChange={handleInputChange}
-                    value={userFormData.password} />
+                    <input name="email"
+                        id="email"
+                        type="email"
+                        maxLength={50}
+                        placeholder="Enter Email..."
+                        onChange={handleInputChange}
+                        value={userFormData.email} />
 
-                <input name="confirmPassword"
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm Password..."
-                    onChange={handleInputChange} />
+                    <input name="password"
+                        id="password"
+                        type="password"
+                        maxLength={16}
+                        placeholder="Enter Password..."
+                        onChange={handleInputChange}
+                        value={userFormData.password} />
 
-                <input disabled={
-                    !(userFormData.username && userFormData.email && userFormData.password)
-                } type="submit" value="Sign Up" />
+                    <input name="confirmPassword"
+                        id="confirmPassword"
+                        type="password"
+                        placeholder="Confirm Password..."
+                        onChange={handleInputChange} />
 
-                <Link to="/login">Or Login</Link>
-            </Form>
-        </FormWrapper>
+                    <input disabled={
+                        !(userFormData.username && userFormData.email && userFormData.password)
+                    } type="submit" value="Sign Up" />
+
+                    <Link to="/login">Or Login</Link>
+                </Form>
+            </FormWrapper>
+        </>
     )
 }
 

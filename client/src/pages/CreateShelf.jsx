@@ -42,6 +42,7 @@ const NewCollection = () => {
 
                 <input name="name"
                     id="name"
+                    maxLength={30}
                     placeholder="Enter a name for your shelf..."
                     onChange={handleInputChange}
                     value={shelfData.name} />

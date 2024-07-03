@@ -187,6 +187,7 @@ const Shelf = () => {
                     <>
                         <TitleEditor
                             value={editedTitle}
+                            maxLength={30}
                             onChange={(e) => setEditedTitle(e.target.value)}
                             placeholder="Enter a shelf title..."></TitleEditor>
                         <TitleEditorButtonWrapper>
@@ -207,28 +208,30 @@ const Shelf = () => {
 
                     </>
                 )}
+                {Auth.loggedIn() && (
+                    <SettingsTab>
+                        {!loadingLike ? (
+                            <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
+                        ) : (
+                            <LoadingMini />
+                        )}
 
-                <SettingsTab>
-                    {!loadingLike ? (
-                        <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
-                    ) : (
-                        <LoadingMini />
-                    )}
+                        <SettingsButton onClick={() => HandleShare()} icon={share}></SettingsButton>
+                        {Auth.getProfile().data.id == shelfData.user_id ? (
+                            <>
+                                <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
+                                <SettingsButton onClick={() => setEditing(true)} icon={edit}></SettingsButton>
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                        <TotalLikes>
+                            <div></div>
+                            <h2>{totalLikes}</h2>
+                        </TotalLikes>
+                    </SettingsTab>
+                )}
 
-                    <SettingsButton onClick={() => HandleShare()} icon={share}></SettingsButton>
-                    {Auth.getProfile().data.id == shelfData.user_id ? (
-                        <>
-                            <SettingsButton onClick={() => setShowConfirmDelete(true)} icon={trash}></SettingsButton>
-                            <SettingsButton onClick={() => setEditing(true)} icon={edit}></SettingsButton>
-                        </>
-                    ) : (
-                        <></>
-                    )}
-                    <TotalLikes>
-                        <div></div>
-                        <h2>{totalLikes}</h2>
-                    </TotalLikes>
-                </SettingsTab>
             </ShelfHeader>
             <UnorderedList>
                 {shelfData?.vinyls_on_shelf?.length ? (
@@ -238,10 +241,14 @@ const Shelf = () => {
                                 <Cover cover={vinyl.cover_image}></Cover>
                                 <VinylInfo>
                                     <p>{vinyl.title}</p>
-                                    {Auth.getProfile().data.id == shelfData.user_id ? (
-                                        <DeleteVinyl onClick={async () => handleRemoveFromShelf(vinyl)}></DeleteVinyl>
-                                    ) : (
-                                        <></>
+                                    {Auth.loggedIn() && (
+                                        <>
+                                            {Auth.getProfile().data.id == shelfData.user_id ? (
+                                                <DeleteVinyl onClick={async () => handleRemoveFromShelf(vinyl)}></DeleteVinyl>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </>
                                     )}
                                 </VinylInfo>
                             </ListItem>

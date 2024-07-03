@@ -36,7 +36,18 @@ const Search = () => {
 
             const searchData = await Promise.all([response[0].json(), response[1].json()]);
 
-            const vinyls = searchData[0].results;
+            const uniqueTitles = new Set();
+
+            // Ensure that each search result has a unique title to prevent duplicate results
+            const vinyls = searchData[0].results.filter(vinyl => {
+                if (uniqueTitles.has(vinyl.title)) {
+                    return false;
+                } else {
+                    uniqueTitles.add(vinyl.title)
+                    return true;
+                }
+            });
+
             const shelves = searchData[1];
 
             if (!vinyls.length) {

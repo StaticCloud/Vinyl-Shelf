@@ -9,9 +9,9 @@ datasource db {
 
 model User {
   id               Int     @id @default(autoincrement())
-  username         String  @db.VarChar(30)
+  username         String  @db.VarChar(20)
   email            String  @unique @db.VarChar(50)
-  password         String
+  password         String  @db.VarChar(16)
   likes            Like[]
   shelf_collection Shelf[]
 }
