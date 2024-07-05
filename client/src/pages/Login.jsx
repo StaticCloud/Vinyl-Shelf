@@ -65,7 +65,7 @@ const Login = () => {
                         id="email"
                         type="email"
                         maxLength={50}
-                        placeholder="Enter Email..."
+                        placeholder="Enter Email"
                         onChange={handleInputChange}
                         value={userFormData.email} />
 
@@ -73,7 +73,7 @@ const Login = () => {
                         id="password"
                         type="password"
                         maxLength={16}
-                        placeholder="Enter Password..."
+                        placeholder="Enter Password"
                         onChange={handleInputChange}
                         value={userFormData.password} />
 

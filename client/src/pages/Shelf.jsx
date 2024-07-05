@@ -103,12 +103,12 @@ const Shelf = () => {
                 response = await likeShelf(payload)
                 setIsLiked('true');
                 setTotalLikes(totalLikes + 1);
-                triggerPopup(`Added ${shelfData.name} to liked shelves`);
+                triggerPopup(`Added ${shelfData.name} to liked shelves.`);
             } else {
                 response = await deleteLike(payload)
                 setIsLiked('false');
                 setTotalLikes(totalLikes - 1);
-                triggerPopup(`Removed ${shelfData.name} from liked shelves`);
+                triggerPopup(`Removed ${shelfData.name} from liked shelves.`);
             }
 
             if (!response.ok) {
@@ -240,7 +240,7 @@ const Shelf = () => {
                             <ListItem key={i}>
                                 <Cover cover={vinyl.cover_image}></Cover>
                                 <VinylInfo>
-                                    <p>{vinyl.title}</p>
+                                    <b><p>{vinyl.title}</p></b>
                                     {Auth.loggedIn() && (
                                         <>
                                             {Auth.getProfile().data.id == shelfData.user_id ? (

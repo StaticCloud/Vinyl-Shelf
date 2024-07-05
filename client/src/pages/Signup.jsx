@@ -69,7 +69,7 @@ const SignUp = () => {
                     <input name="username"
                         id="username"
                         maxLength={20}
-                        placeholder="Enter Username..."
+                        placeholder="Enter Username"
                         onChange={handleInputChange}
                         value={userFormData.username} />
 
@@ -77,7 +77,7 @@ const SignUp = () => {
                         id="email"
                         type="email"
                         maxLength={50}
-                        placeholder="Enter Email..."
+                        placeholder="Enter Email"
                         onChange={handleInputChange}
                         value={userFormData.email} />
 
@@ -85,14 +85,14 @@ const SignUp = () => {
                         id="password"
                         type="password"
                         maxLength={16}
-                        placeholder="Enter Password..."
+                        placeholder="Enter Password"
                         onChange={handleInputChange}
                         value={userFormData.password} />
 
                     <input name="confirmPassword"
                         id="confirmPassword"
                         type="password"
-                        placeholder="Confirm Password..."
+                        placeholder="Confirm Password"
                         onChange={handleInputChange} />
 
                     <input disabled={

@@ -10,7 +10,7 @@ import { SearchWrapper, SubmitSearch, SearchBar, NoResults, ToggleWrapper } from
 const Search = () => {
     const [searchInput, setSearchInput] = useState('');
     const [loading, setLoading] = useState(false)
-    const [emptyText, setEmptyText] = useState('Enter an album name to get started.')
+    const [emptyText, setEmptyText] = useState('Your search results will appear here.')
     const [searchedAlbums, setSearchedAlbums] = useState([]);
     const [searchedShelves, setSearchedShelves] = useState([])
 

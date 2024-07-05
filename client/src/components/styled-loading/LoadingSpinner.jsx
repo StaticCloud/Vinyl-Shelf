@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import loading from '../../assets/loading.svg'
+import loading from '../../assets/vinyl_record.svg'
 
 export const LoadingSpinner = styled.div`
     min-width: 50px;
@@ -9,7 +9,6 @@ export const LoadingSpinner = styled.div`
     background-position: center;
     background-size: 3rem;
     animation: rotate 1s linear infinite;
-    background-color: ${props => props.theme.primary};
 
     @keyframes rotate {
         0% {

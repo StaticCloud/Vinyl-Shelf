@@ -38,7 +38,7 @@ const NewCollection = () => {
     return (
         <FormWrapper>
             <Form onSubmit={handleFormSubmit}>
-                <h1>New Shelf</h1>
+                <h1>Create a New Shelf</h1>
 
                 <input name="name"
                     id="name"
