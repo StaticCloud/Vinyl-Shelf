@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { Nav } from './components/nav';
 import { Outlet } from 'react-router-dom';
 
+// Styled component for main content.
 const MainContent = styled.main`
   height: 100svh;
   background-color: ${props => props.theme.bg};
@@ -13,6 +14,7 @@ const MainContent = styled.main`
   }
 `;
 
+// Theme object with hex values for color schemes.
 const theme = {
   fg: "#D4D4D4",
   bg: "#181818",

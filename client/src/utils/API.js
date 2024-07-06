@@ -1,4 +1,4 @@
-// Authentication
+// Authentication routes
 export const signUp = (payload) => {
     return fetch("/api/users", {
         method: "POST",
@@ -19,7 +19,7 @@ export const login = (payload) => {
     })
 }
 
-// User routes
+// User routes.
 export const getUser = (payload) => {
     return fetch(`/api/users/${payload.id}`, {
         method: "GET",
@@ -40,7 +40,7 @@ export const getUserShelves = (payload) => {
     })
 }
 
-// Shelf routes
+// Shelf routes.
 export const createShelf = (token, body) => {
     return fetch("/api/shelf", {
         method: "POST",
@@ -108,7 +108,7 @@ export const deleteLike = (payload) => {
     })
 }
 
-// Vinyl routes
+// Vinyl routes.
 export const createVinyl = (payload) => {
     return fetch('/api/vinyls', {
         method: "POST",
@@ -128,7 +128,7 @@ export const removeFromShelf = (payload) => {
     })
 }
 
-// Search
+// Search routes.
 export const searchVinyls = (query) => {
     return fetch(`/api/vinyls/discogs/${query}`, {
         method: "GET",

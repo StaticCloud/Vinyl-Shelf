@@ -26,6 +26,7 @@ router.delete('/:userId/:shelfId', async (req, res) => {
     try {
         const deleteLike = await prisma.like.delete({
             where: {
+                // Since likes have a composite primary key (user_id, shelf_id), we have to delete a row in our like table given these two IDs.
                 user_id_shelf_id: {
                     user_id: parseInt(req.params.userId),
                     shelf_id: parseInt(req.params.shelfId)

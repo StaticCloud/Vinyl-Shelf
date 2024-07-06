@@ -5,9 +5,11 @@ import { HomeWrapper } from '../components/styled-home';
 
 const Home = () => {
 
+    // Create a navigate method from the useNavigate hook.
     const navigate = useNavigate()
 
     useEffect(() => {
+        // On mount, if the user is logged in, redirect them to their profile.
         if (Auth.loggedIn()) {
             navigate(`/user/${Auth.getProfile().data.id}`)
         }

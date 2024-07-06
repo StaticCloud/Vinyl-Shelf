@@ -13,67 +13,96 @@ import { ToggleWrapper } from '../components/styled-search';
 import { Alert } from '../components/Alert';
 
 const Profile = () => {
+    // Get the user ID from the URL.
     const { id } = useParams();
-    const [params, setSearchParams] = useSearchParams();
+
+    // Get any query parameters.
+    const [params] = useSearchParams();
+
+    // Separate states for user data, created shelves, and liked shelves.
     const [userData, setUserData] = useState({});
     const [shelves, setShelves] = useState([]);
     const [likedShelves, setLikedShelves] = useState([])
+
+    // State that captures when API data is being loaded.
     const [loading, setLoading] = useState(true)
+
+    // Create a navigate object using the navigate hook.
     const navigate = useNavigate()
 
+    // State object that handles which shelf list the user is currently viewing.
     const [filter, setFilter] = useState({
         createdShelves: true,
         likedShelves: false
     })
 
+    // State that manages popup info.
     const [popup, setPopup] = useState({
         visible: false,
         text: ''
     });
 
+    // Use the total number of all keys in our userData object as a reactive variable when loading the user data.
     const userDataLength = Object.keys(userData).length;
 
     useEffect(() => {
+        // Depending on our query parameter...
+
+        // Render a popup for a successful or unsuccessful shelf addition.
         if (params.get("add-success") === "true") {
             triggerPopup('Shelf successfully added!')
         } else if (params.get("add-success") === "false") {
             triggerPopup('Shelf could not be created.')
         }
 
+        // Render a popup for a successful or unsuccessful shelf deletion.
         if (params.get("delete-success") === "true") {
             triggerPopup('Shelf successfully deleted!')
         } else if (params.get("add-success") === "false") {
             triggerPopup('Shelf could not be deleted.')
         }
 
+        // Our asynchronous API that obtains user data.
         const getUserOnMount = async () => {
             try {
+                // Get the authenticated user (if given).
                 const token = Auth.loggedIn() ? Auth.getToken() : null;
 
+                // If the user is not authenticated, redirect them to the login page.
                 if (!token) {
                     navigate('/login')
                 }
 
+                // Get the user data using the token and the ID from our endpoint.
                 const response = await getUser({ token: token, id: id });
 
+                // Throw an error if the request was not successful.
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
 
+                // Parse our response.
                 const user = await response.json();
 
+                // Update our state hooks
                 setUserData(user);
                 setShelves(user.shelf_collection);
                 setLikedShelves(user.likes)
+
+                // Set the loading state hook to false since we have retrieved the necessary data.
                 setLoading(false);
             } catch (error) {
                 console.error(error);
             }
         }
 
+        // Call our asynchronous function.
         getUserOnMount();
+
+    // Our effect hook will be invoked on mount and when the userDataLength variable changes.
     }, [userDataLength])
 
+    // Function for managing popups.
     const triggerPopup = (text) => {
         setPopup({
             visible: true,
@@ -90,13 +119,15 @@ const Profile = () => {
 
     return (
         <>
+            {/* Conditional rendering of the loading component depending on the state of the loading state hook. */}
             {loading ? (
                 <Loading></Loading>
             ) : (
                 <></>
             )}
 
-            {popup.visible === true ? (
+            {/* Conditional rendering of the popup. */}
+            {popup.visible ? (
                 <Alert text={popup.text}></Alert>
             ) : (
                 <></>
@@ -109,6 +140,7 @@ const Profile = () => {
                 </Link>
             </ProfileHeader>
             <ToggleWrapper>
+                {/* Button that displays created shelves when pressed. */}
                 <ToggleableButton
                     selected={filter.createdShelves}
                     onClick={() => setFilter({
@@ -117,6 +149,7 @@ const Profile = () => {
                     })}>
                     <p>Created Shelves</p>
                 </ToggleableButton>
+                {/* Button that shows liked shelves when pressed. */}
                 <ToggleableButton
                     selected={filter.likedShelves}
                     onClick={() => setFilter({
@@ -126,8 +159,10 @@ const Profile = () => {
                     <p>Liked Shelves</p>
                 </ToggleableButton>
             </ToggleWrapper>
+            {/* Conditional statement that either renders the list for created shelves or liked shelves. */}
             {filter.createdShelves === true ? (
                 <>
+                    {/* Render list of created shelves. */}
                     {shelves.length ? (
                         <UnorderedList>
                             {shelves.map((shelf, i) => (
@@ -144,6 +179,7 @@ const Profile = () => {
                 </>
             ) : (
                 <>
+                    {/* Render list of liked shelves. */}
                     {likedShelves.length ? (
                         <UnorderedList>
                             {likedShelves.map((likedShelf, i) => (
