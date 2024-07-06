@@ -22,6 +22,7 @@ const Shelf = () => {
     const [loading, setLoading] = useState(true);
     const [loadingLike, setLoadingLike] = useState(false);
     const [loadingEdit, setLoadingEdit] = useState(false);
+    const [loadingDeleteVinyl, setLoadingDeleteVinyl] = useState(false);
 
     const [shelfData, setShelfData] = useState([]);
     const [popup, setPopup] = useState({
@@ -71,6 +72,8 @@ const Shelf = () => {
 
     const handleRemoveFromShelf = async (vinyl) => {
         try {
+            setLoadingDeleteVinyl(true)
+
             const payload = {
                 shelfId: shelfData.id,
                 vinylId: vinyl.id
@@ -82,6 +85,7 @@ const Shelf = () => {
                 throw new Error('Something went wrong!');
             }
 
+            setLoadingDeleteVinyl(false)
             setShelfData(shelfData.vinyls_on_shelf.filter(album => album.id != vinyl.id))
         } catch (error) {
             console.error(error);
@@ -244,7 +248,13 @@ const Shelf = () => {
                                     {Auth.loggedIn() && (
                                         <>
                                             {Auth.getProfile().data.id == shelfData.user_id ? (
-                                                <DeleteVinyl onClick={async () => handleRemoveFromShelf(vinyl)}></DeleteVinyl>
+                                                <>
+                                                    {!loadingDeleteVinyl ? (
+                                                        <DeleteVinyl onClick={async () => handleRemoveFromShelf(vinyl)}></DeleteVinyl>
+                                                    ) : (
+                                                        <LoadingMini></LoadingMini>
+                                                    )}
+                                                </>
                                             ) : (
                                                 <></>
                                             )}

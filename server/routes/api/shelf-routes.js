@@ -95,7 +95,6 @@ router.delete('/deleteVinyl/:shelfId/:vinylId', async (req, res) => {
 
         res.json(deletedFromShelf);
     } catch (error) {
-        console.log(error)
         res.status(400).json({ message: 'Something went wrong!' })
     }
 })

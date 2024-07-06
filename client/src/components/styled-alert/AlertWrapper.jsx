@@ -6,7 +6,7 @@ export const AlertWrapper = styled.div`
     left: 0;
     bottom: -40px;
     animation-name: mount;
-    animation-duration: 5s;
+    animation-duration: 5.1s;
 
     @keyframes mount {
         0%   { bottom: -40px; }
@@ -20,10 +20,10 @@ export const AlertWrapper = styled.div`
         left: 60px;
 
         @keyframes mount {
-            0%   { bottom: -40px; }
+            0%   { bottom: -80px; }
             5%  { bottom: 0px; }
             95%  { bottom: 0px;}
-            100% { bottom: -40px; }
+            100% { bottom: -80px; }
         }
     }
 `;

@@ -6,6 +6,10 @@ export const ListItem = styled.li`
 
     a {
         text-decoration: none;
+    }
+
+    & > a {
+        text-decoration: none;
         display: flex;
         width: 100%;
         color: ${props => props.theme.fg};

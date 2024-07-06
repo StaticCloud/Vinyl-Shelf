@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import Auth from '../utils/auth';
 import { getUserShelves } from "../utils/API";
 import { ShelfPreviewMini } from "./ShelfPreviewMini";
+import { LoadingSpinner } from "./styled-loading";
 import { Backdrop, PopupWrapper, PopupHeader, PopupClose, PopupCentered, PopupList } from "./styled-popup";
 
 export const AddAlbum = ({ albumData, setShowMenu }) => {
     const [userShelves, setUserShelves] = useState([])
+    const [loadingShelves, setLoadingShelves] = useState(true);
 
     const userShelvesLength = Object.keys(userShelves).length;
 
@@ -33,6 +35,7 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                 }
 
                 const shelves = await response.json();
+                setLoadingShelves(false)
                 setUserShelves(shelves)
             } catch (error) {
                 console.error(error);
@@ -49,16 +52,25 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
                     <h1>Add an album to your shelves</h1>
                     <PopupClose onClick={() => setShowMenu(false)} />
                 </PopupHeader>
-                {userShelves.length ? (
-                    <PopupList>
-                        {/* Prop drilling, yuck */}
-                        {userShelves.map((shelf, i) => <ShelfPreviewMini key={i} shelf={shelf} albumData={albumData} />)}
-                    </PopupList>
+                {!loadingShelves ? (
+                    <>
+                        {userShelves.length ? (
+                            <PopupList>
+                                {/* Prop drilling, yuck */}
+                                {userShelves.map((shelf, i) => <ShelfPreviewMini key={i} shelf={shelf} albumData={albumData} />)}
+                            </PopupList>
+                        ) : (
+                            <PopupCentered difference={"48px"}>
+                                <p>No available shelves. Click <span><b><Link to='/new-shelf'>here</Link></b></span> to create one.</p>
+                            </PopupCentered>
+                        )}
+                    </>
                 ) : (
                     <PopupCentered difference={"48px"}>
-                        <p>No available shelves. Click <b><Link to='/new-shelf'>here</Link></b> to create one.</p>
+                        <LoadingSpinner></LoadingSpinner>
                     </PopupCentered>
                 )}
+
             </PopupWrapper>
         </Backdrop>
     );

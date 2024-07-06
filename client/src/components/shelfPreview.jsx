@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import { EmptyShelf, ShelfPreviewContents, AlbumRegular, ShelfInfo } from "./styled-shelf";
 
 export const ShelfPreview = ({ shelf }) => {
-    console.log(shelf)
     return (
         <Link to={`/shelf/${shelf.id}`}>
             <ShelfPreviewContents>
