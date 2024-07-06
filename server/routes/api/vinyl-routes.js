@@ -1,26 +1,16 @@
 const router = require('express').Router();
 const { PrismaClient } = require('@prisma/client');
-var discogs = require('disconnect').Client;
+const db = require('../../utils/discogs');
 
 const prisma = new PrismaClient();
 
-require('dotenv').config();
-
-const db = new discogs({
-    consumerKey: process.env.DISCOGS_CONSUMER_KEY,
-    consumerSecret: process.env.DISCOGS_CONSUMER_SECRET
-}).database();
-
-router.get('/discogs/popular', async (req, res) => {
-    const results = await db.search({ format: "album" })
-    res.json(results)
-})
-
+// Get album data given user query
 router.get('/discogs/:query', async (req, res) => {
     const results = await db.search(req.params.query, { format: "album" })
     res.json(results)
 })
 
+// Post album to PostgresSQL database if it doesn't already exist
 router.post('/', async (req, res) => {
     const { title, id, cover_image } = req.body;
 
@@ -39,6 +29,7 @@ router.post('/', async (req, res) => {
     }
 })
 
+// Get data of an album in our PostgresSQL database by ID
 router.get('/:id', async (req, res) => {
     try {
         const vinyl = await prisma.vinyl.findUnique({

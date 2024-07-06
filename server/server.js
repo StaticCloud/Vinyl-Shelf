@@ -1,3 +1,4 @@
+// Create our Express instance, apply middleware, and start our server
 const express = require('express');
 const routes = require('./routes');
 

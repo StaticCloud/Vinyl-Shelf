@@ -3,8 +3,10 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
+// Add a like given a user ID and shelf ID.
 router.post('/:userId/:shelfId', async (req, res) => {
     try {
+        // Create a new like object given a user ID and a shelf ID.
         const like = await prisma.like.create({
             data: {
                 user_id: parseInt(req.params.userId),
@@ -12,12 +14,14 @@ router.post('/:userId/:shelfId', async (req, res) => {
             }
         })
 
+        // Return our new like row.
         res.json(like)
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong!' })
     }
 })
 
+// Delete a like given a user ID and shelf ID.
 router.delete('/:userId/:shelfId', async (req, res) => {
     try {
         const deleteLike = await prisma.like.delete({
