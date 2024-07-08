@@ -1,9 +1,11 @@
 import { LoadingSpinner, LoadingWrapper } from './styled-loading';
 
-export const Loading = () => {
+const Loading = () => {
     return (
         <LoadingWrapper>
             <LoadingSpinner></LoadingSpinner>
         </LoadingWrapper>
     )
 }
+
+export default Loading;

@@ -1,6 +1,6 @@
 import './App.css'
 import styled, { ThemeProvider } from 'styled-components';
-import { Nav } from './components/nav';
+import Nav from './components/nav';
 import { Outlet } from 'react-router-dom';
 
 // Styled component for main content.

@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import trash from '../assets/trash.svg';
 import like from '../assets/like.svg';
 import Auth from "../utils/auth";
-import { ConfirmDelete } from "../components/ConfirmDelete";
+import ConfirmDelete from "../components/ConfirmDelete";
 import search from '../assets/search.svg';
 import share from '../assets/share.svg'
 import edit from '../assets/edit.svg'
-import { Loading } from "../components/Loading";
-import { Alert } from "../components/Alert";
+import Loading from "../components/Loading";
+import Alert from "../components/Alert";
 import { LoadingMini } from "../components/styled-loading";
 import { UnorderedList, ListItem } from "../components/styled-list";
 import { VinylInfo, Cover } from "../components/styled-vinyl";

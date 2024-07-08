@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { deleteShelf } from '../utils/API';
 import { Backdrop, PopupWrapper, PopupHeader, PopupClose, PopupParagraphBody, PopupButtonWrapper, PopupButton } from "./styled-popup";
 
-export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
+const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
 
     const navigate = useNavigate();
 
@@ -56,3 +56,5 @@ export const ConfirmDelete = ({ auth, setShowConfirmDelete, shelfData }) => {
         </Backdrop>
     );
 }
+
+export default ConfirmDelete;

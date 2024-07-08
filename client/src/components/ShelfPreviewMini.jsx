@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { LoadingMini, LoadingWrapper } from "./styled-loading";
+import { LoadingMini } from "./styled-loading";
 import { useEffect, useState } from "react";
 import { createVinyl, addToShelf, removeFromShelf } from "../utils/API";
 import { MiniShelfPreviewLi, MiniShelfPreviewContents, AddVinylToShelf, AlbumMini, EmptyShelfMini } from "./styled-shelf-mini";
 
-export const ShelfPreviewMini = ({ shelf, albumData }) => {
+const ShelfPreviewMini = ({ shelf, albumData }) => {
     const [inShelf, setInShelf] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -68,3 +68,5 @@ export const ShelfPreviewMini = ({ shelf, albumData }) => {
         </MiniShelfPreviewLi>
     );
 }
+
+export default ShelfPreviewMini;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { searchVinyls, searchShelves } from "../utils/API";
-import { VinylSearchResult } from "../components/VinylSearchResult";
-import { Loading } from "../components/Loading";
+import VinylSearchResult from "../components/VinylSearchResult";
+import Loading from "../components/Loading";
 import ToggleableButton from "../components/styled-button/ToggleableButton";
 import { UnorderedList, ListItem } from "../components/styled-list";
 import { SearchWrapper, SubmitSearch, SearchBar, NoResults, ToggleWrapper } from "../components/styled-search";

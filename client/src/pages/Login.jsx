@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import { login } from '../utils/API';
 import Auth from '../utils/auth';
-import { Alert } from '../components/Alert';
+import Alert from '../components/Alert';
 
 const Login = () => {
     // Set the state of the form data to be empty strings.

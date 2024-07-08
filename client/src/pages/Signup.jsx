@@ -3,7 +3,7 @@ import { FormWrapper, Form } from '../components/styled-form';
 import { Link } from 'react-router-dom'
 import { signUp } from '../utils/API';
 import Auth from '../utils/auth';
-import { Alert } from '../components/Alert';
+import Alert from '../components/Alert';
 
 const SignUp = () => {
     // State hook for form data.

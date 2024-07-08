@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Cover, VinylInfo, AddToShelfButton } from "./styled-vinyl";
-import { AddAlbum } from "./AddAlbum";
+import AddAlbum from "./AddAlbum";
 import Auth from "../utils/auth";
 
-export const VinylSearchResult = ({ album }) => {
+const VinylSearchResult = ({ album }) => {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
@@ -28,3 +28,5 @@ export const VinylSearchResult = ({ album }) => {
         </>
     );
 }
+
+export default VinylSearchResult;

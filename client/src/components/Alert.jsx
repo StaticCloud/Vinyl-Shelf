@@ -1,6 +1,6 @@
 import { AlertWrapper, AlertContent } from './styled-alert';
 
-export const Alert = ({ text }) => {
+const Alert = ({ text }) => {
     return (
         <AlertWrapper>
             <AlertContent>
@@ -9,3 +9,5 @@ export const Alert = ({ text }) => {
         </AlertWrapper>
     );
 }
+
+export default Alert;

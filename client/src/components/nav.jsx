@@ -7,7 +7,7 @@ import logout from '../assets/logout.svg'
 import { NavItem, StyledNav } from "./styled-nav";
 import Auth from '../utils/auth';
 
-export const Nav = () => {
+const Nav = () => {
     return (
         <StyledNav>
             {!Auth.loggedIn() ? (
@@ -38,3 +38,5 @@ export const Nav = () => {
         </StyledNav >
     );
 }
+
+export default Nav;

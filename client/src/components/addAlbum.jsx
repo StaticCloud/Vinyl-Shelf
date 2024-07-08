@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Auth from '../utils/auth';
 import { getUserShelves } from "../utils/API";
-import { ShelfPreviewMini } from "./ShelfPreviewMini";
+import ShelfPreviewMini from "./ShelfPreviewMini";
 import { LoadingSpinner } from "./styled-loading";
 import { Backdrop, PopupWrapper, PopupHeader, PopupClose, PopupCentered, PopupList } from "./styled-popup";
 
-export const AddAlbum = ({ albumData, setShowMenu }) => {
+const AddAlbum = ({ albumData, setShowMenu }) => {
     const [userShelves, setUserShelves] = useState([])
     const [loadingShelves, setLoadingShelves] = useState(true);
 
@@ -75,3 +75,5 @@ export const AddAlbum = ({ albumData, setShowMenu }) => {
         </Backdrop>
     );
 }
+
+export default AddAlbum;

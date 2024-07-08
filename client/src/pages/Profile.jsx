@@ -2,14 +2,14 @@ import Auth from '../utils/auth';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUser } from '../utils/API';
-import { Loading } from '../components/Loading';
+import Loading from '../components/Loading';
 import add_shelf from '../assets/add_shelf.svg';
 import search from '../assets/search.svg';
 import ToggleableButton from '../components/styled-button/ToggleableButton';
 import { ListItem, UnorderedList } from '../components/styled-list';
 import { ProfileHeader, CreateShelf, EmptyShelves, InlineIcon } from '../components/styled-profile-page';
 import { ToggleWrapper } from '../components/styled-search';
-import { Alert } from '../components/Alert';
+import Alert from '../components/Alert';
 import ShelfPreview from '../components/ShelfPreview';
 
 const Profile = () => {
