@@ -10,7 +10,7 @@ import { ListItem, UnorderedList } from '../components/styled-list';
 import { ProfileHeader, CreateShelf, EmptyShelves, InlineIcon } from '../components/styled-profile-page';
 import { ToggleWrapper } from '../components/styled-search';
 import { Alert } from '../components/Alert';
-import { ShelfPreview } from '../components/ShelfPreview.jsx';
+import ShelfPreview from '../components/ShelfPreview';
 
 const Profile = () => {
     // Get the user ID from the URL.

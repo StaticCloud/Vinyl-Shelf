@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { searchVinyls, searchShelves } from "../utils/API";
-import { ShelfPreview } from "../components/ShelfPreview";
 import { VinylSearchResult } from "../components/VinylSearchResult";
 import { Loading } from "../components/Loading";
 import ToggleableButton from "../components/styled-button/ToggleableButton";
 import { UnorderedList, ListItem } from "../components/styled-list";
 import { SearchWrapper, SubmitSearch, SearchBar, NoResults, ToggleWrapper } from "../components/styled-search";
+import ShelfPreview from "../components/ShelfPreview";
 
 const Search = () => {
     // Manages the input from the user.
