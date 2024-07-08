@@ -12,10 +12,13 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Links](#links)
+- [License](#license)
 
 
 ## About Vinyl Shelf
-Vinyl Shelf is a PERN stack application that allows music enthusiasts to track and share their favorite albums. Authenticated users can create collections, known as shelves, and then discover albums they can add to their shelves through the application's search page. When the user searches for albums, the data is fetched from the Discogs API via the Disconnect package, and then send back to users to be added to their respective shelves.
+Vinyl Shelf is a PERN stack application that allows music enthusiasts to track and share their favorite albums. Authenticated users can create collections, known as shelves, and then discover albums they can add to their shelves through the application's search page. When the user searches for albums, the data is fetched from the Discogs API via the Disconnect package, and then sent back to users to be added to their respective shelves.
 
 ## Prerequisites
 
@@ -47,3 +50,34 @@ npm run install
 ```
 
 ## Usage
+Navigate into the cloned repository.
+```bash
+cd Vinyl-Shelf
+```
+
+Modify the `.env.EXAMPLE`. Change the connection string to include your PostgreSQL username, password, and database name. You will also need to provide a secret for JWT authentication, and your Discogs consumer key and consumer secret.
+```bash
+DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database>?schema=public"
+SECRET="<secret for JWT signing>"
+
+DISCOGS_CONSUMER_KEY="<discogs consumer key>"
+DISCOGS_CONSUMER_SECRET="<discogs consumer secret>"
+```
+
+Remove the `.EXAMPLE` extension from the `.env.EXAMPLE` file.
+
+Finally, navigate to the root directory and run the following command to concurrently run the server and the client.
+```bash
+npm run develop
+```
+
+
+## Screenshots
+
+## Links
+
+### [Link to deployed app.]()
+
+## License
+
+This project is licensed under the MIT license.
