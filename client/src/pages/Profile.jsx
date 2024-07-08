@@ -2,7 +2,7 @@ import Auth from '../utils/auth';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUser } from '../utils/API';
-import { ShelfPreview } from '../components/ShelfPreview';
+import { ShelfPreview } from '../components/ShelfPreview.jsx';
 import { Loading } from '../components/Loading';
 import add_shelf from '../assets/add_shelf.svg';
 import search from '../assets/search.svg';
