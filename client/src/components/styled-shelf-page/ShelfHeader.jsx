@@ -12,7 +12,7 @@ export const ShelfHeader = styled(ProfileHeader)`
     }
 
     & > h2 {
-        margin-bottom: 1rem;
+        margin: .5rem 0 1rem 0;
     }
 
     a {

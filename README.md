@@ -74,10 +74,19 @@ npm run develop
 
 ## Screenshots
 
+### Search Page
+![search-page](./images/Search.png)
+
+### User Profile
+![user-profile](./images/UserProfile.png)
+
+### Shelf
+![shelf](./images/Shelf.png)
+
 ## Links
 
 ### [Link to deployed app.]()
 
 ## License
 
-This project is licensed under the MIT license.
+This project is licensed under the [MIT](https://github.com/StaticCloud/Vinyl-Shelf/blob/main/LICENSE) license.
