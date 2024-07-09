@@ -21,8 +21,8 @@ router.post('/', authMiddleware, async (req, res) => {
         // Return the shelf as our response.
         res.json(shelf)
     } catch (error) {
-        // Throw a 400 error if the shelf could not be created.
-        res.status(400).json({ message: 'Something went wrong!' })
+        // Throw a 500 error if the shelf could not be created.
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 
@@ -40,7 +40,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
         // Return the shelf as verification.
         res.json(shelf)
     } catch (error) {
-        res.status(400).json({ message: error })
+        res.status(500).json({ message: error })
     }
 })
 
@@ -68,7 +68,7 @@ router.get('/me', authMiddleware, async (req, res) => {
         // Return the shelves to be rendered React.
         res.json(shelves)
     } catch (error) {
-        res.status(400).json(error)
+        res.status(500).json(error)
     }
 })
 
@@ -86,7 +86,7 @@ router.post('/addVinyl/:shelfId/:vinylId', async (req, res) => {
         // Return the new row in our relational table.
         res.json(vinylsOnShelf);
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 
@@ -105,7 +105,7 @@ router.delete('/deleteVinyl/:shelfId/:vinylId', async (req, res) => {
 
         res.json(deletedFromShelf);
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 
@@ -137,7 +137,7 @@ router.get('/:id', async (req, res) => {
         // Return the data of our shelf to be rendered in React.
         res.json(shelf)
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 
@@ -156,7 +156,7 @@ router.put('/:id', async (req, res) => {
 
         res.json(shelf);
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 
@@ -193,7 +193,7 @@ router.get('/search/:query', async (req, res) => {
         // Return all shelves obtained from the query.
         res.json(shelves)
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 

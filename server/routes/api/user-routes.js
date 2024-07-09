@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
         res.json({ token, user })
     } catch (error) {
         // Throw error 400 if there was an error in creating the user
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: error })
     }
 })
 
@@ -137,7 +137,7 @@ router.post('/login', async (req, res) => {
         // Send the user data and the token back to the user.
         res.json({ token, user })
     } catch (error) {
-        res.status(400).json({ message: "Something went wrong!" })
+        res.status(500).json({ message: "Something went wrong!" })
     }
 })
 

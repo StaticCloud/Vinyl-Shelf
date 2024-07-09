@@ -9,9 +9,9 @@ datasource db {
 
 model User {
   id               Int     @id @default(autoincrement())
-  username         String  @db.VarChar(20)
-  email            String  @unique @db.VarChar(50)
-  password         String  @db.VarChar(16)
+  username         String  
+  email            String  @unique 
+  password         String  
   likes            Like[]
   shelf_collection Shelf[]
 }
@@ -19,7 +19,7 @@ model User {
 model Shelf {
   id             Int            @id @default(autoincrement())
   user_id        Int
-  name           String         @db.VarChar(30)
+  name           String         
   likes          Like[]
   user           User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
   vinyls_on_shelf VinyslOnShelf[]

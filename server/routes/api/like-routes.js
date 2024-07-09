@@ -17,7 +17,7 @@ router.post('/:userId/:shelfId', async (req, res) => {
         // Return our new like row.
         res.json(like)
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 
@@ -36,7 +36,7 @@ router.delete('/:userId/:shelfId', async (req, res) => {
 
         res.json(deleteLike)
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 

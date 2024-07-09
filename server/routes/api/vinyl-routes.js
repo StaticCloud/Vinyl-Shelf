@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 
         res.json(vinyl)
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 })
 
@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
 
         res.json(vinyl)
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong!' })
+        res.status(500).json({ message: 'Something went wrong!' })
     }
 
 })
