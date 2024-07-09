@@ -327,7 +327,7 @@ const Shelf = () => {
                     // Display empty shelf message.
                     <>
                         <EmptyShelves height={"calc(100svh - 229px)"}>
-                            {Auth.getProfile().data.id == shelfData.user_id ? (
+                            {Auth.loggedIn() && Auth.getProfile().data.id == shelfData.user_id ? (
                                 <>
                                     <p>This shelf is empty.
                                         Search <InlineIcon icon={search}></InlineIcon> for records to add to your shelf.</p>

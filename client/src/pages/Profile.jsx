@@ -67,7 +67,7 @@ const Profile = () => {
             try {
                 // Get the authenticated user (if given).
                 const token = Auth.loggedIn() ? Auth.getToken() : null;
-                
+
                 // If the user is not authenticated, redirect them to the login page.
                 if (!token) {
                     navigate('/login')
@@ -135,9 +135,11 @@ const Profile = () => {
             <ProfileHeader>
                 <p>User profile for:</p>
                 <h1>{userData.username}</h1>
-                <Link to="/new-shelf">
-                    <CreateShelf />
-                </Link>
+                {Auth.loggedIn() && (
+                    <Link to="/new-shelf">
+                        <CreateShelf />
+                    </Link>
+                )} 
             </ProfileHeader>
             <ToggleWrapper>
                 {/* Button that displays created shelves when pressed. */}
