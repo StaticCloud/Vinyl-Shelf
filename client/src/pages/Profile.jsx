@@ -67,7 +67,7 @@ const Profile = () => {
             try {
                 // Get the authenticated user (if given).
                 const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+                
                 // If the user is not authenticated, redirect them to the login page.
                 if (!token) {
                     navigate('/login')

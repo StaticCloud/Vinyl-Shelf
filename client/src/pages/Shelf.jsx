@@ -57,14 +57,6 @@ const Shelf = () => {
         // Makes an API call to Postgres database in order to retrieve shelf data.
         const getShelfData = async () => {
             try {
-                // Get the authenticated user (if given).
-                const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-                // If the user is not authenticated, redirect them to the login page.
-                if (!token) {
-                    navigate('/login')
-                }
-
                 // Make API call.
                 const response = await getShelf(id);
 
