@@ -130,7 +130,12 @@ router.get('/:id', async (req, res) => {
                     }
                 },
                 user_id: true,
-                user: true
+                user: {
+                    select: {
+                        id: true,
+                        username: true
+                    }
+                }
             }
         })
 

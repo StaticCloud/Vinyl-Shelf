@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getShelf, removeFromShelf, likeShelf, deleteLike, updateShelf } from "../utils/API";
 import { useEffect, useState } from "react";
 import trash from '../assets/trash.svg';
@@ -19,9 +19,6 @@ import { EmptyShelves, InlineIcon } from "../components/styled-profile-page";
 const Shelf = () => {
     // Destructure the URL and obtain the ID of the shelf.
     const { id } = useParams();
-
-    // Create a navigate object using the navigate hook.
-    const navigate = useNavigate()
 
     // Set loading states for the shelf data, as well as writing likes, edits, and deletions to the database.
     const [loading, setLoading] = useState(true);
@@ -48,7 +45,6 @@ const Shelf = () => {
     // Manage whether or not the shelf is being edited.
     const [editing, setEditing] = useState(false);
 
-    // 
     const [editedTitle, setEditedTitle] = useState('');
 
     const shelfDataLength = Object.keys(shelfData).length;
@@ -71,10 +67,13 @@ const Shelf = () => {
                 // Set the shelf data state variable to our shelf.
                 setShelfData(shelf)
 
-                // If one of the likes in shelf is from the currently authenticated user, set the isLiked state to true.
-                for (let i = 0; i < shelf.likes.length; i++) {
-                    if (shelf.likes[i].user_id === Auth.getProfile().data.id) {
-                        setIsLiked('true');
+                // For some reason albums load perfectly fine in development without this if statement, but hangs up in production. Curious.
+                if (Auth.loggedIn()) {
+                    // If one of the likes in shelf is from the currently authenticated user, set the isLiked state to true.
+                    for (let i = 0; i < shelf.likes.length; i++) {
+                        if (shelf.likes[i].user_id === Auth.getProfile().data.id) {
+                            setIsLiked('true');
+                        }
                     }
                 }
 
@@ -269,7 +268,7 @@ const Shelf = () => {
                     </>
                 )}
                 {/* Display certain settings such as for editing or deletion if the user is authenticated as the author. */}
-                {Auth.loggedIn() && (
+                {Auth.loggedIn() ? (
                     <SettingsTab>
                         {!loadingLike ? (
                             <LikeButton liked={isLiked} icon={like} onClick={async () => handleLikeShelf()}></LikeButton>
@@ -291,6 +290,8 @@ const Shelf = () => {
                             <h2>{totalLikes}</h2>
                         </TotalLikes>
                     </SettingsTab>
+                ) : (
+                    <></>
                 )}
 
             </ShelfHeader>
@@ -327,15 +328,18 @@ const Shelf = () => {
                     // Display empty shelf message.
                     <>
                         <EmptyShelves height={"calc(100svh - 229px)"}>
-                            {Auth.loggedIn() && Auth.getProfile().data.id == shelfData.user_id ? (
+                            {Auth.loggedIn() && (
                                 <>
-                                    <p>This shelf is empty.
-                                        Search <InlineIcon icon={search}></InlineIcon> for records to add to your shelf.</p>
+                                    {Auth.loggedIn() && Auth.getProfile().data.id == shelfData.user_id ? (
+                                        <>
+                                            <p>This shelf is empty.
+                                                Search <InlineIcon icon={search}></InlineIcon> for records to add to your shelf.</p>
+                                        </>
+                                    ) : (
+                                        <p>This shelf is empty.</p>
+                                    )}
                                 </>
-                            ) : (
-                                <p>This shelf is empty.</p>
                             )}
-
                         </EmptyShelves>
                     </>
                 )}
